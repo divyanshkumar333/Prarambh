@@ -10,7 +10,7 @@ onboardease*/
 __pycache__/
 *.py[cod]
 *.pyo
-onboarding-agent/logs/
+prarambh-agent/logs/
 
 # Scratch / one-off scripts
 rename_brand.py
