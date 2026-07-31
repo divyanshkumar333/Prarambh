@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Bot, Send, Loader2, User, Sparkles, X } from 'lucide-react'
 import { useApp } from '../../context/AppContext'
-import { buildOnboardBotContext, sendOnboardBotMessage, type OnboardBotMessage } from '../../services/aiService'
+import { buildPrarambhBotContext, sendPrarambhBotMessage, type PrarambhBotMessage } from '../../services/aiService'
 import MarkdownRenderer from '../common/MarkdownRenderer'
 
 interface Message {
@@ -39,10 +39,10 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
   const [loading,  setLoading]  = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef  = useRef<HTMLInputElement>(null)
-  // Persistent chat session ref for OnboardBot
+  // Persistent chat session ref for PrarambhBot
   const chatIdRef  = useRef<string | null>(null)
   // History mirror for context continuity
-  const botHistory = useRef<OnboardBotMessage[]>([])
+  const botHistory = useRef<PrarambhBotMessage[]>([])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -63,8 +63,8 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
 
     try {
       const userId = state.currentUserId ?? state.employees[0]?.id ?? ''
-      const context = buildOnboardBotContext(state, userId, 'employee')
-      const reply = await sendOnboardBotMessage(msg, context, prevHistory, chatIdRef)
+      const context = buildPrarambhBotContext(state, userId, 'employee')
+      const reply = await sendPrarambhBotMessage(msg, context, prevHistory, chatIdRef)
       botHistory.current = [...botHistory.current, { role: 'bot', content: reply }]
       setMessages(prev => [...prev, { id: `a-${Date.now()}`, role: 'ai', content: reply, ts: timestamp() }])
     } catch {
@@ -74,7 +74,7 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
   }
 
   return (
-    <div className="rounded-2xl border border-teal-200 bg-white flex flex-col overflow-hidden" style={{ height: '380px' }}>
+    <div className="rounded-2xl border border-teal-200 bg-surface-elevated flex flex-col overflow-hidden" style={{ height: '380px' }}>
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-teal-100 bg-gradient-to-r from-teal-600 to-teal-800 flex-shrink-0">
         <div className="flex items-center gap-2">
@@ -82,8 +82,8 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
             <Bot size={15} className="text-white" />
           </div>
           <div>
-            <p className="text-sm font-bold text-white leading-none">OnboardBot</p>
-            <p className="text-xs text-white/60 mt-0.5">Your AI Onboarding Assistant</p>
+            <p className="text-sm font-bold text-white leading-none">PrarambhBot</p>
+            <p className="text-xs text-white/60 mt-0.5">Your AI Prarambh Assistant</p>
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -107,19 +107,19 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
               </div>
               <div className="bg-teal-50 border border-teal-100 rounded-2xl rounded-tl-sm px-3 py-2.5 max-w-[85%]">
                 <p className="text-xs text-teal-800 leading-relaxed">
-                  Hi {employeeName.split(' ')[0]}! 👋 I'm <strong>OnboardBot</strong> — I have full context about your tasks, meetings, and mentor. I can also answer general questions. What's on your mind?
+                  Hi {employeeName.split(' ')[0]}! 👋 I'm <strong>PrarambhBot</strong> — I have full context about your tasks, meetings, and mentor. I can also answer general questions. What's on your mind?
                 </p>
               </div>
             </div>
 
             {/* Quick prompts */}
             <div className="space-y-1.5 pb-1">
-              <p className="text-xs text-brown-400 font-medium flex items-center gap-1"><Sparkles size={11} />Quick questions</p>
+              <p className="text-xs text-text-secondary font-medium flex items-center gap-1"><Sparkles size={11} />Quick questions</p>
               {QUICK_PROMPTS.map(p => (
                 <button
                   key={p}
                   onClick={() => send(p)}
-                  className="w-full text-left text-xs text-brown-600 bg-brown-50 hover:bg-brown-100 border border-brown-100 px-3 py-2 rounded-xl transition-colors leading-relaxed"
+                  className="w-full text-left text-xs text-text-secondary bg-surface hover:bg-surface border border-border px-3 py-2 rounded-xl transition-colors leading-relaxed"
                 >
                   {p}
                 </button>
@@ -171,16 +171,16 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
       </div>
 
       {/* Input */}
-      <div className="border-t border-brown-100 px-3 py-2.5 flex gap-2 items-center flex-shrink-0 bg-white">
+      <div className="border-t border-border px-3 py-2.5 flex gap-2 items-center flex-shrink-0 bg-surface-elevated">
         <input
           ref={inputRef}
           type="text"
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && !e.shiftKey && send()}
-          placeholder="Ask about your onboarding…"
+          placeholder="Ask about your prarambh…"
           disabled={loading}
-          className="flex-1 text-xs bg-brown-50 border border-brown-200 rounded-xl px-3 py-2 outline-none focus:border-teal-400 transition-colors disabled:opacity-50 text-brown-800 placeholder-brown-400"
+          className="flex-1 text-xs bg-surface border border-border rounded-xl px-3 py-2 outline-none focus:border-teal-400 transition-colors disabled:opacity-50 text-text-primary placeholder-brown-400"
         />
         <button
           onClick={() => send()}

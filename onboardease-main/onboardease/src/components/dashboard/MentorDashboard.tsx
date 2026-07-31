@@ -67,10 +67,10 @@ function ResumeAIChat({
 }) {
   const [messages, setMessages] = useState<ChatMsg[]>([{
     id: '0', role: 'ai', timestamp: new Date(),
-    content: `👋 I'm your AI onboarding specialist.\n\n${employee.resumeFileName
+    content: `👋 I'm your AI prarambh specialist.\n\n${employee.resumeFileName
       ? `I've analyzed **${employee.resumeFileName}** for ${employee.name}. They're joining as **${employee.role}**.`
       : `${employee.name} doesn't have a resume uploaded yet, but I can still create a plan based on their role as **${employee.role}**.`
-    }\n\nTell me what kind of onboarding plan you'd like me to create:\n• **"Create a 30-day technical plan for a React developer"**\n• **"Build a plan focusing on communication and team integration"**\n• **"Generate a task list for their first week only"**`,
+    }\n\nTell me what kind of prarambh plan you'd like me to create:\n• **"Create a 30-day technical plan for a React developer"**\n• **"Build a plan focusing on communication and team integration"**\n• **"Generate a task list for their first week only"**`,
   }])
   const [input, setInput]           = useState('')
   const [typing, setTyping]         = useState(false)
@@ -173,7 +173,7 @@ function ResumeAIChat({
             <div className="flex items-center gap-2 bg-white border border-teal-200 rounded-xl px-4 py-2.5">
               <input value={input} onChange={e => setInput(e.target.value)}
                 onKeyPress={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }}
-                placeholder="Describe the onboarding plan you want to create..."
+                placeholder="Describe the prarambh plan you want to create..."
                 className="flex-1 bg-transparent text-sm text-brown-800 placeholder-brown-400 outline-none"
               />
               <button onClick={() => send()} disabled={!input.trim() || typing}
@@ -827,7 +827,7 @@ function MenteesSection({ myMentees }: { myMentees: Employee[] }) {
                         }
                       </td>
                       <td className="px-4 py-4 text-sm text-brown-600 whitespace-nowrap">{done}/{myTasks.length} done</td>
-                      <td className="px-4 py-4">{emp.status === 'completed' ? <span className="badge-green">Completed</span> : <span className="badge-orange">Onboarding</span>}</td>
+                      <td className="px-4 py-4">{emp.status === 'completed' ? <span className="badge-green">Completed</span> : <span className="badge-orange">Prarambh</span>}</td>
                       <td className="px-4 py-4">{emp.resumeFileName ? <span className="badge-green flex items-center gap-1 w-fit"><CheckCircle size={11} />{emp.resumeFileName.slice(0, 12)}…</span> : <span className="text-xs text-brown-400">—</span>}</td>
                       <td className="px-4 py-4 text-xs text-brown-400 underline">View →</td>
                     </tr>
@@ -1264,7 +1264,7 @@ export default function MentorDashboard({
   const [meetings, setMeetings] = useState<Meeting[]>(() =>
     myMentees.slice(0, 3).flatMap((m, i) => [
       { id: `mtg-init-${i}a`, menteeId: m.id, title: 'Weekly 1:1',  date: dayOffset(i + 1), time: '10:00', type: '1:1'      as const, notes: '' },
-      { id: `mtg-init-${i}b`, menteeId: m.id, title: 'Check-in',    date: dayOffset(i + 7), time: '14:00', type: 'check-in' as const, notes: 'Review onboarding progress' },
+      { id: `mtg-init-${i}b`, menteeId: m.id, title: 'Check-in',    date: dayOffset(i + 7), time: '14:00', type: 'check-in' as const, notes: 'Review prarambh progress' },
     ])
   )
 

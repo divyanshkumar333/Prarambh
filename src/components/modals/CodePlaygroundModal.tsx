@@ -346,7 +346,7 @@ function AiMessageBubble({ msg }: { msg: CodeAssistantMessage }) {
   if (msg.role === 'user') {
     return (
       <div className="flex justify-end mb-3">
-        <div className="max-w-[88%] bg-teal-600/25 border border-teal-500/30 rounded-2xl rounded-tr-sm px-3 py-2">
+        <div className="max-w-[88%] bg-brand-500/25 border border-teal-500/30 rounded-2xl rounded-tr-sm px-3 py-2">
           <p className="text-xs text-white/90 leading-relaxed whitespace-pre-wrap">{msg.content}</p>
         </div>
       </div>
@@ -625,7 +625,7 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
           <button
             onClick={() => setShowConsole(v => !v)}
             className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors ${
-              showConsole ? 'bg-teal-600 text-white' : 'bg-white/10 hover:bg-white/20 text-white/70'
+              showConsole ? 'bg-brand-500 text-white' : 'bg-surface/10 hover:bg-surface/20 text-white/70'
             }`}
           >
             <Terminal size={11} /> Console
@@ -637,7 +637,7 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
             className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors ${
               showAI
                 ? 'bg-purple-600 text-white shadow-md shadow-purple-900/40'
-                : 'bg-white/10 hover:bg-white/20 text-white/70'
+                : 'bg-surface/10 hover:bg-surface/20 text-white/70'
             }`}
           >
             <Sparkles size={11} /> AI Assistant
@@ -646,7 +646,7 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
           {/* Mark done */}
           <button
             onClick={onMarkDone}
-            className="text-xs font-bold bg-teal-600 hover:bg-teal-500 text-white px-3 py-1.5 rounded-lg transition-colors"
+            className="text-xs font-bold bg-brand-500 hover:bg-teal-500 text-white px-3 py-1.5 rounded-lg transition-colors"
           >
             ✓ Mark Done
           </button>
@@ -654,7 +654,7 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
           {/* Close */}
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-white/10 text-white/50 hover:text-white transition-colors"
+            className="p-1.5 rounded-lg hover:bg-surface/10 text-white/50 hover:text-white transition-colors"
           >
             <X size={16} />
           </button>
@@ -676,12 +676,12 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
             <div className="flex items-center gap-0.5">
               <button
                 onClick={() => { setNewItemType('file'); setNewItemParent(null); setShowNewFile(v => !v) }}
-                className="p-1 rounded hover:bg-white/10 text-white/40 hover:text-white/80 transition-colors"
+                className="p-1 rounded hover:bg-surface/10 text-white/40 hover:text-white/80 transition-colors"
                 title="New file"
               ><Plus size={13} /></button>
               <button
                 onClick={() => { setNewItemType('folder'); setNewItemParent(null); setShowNewFile(v => !v) }}
-                className="p-1 rounded hover:bg-white/10 text-white/40 hover:text-yellow-400 transition-colors"
+                className="p-1 rounded hover:bg-surface/10 text-white/40 hover:text-yellow-400 transition-colors"
                 title="New folder"
               ><FolderOpen size={12} /></button>
             </div>
@@ -726,7 +726,7 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
                         <div
                           onClick={() => toggleFolder(node.id)}
                           style={{ paddingLeft: indent }}
-                          className="flex items-center gap-1.5 pr-2 py-1.5 cursor-pointer group text-white/55 hover:bg-white/5 hover:text-white/80 transition-colors"
+                          className="flex items-center gap-1.5 pr-2 py-1.5 cursor-pointer group text-white/55 hover:bg-surface/5 hover:text-white/80 transition-colors"
                         >
                           <ChevronRight size={9} className={`text-white/25 flex-shrink-0 transition-transform ${node.isOpen ? 'rotate-90' : ''}`} />
                           <FolderOpen size={13} className="text-yellow-400/80 flex-shrink-0" />
@@ -734,7 +734,7 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
                           <div className="opacity-0 group-hover:opacity-100 flex items-center gap-0.5">
                             <button
                               onClick={e => { e.stopPropagation(); setNewItemType('file'); setNewItemParent(node.id); setShowNewFile(true) }}
-                              className="p-0.5 rounded hover:bg-white/10 text-white/30 hover:text-white/70"
+                              className="p-0.5 rounded hover:bg-surface/10 text-white/30 hover:text-white/70"
                               title="New file inside"
                             ><Plus size={9} /></button>
                             <button
@@ -756,7 +756,7 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
                       className={`flex items-center gap-1.5 pr-2 py-1.5 cursor-pointer group transition-colors ${
                         isActive
                           ? 'bg-teal-500/20 text-white border-l-2 border-l-teal-400'
-                          : 'text-white/55 hover:bg-white/5 hover:text-white/80 border-l-2 border-l-transparent'
+                          : 'text-white/55 hover:bg-surface/5 hover:text-white/80 border-l-2 border-l-transparent'
                       }`}
                     >
                       {getFileIcon(node.name)}
@@ -894,11 +894,11 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
               title="Drag to resize panel"
             >
               {/* Visual bar */}
-              <div className="w-0.5 h-full bg-white/8 group-hover:bg-purple-400/70 transition-colors duration-150" />
+              <div className="w-0.5 h-full bg-surface/8 group-hover:bg-purple-400/70 transition-colors duration-150" />
               {/* Grip dots centred in the bar */}
               <div className="absolute flex flex-col gap-1 pointer-events-none top-1/2 -translate-y-1/2">
                 {[0,1,2,3,4].map(i => (
-                  <span key={i} className="w-0.5 h-0.5 rounded-full bg-white/20 group-hover:bg-purple-300/80 transition-colors" />
+                  <span key={i} className="w-0.5 h-0.5 rounded-full bg-surface/20 group-hover:bg-purple-300/80 transition-colors" />
                 ))}
               </div>
             </div>
@@ -916,7 +916,7 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
               </div>
               <button
                 onClick={() => setShowAI(false)}
-                className="p-1 rounded hover:bg-white/10 text-white/30 hover:text-white/60 transition-colors"
+                className="p-1 rounded hover:bg-surface/10 text-white/30 hover:text-white/60 transition-colors"
               >
                 <ChevronLeft size={13} />
               </button>
@@ -931,7 +931,7 @@ export default function CodePlaygroundModal({ task, onClose, onMarkDone }: Props
                     key={q.label}
                     onClick={() => sendAiMessage(q.prompt)}
                     disabled={aiLoading}
-                    className="text-[10px] px-2.5 py-1 rounded-full bg-white/5 hover:bg-purple-600/30 hover:text-purple-300 text-white/50 border border-white/10 hover:border-purple-500/40 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="text-[10px] px-2.5 py-1 rounded-full bg-surface/5 hover:bg-purple-600/30 hover:text-purple-300 text-white/50 border border-white/10 hover:border-purple-500/40 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     {q.label}
                   </button>

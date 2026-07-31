@@ -23,7 +23,7 @@ interface Props {
 function StatusBadge({ status }: { status: Task['status'] }) {
   if (status === 'done')        return <span className="badge-green text-xs py-0.5 px-2">Done</span>
   if (status === 'in-progress') return <span className="badge-orange text-xs py-0.5 px-2">In Progress</span>
-  return <span className="text-xs text-brown-400 font-medium bg-brown-50 px-2 py-0.5 rounded-full border border-brown-200">Pending</span>
+  return <span className="text-xs text-text-secondary/70 font-medium bg-surface-elevated px-2 py-0.5 rounded-full border border-border">Pending</span>
 }
 
 function PriorityDot({ priority }: { priority?: string }) {
@@ -65,17 +65,17 @@ function TaskAccordion({ task, onToggleStatus, onViewDoc, onOpenPlayground }: {
     .filter(Boolean) as Document[]
 
   const statusBtn = () => {
-    if (task.status === 'done')        return { label: '↩ Mark as Pending',    cls: 'bg-brown-100 text-brown-700 hover:bg-brown-200' }
+    if (task.status === 'done')        return { label: '↩ Mark as Pending',    cls: 'bg-surface-elevated/50 text-text-primary hover:bg-surface-elevated' }
     if (task.status === 'in-progress') return { label: '✓ Mark as Done',        cls: 'bg-green-600 text-white hover:bg-green-700' }
-    return                                    { label: '▶ Start Task',           cls: 'bg-teal-600 text-white hover:bg-teal-700' }
+    return                                    { label: '▶ Start Task',           cls: 'bg-brand-500 text-white hover:bg-brand-600' }
   }
   const btn = statusBtn()
 
   return (
     <div className={`rounded-xl border transition-all duration-200 overflow-hidden ${
-      task.status === 'done'        ? 'border-green-200 bg-green-50/30' :
-      task.status === 'in-progress' ? 'border-teal-300 bg-teal-50/30 shadow-sm' :
-      'border-brown-100 hover:border-brown-300'
+      task.status === 'done'        ? 'border-emerald-500/20 bg-emerald-500/10/30' :
+      task.status === 'in-progress' ? 'border-teal-300 bg-brand-500/10/30 shadow-sm' :
+      'border-border hover:border-border'
     }`}>
       {/* ── Row header (always visible, click to toggle) ── */}
       <div
@@ -86,7 +86,7 @@ function TaskAccordion({ task, onToggleStatus, onViewDoc, onOpenPlayground }: {
         <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
           task.status === 'done'        ? 'bg-green-500 border-green-500' :
           task.status === 'in-progress' ? 'border-teal-500' :
-          'border-brown-300 group-hover:border-brown-400'
+          'border-border group-hover:border-brown-400'
         }`}>
           {task.status === 'done'        && <CheckCircle size={11} className="text-white" />}
           {task.status === 'in-progress' && <div className="w-2 h-2 bg-teal-500 rounded-full" />}
@@ -95,57 +95,57 @@ function TaskAccordion({ task, onToggleStatus, onViewDoc, onOpenPlayground }: {
         {/* Title + meta */}
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
-            <p className={`text-sm font-semibold leading-snug ${task.status === 'done' ? 'line-through text-brown-400' : 'text-brown-800'}`}>
+            <p className={`text-sm font-semibold leading-snug ${task.status === 'done' ? 'line-through text-text-secondary/70' : 'text-text-primary'}`}>
               {task.title}
             </p>
             <StatusBadge status={task.status} />
           </div>
           {/* Description preview when collapsed */}
           {!expanded && task.description && (
-            <p className="text-xs text-brown-400 mt-1 line-clamp-1">{task.description}</p>
+            <p className="text-xs text-text-secondary/70 mt-1 line-clamp-1">{task.description}</p>
           )}
           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
             <PriorityDot priority={task.priority} />
             <span className="badge-brown text-xs">{task.category}</span>
-            <span className="flex items-center gap-1 text-xs text-brown-400"><Clock size={10} />{task.estimatedTime}</span>
-            <span className="text-xs text-brown-400">{assignedByLabel(task.assignedBy, task.assignedByName)}</span>
+            <span className="flex items-center gap-1 text-xs text-text-secondary/70"><Clock size={10} />{task.estimatedTime}</span>
+            <span className="text-xs text-text-secondary/70">{assignedByLabel(task.assignedBy, task.assignedByName)}</span>
             {totalSubs > 0 && (
-              <span className="text-xs text-brown-400">{doneSubs}/{totalSubs} subtasks</span>
+              <span className="text-xs text-text-secondary/70">{doneSubs}/{totalSubs} subtasks</span>
             )}
             {task.requiresInput && (
-              <span className="text-xs text-amber-600 flex items-center gap-0.5"><AlertCircle size={10} />Input needed</span>
+              <span className="text-xs text-amber-400 flex items-center gap-0.5"><AlertCircle size={10} />Input needed</span>
             )}
           </div>
           {/* Subtask mini progress bar */}
           {totalSubs > 0 && (
-            <div className="mt-1.5 h-1 bg-brown-100 rounded-full overflow-hidden">
+            <div className="mt-1.5 h-1 bg-surface-elevated/50 rounded-full overflow-hidden">
               <div className="h-full bg-teal-500 rounded-full transition-all" style={{ width: `${(doneSubs / totalSubs) * 100}%` }} />
             </div>
           )}
         </div>
 
         {/* Expand chevron */}
-        <div className="flex-shrink-0 text-brown-400 group-hover:text-brown-600 transition-colors mt-0.5">
+        <div className="flex-shrink-0 text-text-secondary/70 group-hover:text-text-secondary transition-colors mt-0.5">
           {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </div>
       </div>
 
       {/* ── Expanded detail panel ── */}
       {expanded && (
-        <div className="border-t border-brown-100 px-4 pb-4 pt-3 space-y-4 bg-white/60">
+        <div className="border-t border-border px-4 pb-4 pt-3 space-y-4 bg-surface/60">
 
           {/* Description */}
           {task.description && (
             <div>
-              <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-1.5">Description</p>
-              <p className="text-sm text-brown-700 leading-relaxed bg-brown-50 rounded-xl p-3 border border-brown-100">{task.description}</p>
+              <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-1.5">Description</p>
+              <p className="text-sm text-text-primary leading-relaxed bg-surface-elevated rounded-xl p-3 border border-border">{task.description}</p>
             </div>
           )}
 
           {/* Subtasks */}
           {totalSubs > 0 && (
             <div>
-              <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-2">
+              <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-2">
                 Subtasks ({doneSubs}/{totalSubs})
               </p>
               <div className="space-y-1.5">
@@ -153,12 +153,12 @@ function TaskAccordion({ task, onToggleStatus, onViewDoc, onOpenPlayground }: {
                   <button
                     key={sub.id}
                     onClick={e => { e.stopPropagation(); toggleSubtask(sub.id, sub.status) }}
-                    className="w-full flex items-center gap-2.5 p-2.5 rounded-xl border border-brown-100 hover:bg-brown-50 transition-colors text-left"
+                    className="w-full flex items-center gap-2.5 p-2.5 rounded-xl border border-border hover:bg-surface-elevated transition-colors text-left"
                   >
-                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${sub.status === 'done' ? 'bg-green-500 border-green-500' : 'border-brown-300'}`}>
+                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${sub.status === 'done' ? 'bg-green-500 border-green-500' : 'border-border'}`}>
                       {sub.status === 'done' && <CheckCircle size={9} className="text-white" />}
                     </div>
-                    <span className={`text-sm ${sub.status === 'done' ? 'line-through text-brown-400' : 'text-brown-700'}`}>{sub.title}</span>
+                    <span className={`text-sm ${sub.status === 'done' ? 'line-through text-text-secondary/70' : 'text-text-primary'}`}>{sub.title}</span>
                   </button>
                 ))}
               </div>
@@ -168,22 +168,22 @@ function TaskAccordion({ task, onToggleStatus, onViewDoc, onOpenPlayground }: {
           {/* Supporting documents */}
           {supportingDocs.length > 0 && (
             <div>
-              <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-2">Supporting Documents</p>
+              <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-2">Supporting Documents</p>
               <div className="space-y-1.5">
                 {supportingDocs.map(doc => (
                   <button
                     key={doc.id}
                     onClick={e => { e.stopPropagation(); onViewDoc(doc) }}
-                    className="w-full flex items-center gap-2.5 p-2.5 rounded-xl border border-brown-100 hover:border-brown-300 hover:bg-brown-50 transition-colors text-left group/doc"
+                    className="w-full flex items-center gap-2.5 p-2.5 rounded-xl border border-border hover:border-border hover:bg-surface-elevated transition-colors text-left group/doc"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-red-50 border border-red-100 flex items-center justify-center flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-red-500/10 border border-red-100 flex items-center justify-center flex-shrink-0">
                       <FileText size={13} className="text-red-500" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-brown-800 truncate">{doc.name}</p>
-                      <p className="text-xs text-brown-400">{doc.type} · {doc.size}</p>
+                      <p className="text-sm font-medium text-text-primary truncate">{doc.name}</p>
+                      <p className="text-xs text-text-secondary/70">{doc.type} · {doc.size}</p>
                     </div>
-                    <span className="text-xs text-teal-600 font-semibold group-hover/doc:underline flex-shrink-0">View →</span>
+                    <span className="text-xs text-brand-400 font-semibold group-hover/doc:underline flex-shrink-0">View →</span>
                   </button>
                 ))}
               </div>
@@ -193,7 +193,7 @@ function TaskAccordion({ task, onToggleStatus, onViewDoc, onOpenPlayground }: {
           {/* Supporting links */}
           {(task.supportingLinks ?? []).length > 0 && (
             <div>
-              <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-2">Resources & Links</p>
+              <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-2">Resources & Links</p>
               <div className="space-y-1.5">
                 {task.supportingLinks!.map((l, i) => (
                   <a
@@ -202,13 +202,13 @@ function TaskAccordion({ task, onToggleStatus, onViewDoc, onOpenPlayground }: {
                     target="_blank"
                     rel="noreferrer"
                     onClick={e => e.stopPropagation()}
-                    className="flex items-start gap-2.5 p-2.5 rounded-xl border border-blue-100 bg-blue-50/40 hover:bg-blue-50 transition-colors group/link"
+                    className="flex items-start gap-2.5 p-2.5 rounded-xl border border-blue-100 bg-blue-500/10/40 hover:bg-blue-500/10 transition-colors group/link"
                   >
-                    <div className="w-7 h-7 rounded-lg bg-blue-100 border border-blue-200 flex items-center justify-center flex-shrink-0">
+                    <div className="w-7 h-7 rounded-lg bg-blue-100 border border-blue-500/20 flex items-center justify-center flex-shrink-0">
                       <Link2 size={13} className="text-blue-500" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-blue-800 truncate group-hover/link:underline">{l.label}</p>
+                      <p className="text-sm font-medium text-blue-400 truncate group-hover/link:underline">{l.label}</p>
                       <p className="text-xs text-blue-500 truncate">{l.url}</p>
                     </div>
                     <ExternalLink size={13} className="text-blue-400 flex-shrink-0 mt-0.5" />
@@ -221,10 +221,10 @@ function TaskAccordion({ task, onToggleStatus, onViewDoc, onOpenPlayground }: {
           {/* Required input */}
           {task.requiresInput && (
             <div>
-              <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-1.5">Required Input</p>
-              {task.inputPrompt && <p className="text-xs text-brown-500 mb-2 italic">{task.inputPrompt}</p>}
+              <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-1.5">Required Input</p>
+              {task.inputPrompt && <p className="text-xs text-text-secondary mb-2 italic">{task.inputPrompt}</p>}
               <textarea
-                className="w-full border border-brown-200 rounded-xl p-3 text-sm text-brown-800 focus:outline-none focus:ring-2 focus:ring-brown-300 resize-none bg-brown-50"
+                className="w-full border border-border rounded-xl p-3 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brown-300 resize-none bg-surface-elevated"
                 rows={3}
                 placeholder="Type your response here…"
                 defaultValue={task.inputValue ?? ''}
@@ -236,18 +236,18 @@ function TaskAccordion({ task, onToggleStatus, onViewDoc, onOpenPlayground }: {
           {/* Feedback visible to employee */}
           {(task.feedback ?? []).filter(fb => fb.visibility.includes('employee')).length > 0 && (
             <div>
-              <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-1.5">Feedback</p>
+              <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-1.5">Feedback</p>
               <div className="space-y-2">
                 {task.feedback!.filter(fb => fb.visibility.includes('employee')).map(fb => (
-                  <div key={fb.id} className="bg-green-50 border border-green-100 rounded-xl px-3 py-2.5">
+                  <div key={fb.id} className="bg-emerald-500/10 border border-green-100 rounded-xl px-3 py-2.5">
                     <div className="flex items-center gap-2 mb-1">
-                      <MessageSquare size={10} className="text-green-600 flex-shrink-0" />
-                      <span className="text-xs font-semibold text-green-700">{fb.addedBy}</span>
-                      <span className="text-xs text-brown-400 ml-auto">
+                      <MessageSquare size={10} className="text-emerald-400 flex-shrink-0" />
+                      <span className="text-xs font-semibold text-emerald-400">{fb.addedBy}</span>
+                      <span className="text-xs text-text-secondary/70 ml-auto">
                         {new Date(fb.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                       </span>
                     </div>
-                    <p className="text-xs text-brown-700">{fb.text}</p>
+                    <p className="text-xs text-text-primary">{fb.text}</p>
                   </div>
                 ))}
               </div>
@@ -269,24 +269,24 @@ function TaskAccordion({ task, onToggleStatus, onViewDoc, onOpenPlayground }: {
             const canOpen = pType === 'engineering' || pType === 'sales'
 
             return (
-              <div className="bg-gradient-to-r from-teal-50 to-cyan-50 border border-teal-200 rounded-xl p-3.5 flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-teal-100 border border-teal-200 flex items-center justify-center flex-shrink-0 text-base">
+              <div className="bg-gradient-to-r from-teal-50 to-cyan-50 border border-brand-500/20 rounded-xl p-3.5 flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-brand-500/20 border border-brand-500/20 flex items-center justify-center flex-shrink-0 text-base">
                   {meta.icon}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <p className="text-sm font-bold text-teal-800">Playground Active</p>
-                    <span className="text-[10px] font-bold bg-teal-600 text-white px-2 py-0.5 rounded-full">
+                    <p className="text-sm font-bold text-brand-400">Playground Active</p>
+                    <span className="text-[10px] font-bold bg-brand-500 text-white px-2 py-0.5 rounded-full">
                       {meta.label}
                     </span>
                   </div>
-                  <p className="text-xs text-teal-600 mt-0.5">{meta.desc}</p>
+                  <p className="text-xs text-brand-400 mt-0.5">{meta.desc}</p>
                 </div>
                 <button
                   onClick={e => { e.stopPropagation(); if (canOpen) onOpenPlayground(task) }}
                   className={`flex items-center gap-1.5 text-xs font-bold text-white px-3 py-1.5 rounded-lg transition-colors flex-shrink-0 ${
                     canOpen
-                      ? 'bg-teal-600 hover:bg-teal-700'
+                      ? 'bg-brand-500 hover:bg-brand-600'
                       : 'bg-teal-300 cursor-not-allowed'
                   }`}
                   title={canOpen ? `Open ${meta.label} playground` : 'Coming soon'}
@@ -329,36 +329,36 @@ function MeetingsMiniCard({ employeeId }: { employeeId: string }) {
   }
 
   return (
-    <div className="card">
-      <h3 className="font-bold text-brown-900 mb-3 text-sm flex items-center gap-2">
-        <Video size={14} className="text-teal-600" /> Upcoming Meets
+    <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
+      <h3 className="font-bold text-text-primary mb-3 text-sm flex items-center gap-2">
+        <Video size={14} className="text-brand-400" /> Upcoming Meets
       </h3>
       {meetings.length === 0 ? (
-        <div className="text-center py-4 text-brown-400">
+        <div className="text-center py-4 text-text-secondary/70">
           <Calendar size={24} className="mx-auto mb-1.5 opacity-30" />
           <p className="text-xs">No meetings scheduled</p>
         </div>
       ) : (
         <div className="space-y-2">
           {meetings.map(meet => (
-            <div key={meet.id} className="flex items-start gap-2.5 p-2.5 rounded-xl border border-teal-100 bg-teal-50/40">
-              <div className="flex-shrink-0 text-center bg-teal-100 rounded-lg px-1.5 py-1 min-w-[38px]">
-                <p className="text-[9px] font-bold text-teal-600 uppercase leading-none">
+            <div key={meet.id} className="flex items-start gap-2.5 p-2.5 rounded-xl border border-brand-500/20 bg-brand-500/10/40">
+              <div className="flex-shrink-0 text-center bg-brand-500/20 rounded-lg px-1.5 py-1 min-w-[38px]">
+                <p className="text-[9px] font-bold text-brand-400 uppercase leading-none">
                   {new Date(meet.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short' })}
                 </p>
-                <p className="text-base font-black text-teal-900 leading-tight">
+                <p className="text-base font-black text-brand-400 leading-tight">
                   {new Date(meet.date + 'T00:00:00').getDate()}
                 </p>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold text-brown-800 truncate">{meet.title}</p>
+                <p className="text-xs font-semibold text-text-primary truncate">{meet.title}</p>
                 <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="text-xs text-brown-400">{meet.time}</span>
-                  <span className="text-xs font-semibold text-teal-600">· {getDaysUntil(meet.date)}</span>
+                  <span className="text-xs text-text-secondary/70">{meet.time}</span>
+                  <span className="text-xs font-semibold text-brand-400">· {getDaysUntil(meet.date)}</span>
                 </div>
                 {meet.link && (
                   <a href={meet.link} target="_blank" rel="noreferrer"
-                    className="mt-1 inline-flex items-center gap-1 text-xs text-teal-600 hover:text-teal-800 font-medium">
+                    className="mt-1 inline-flex items-center gap-1 text-xs text-brand-400 hover:text-brand-400 font-medium">
                     <Video size={10} /> Join
                   </a>
                 )}
@@ -397,14 +397,14 @@ function OverviewSection({ employee, myTasks, mentor, onMessageMentor }: {
                   ? `You've completed ${doneCount} of ${myTasks.length} tasks. Keep it up!`
                   : myTasks.length > 0
                   ? `You have ${myTasks.length} tasks assigned. Let's get started!`
-                  : 'Your onboarding tasks will appear here once assigned.'}
+                  : 'Your prarambh tasks will appear here once assigned.'}
               </p>
             </div>
             <div className="text-right">
               <p className="text-white/70 text-xs mb-1">Progress</p>
               <p className="text-3xl font-black">{progress}%</p>
-              <div className="w-32 h-2 bg-white/20 rounded-full mt-2">
-                <div className="h-full bg-white rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+              <div className="w-32 h-2 bg-surface/20 rounded-full mt-2">
+                <div className="h-full bg-surface rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
               </div>
             </div>
           </div>
@@ -414,16 +414,16 @@ function OverviewSection({ employee, myTasks, mentor, onMessageMentor }: {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { icon: <CheckCircle size={20} />, label: 'Completed',  value: `${doneCount}/${myTasks.length}`,                              color: 'text-green-600 bg-green-50'  },
+          { icon: <CheckCircle size={20} />, label: 'Completed',  value: `${doneCount}/${myTasks.length}`,                              color: 'text-emerald-400 bg-emerald-500/10'  },
           { icon: <Flame size={20} />,       label: 'Day Streak', value: `${employee.day} 🔥`,                                           color: 'text-orange-600 bg-orange-50' },
-          { icon: <Clock size={20} />,       label: 'Pending',    value: myTasks.filter(t => t.status === 'pending').length,              color: 'text-blue-600 bg-blue-50'    },
-          { icon: <Bell size={20} />,        label: 'From Mentor', value: myTasks.filter(t => t.assignedBy === 'mentor').length,          color: 'text-teal-600 bg-teal-50'   },
+          { icon: <Clock size={20} />,       label: 'Pending',    value: myTasks.filter(t => t.status === 'pending').length,              color: 'text-blue-400 bg-blue-500/10'    },
+          { icon: <Bell size={20} />,        label: 'From Mentor', value: myTasks.filter(t => t.assignedBy === 'mentor').length,          color: 'text-brand-400 bg-brand-500/10'   },
         ].map(s => (
-          <div key={s.label} className="card flex items-center gap-4">
+          <div key={s.label} className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm flex items-center gap-4">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>{s.icon}</div>
             <div>
-              <p className="text-sm text-brown-500 font-medium">{s.label}</p>
-              <p className="font-bold text-brown-900 text-lg leading-tight">{s.value}</p>
+              <p className="text-sm text-text-secondary font-medium">{s.label}</p>
+              <p className="font-bold text-text-primary text-lg leading-tight">{s.value}</p>
             </div>
           </div>
         ))}
@@ -432,15 +432,15 @@ function OverviewSection({ employee, myTasks, mentor, onMessageMentor }: {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Center column: task list + AI widget (same layout as Admin) */}
         <div className="lg:col-span-2 space-y-5">
-        <div className="card">
+        <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-brown-900 text-base flex items-center gap-2">
-              <CheckCircle size={16} className="text-teal-600" /> My Tasks Overview
+            <h3 className="font-bold text-text-primary text-base flex items-center gap-2">
+              <CheckCircle size={16} className="text-brand-400" /> My Tasks Overview
             </h3>
-            <span className="text-xs text-brown-400">{doneCount}/{myTasks.length} done</span>
+            <span className="text-xs text-text-secondary/70">{doneCount}/{myTasks.length} done</span>
           </div>
           {myTasks.length === 0 ? (
-            <div className="text-center py-8 text-brown-400">
+            <div className="text-center py-8 text-text-secondary/70">
               <CheckCircle size={32} className="mx-auto mb-2 opacity-30" />
               <p className="text-sm">No tasks assigned yet — check back soon</p>
             </div>
@@ -448,29 +448,29 @@ function OverviewSection({ employee, myTasks, mentor, onMessageMentor }: {
             <div className="space-y-2">
               {myTasks.slice(0, 8).map(task => (
                 <div key={task.id} className={`flex items-center gap-3 p-2.5 rounded-xl border ${
-                  task.status === 'done'        ? 'border-green-200 bg-green-50/40' :
-                  task.status === 'in-progress' ? 'border-teal-200 bg-teal-50/40' :
-                  'border-brown-100 bg-brown-50/20'
+                  task.status === 'done'        ? 'border-emerald-500/20 bg-emerald-500/10/40' :
+                  task.status === 'in-progress' ? 'border-brand-500/20 bg-brand-500/10/40' :
+                  'border-border bg-surface-elevated/20'
                 }`}>
                   <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                     task.status === 'done'        ? 'bg-green-500 border-green-500' :
                     task.status === 'in-progress' ? 'border-teal-500' :
-                    'border-brown-300'
+                    'border-border'
                   }`}>
                     {task.status === 'done' && <CheckCircle size={9} className="text-white" />}
                     {task.status === 'in-progress' && <div className="w-1.5 h-1.5 bg-teal-500 rounded-full" />}
                   </div>
-                  <span className={`text-sm flex-1 truncate ${task.status === 'done' ? 'line-through text-brown-400' : 'text-brown-800 font-medium'}`}>
+                  <span className={`text-sm flex-1 truncate ${task.status === 'done' ? 'line-through text-text-secondary/70' : 'text-text-primary font-medium'}`}>
                     {task.title}
                   </span>
                   <div className="flex items-center gap-1.5 flex-shrink-0">
-                    <span className="text-xs text-brown-400">{task.estimatedTime}</span>
+                    <span className="text-xs text-text-secondary/70">{task.estimatedTime}</span>
                     <PriorityDot priority={task.priority} />
                   </div>
                 </div>
               ))}
               {myTasks.length > 8 && (
-                <p className="text-xs text-brown-400 text-center pt-1">+{myTasks.length - 8} more — visit My Tasks tab</p>
+                <p className="text-xs text-text-secondary/70 text-center pt-1">+{myTasks.length - 8} more — visit My Tasks tab</p>
               )}
             </div>
           )}
@@ -489,18 +489,18 @@ function OverviewSection({ employee, myTasks, mentor, onMessageMentor }: {
 
         {/* Right column */}
         <div className="space-y-5">
-          {/* Mentor card */}
+          {/* Mentor bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm */}
           {mentor && (
-            <div className="card">
-              <h3 className="font-bold text-brown-900 mb-3 text-sm">Your Mentor / Buddy</h3>
+            <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
+              <h3 className="font-bold text-text-primary mb-3 text-sm">Your Mentor / Buddy</h3>
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0" style={{ background: mentor.color }}>{mentor.initials}</div>
                 <div>
-                  <p className="font-semibold text-brown-900 text-sm">{mentor.name}</p>
-                  <p className="text-xs text-brown-500">{mentor.specialty}</p>
+                  <p className="font-semibold text-text-primary text-sm">{mentor.name}</p>
+                  <p className="text-xs text-text-secondary">{mentor.specialty}</p>
                   <div className="flex items-center gap-1 mt-0.5">
                     <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
-                    <span className="text-xs text-green-600">Available</span>
+                    <span className="text-xs text-emerald-400">Available</span>
                   </div>
                 </div>
               </div>
@@ -511,8 +511,8 @@ function OverviewSection({ employee, myTasks, mentor, onMessageMentor }: {
           <MeetingsMiniCard employeeId={employee.id} />
 
           {/* Tasks by source */}
-          <div className="card">
-            <h3 className="font-bold text-brown-900 mb-3 text-sm">Tasks by Source</h3>
+          <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
+            <h3 className="font-bold text-text-primary mb-3 text-sm">Tasks by Source</h3>
             <div className="space-y-2.5">
               {[
                 { label: 'Admin',  count: myTasks.filter(t => t.assignedBy === 'admin').length,  color: 'bg-brown-500',  icon: '🔑' },
@@ -522,7 +522,7 @@ function OverviewSection({ employee, myTasks, mentor, onMessageMentor }: {
                 <div key={item.label} className="flex items-center gap-2.5">
                   <span className="text-base">{item.icon}</span>
                   <div className="flex-1 min-w-0">
-                    <div className="flex justify-between text-xs text-brown-600 mb-1 font-medium">
+                    <div className="flex justify-between text-xs text-text-secondary mb-1 font-medium">
                       <span>{item.label}</span>
                       <span>{item.count}</span>
                     </div>
@@ -569,13 +569,13 @@ function TasksSection({ myTasks }: { myTasks: Task[] }) {
 
   return (
     <div className="space-y-5">
-      <div className="card">
+      <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="font-bold text-brown-900 text-lg">My Onboarding Tasks</h3>
-          <div className="flex gap-1 bg-brown-50 rounded-lg p-1 border border-brown-200">
+          <h3 className="font-bold text-text-primary text-lg">My Prarambh Tasks</h3>
+          <div className="flex gap-1 bg-surface-elevated rounded-lg p-1 border border-border">
             {(['all', 'pending', 'in-progress', 'done'] as const).map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold capitalize transition-all duration-200 ${activeTab === tab ? 'bg-brown-500 text-white' : 'text-brown-600 hover:bg-brown-100'}`}>
+                className={`px-3 py-1.5 rounded-md text-xs font-semibold capitalize transition-all duration-200 ${activeTab === tab ? 'bg-brown-500 text-white' : 'text-text-secondary hover:bg-surface-elevated/50'}`}>
                 {tab === 'in-progress' ? 'Active' : tab} ({counts[tab]})
               </button>
             ))}
@@ -583,7 +583,7 @@ function TasksSection({ myTasks }: { myTasks: Task[] }) {
         </div>
 
         {displayed.length === 0 ? (
-          <div className="text-center py-12 text-brown-400">
+          <div className="text-center py-12 text-text-secondary/70">
             <CheckCircle size={36} className="mx-auto mb-3 opacity-30" />
             <p className="text-sm font-medium">No tasks in this category</p>
           </div>
@@ -600,7 +600,7 @@ function TasksSection({ myTasks }: { myTasks: Task[] }) {
             ))}
           </div>
         )}
-        <p className="text-xs text-brown-400 mt-4 text-center">Click any task to expand details and update progress</p>
+        <p className="text-xs text-text-secondary/70 mt-4 text-center">Click any task to expand details and update progress</p>
       </div>
 
       {/* PDF/Doc viewer triggered from task supporting docs */}
@@ -660,13 +660,13 @@ function MeetsSection({ employeeId, mentor }: { employeeId: string; mentor: any 
 
   return (
     <div className="space-y-6">
-      <div className="card">
+      <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="font-bold text-brown-900 text-lg flex items-center gap-2">
-            <Video size={18} className="text-teal-600" /> Upcoming Meets
+          <h3 className="font-bold text-text-primary text-lg flex items-center gap-2">
+            <Video size={18} className="text-brand-400" /> Upcoming Meets
           </h3>
           {mentor && (
-            <div className="flex items-center gap-2 text-xs text-brown-500">
+            <div className="flex items-center gap-2 text-xs text-text-secondary">
               <div className="w-5 h-5 rounded-full flex items-center justify-center text-white text-[9px] font-bold" style={{ background: mentor.color }}>{mentor.initials}</div>
               Scheduled by {mentor.name.split(' ')[0]}
             </div>
@@ -674,7 +674,7 @@ function MeetsSection({ employeeId, mentor }: { employeeId: string; mentor: any 
         </div>
 
         {upcoming.length === 0 && past.length === 0 ? (
-          <div className="text-center py-12 text-brown-400">
+          <div className="text-center py-12 text-text-secondary/70">
             <Calendar size={36} className="mx-auto mb-3 opacity-30" />
             <p className="text-sm font-medium">No meetings scheduled yet</p>
             <p className="text-xs mt-1">Your mentor will schedule meetings from their portal</p>
@@ -683,25 +683,25 @@ function MeetsSection({ employeeId, mentor }: { employeeId: string; mentor: any 
           <>
             {upcoming.length > 0 && (
               <div className="space-y-3 mb-5">
-                <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide">Upcoming</p>
+                <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide">Upcoming</p>
                 {upcoming.map(meet => (
-                  <div key={meet.id} className="flex items-start gap-4 p-4 rounded-xl border border-teal-200 bg-teal-50/40 hover:bg-teal-50 transition-colors">
-                    <div className="flex-shrink-0 bg-teal-100 rounded-xl p-2.5 text-center min-w-[52px]">
-                      <p className="text-xs font-bold text-teal-700 uppercase">
+                  <div key={meet.id} className="flex items-start gap-4 p-4 rounded-xl border border-brand-500/20 bg-brand-500/10/40 hover:bg-brand-500/10 transition-colors">
+                    <div className="flex-shrink-0 bg-brand-500/20 rounded-xl p-2.5 text-center min-w-[52px]">
+                      <p className="text-xs font-bold text-brand-400 uppercase">
                         {new Date(meet.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short' })}
                       </p>
-                      <p className="text-xl font-black text-teal-900 leading-none">{new Date(meet.date + 'T00:00:00').getDate()}</p>
+                      <p className="text-xl font-black text-brand-400 leading-none">{new Date(meet.date + 'T00:00:00').getDate()}</p>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
-                        <p className="font-semibold text-brown-900 text-sm">{meet.title}</p>
-                        <span className="text-xs font-semibold text-teal-700 bg-teal-100 px-2 py-0.5 rounded-full flex-shrink-0">{getDaysUntil(meet.date)}</span>
+                        <p className="font-semibold text-text-primary text-sm">{meet.title}</p>
+                        <span className="text-xs font-semibold text-brand-400 bg-brand-500/20 px-2 py-0.5 rounded-full flex-shrink-0">{getDaysUntil(meet.date)}</span>
                       </div>
-                      <p className="text-xs text-brown-500 mt-0.5 flex items-center gap-1"><Clock size={10} />{formatDate(meet.date, meet.time)}</p>
-                      {meet.description && <p className="text-xs text-brown-600 mt-1.5 leading-relaxed">{meet.description}</p>}
+                      <p className="text-xs text-text-secondary mt-0.5 flex items-center gap-1"><Clock size={10} />{formatDate(meet.date, meet.time)}</p>
+                      {meet.description && <p className="text-xs text-text-secondary mt-1.5 leading-relaxed">{meet.description}</p>}
                       {meet.link && (
                         <a href={meet.link} target="_blank" rel="noreferrer"
-                          className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-900 bg-white border border-teal-200 px-2.5 py-1.5 rounded-lg hover:shadow-sm transition-all">
+                          className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-400 hover:text-brand-400 bg-surface border border-brand-500/20 px-2.5 py-1.5 rounded-lg hover:shadow-sm transition-all">
                           <Video size={12} /> Join Meeting
                         </a>
                       )}
@@ -713,15 +713,15 @@ function MeetsSection({ employeeId, mentor }: { employeeId: string; mentor: any 
 
             {past.length > 0 && (
               <div className="space-y-2">
-                <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide">Past</p>
+                <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide">Past</p>
                 {past.map(meet => (
-                  <div key={meet.id} className="flex items-center gap-3 p-3 rounded-xl border border-brown-100 bg-brown-50/30 opacity-70">
-                    <div className="w-8 h-8 rounded-lg bg-brown-200 flex items-center justify-center flex-shrink-0">
-                      <Calendar size={14} className="text-brown-500" />
+                  <div key={meet.id} className="flex items-center gap-3 p-3 rounded-xl border border-border bg-surface-elevated/30 opacity-70">
+                    <div className="w-8 h-8 rounded-lg bg-surface-elevated flex items-center justify-center flex-shrink-0">
+                      <Calendar size={14} className="text-text-secondary" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-brown-700 truncate">{meet.title}</p>
-                      <p className="text-xs text-brown-400">{formatDate(meet.date, meet.time)} · {getDaysUntil(meet.date)}</p>
+                      <p className="text-sm font-medium text-text-primary truncate">{meet.title}</p>
+                      <p className="text-xs text-text-secondary/70">{formatDate(meet.date, meet.time)} · {getDaysUntil(meet.date)}</p>
                     </div>
                   </div>
                 ))}
@@ -741,7 +741,7 @@ function BuddySection({ myTasks, mentor }: {
   mentor: any
 }) {
   if (!mentor) return (
-    <div className="card text-center py-12 text-brown-400">
+    <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm text-center py-12 text-text-secondary/70">
       <Users size={36} className="mx-auto mb-3 opacity-30" />
       <p className="text-sm font-medium">No mentor assigned yet</p>
       <p className="text-xs mt-1">Contact HR to get a mentor assigned</p>
@@ -754,8 +754,8 @@ function BuddySection({ myTasks, mentor }: {
 
   return (
     <div className="space-y-6">
-      {/* Hero card */}
-      <div className="card">
+      {/* Hero bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm */}
+      <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
           {/* Avatar */}
           <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-white font-bold text-3xl flex-shrink-0 shadow-md"
@@ -765,17 +765,17 @@ function BuddySection({ myTasks, mentor }: {
           {/* Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 flex-wrap">
-              <h2 className="font-bold text-brown-900 text-xl">{mentor.name}</h2>
+              <h2 className="font-bold text-text-primary text-xl">{mentor.name}</h2>
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 bg-green-400 rounded-full" />
-                <span className="text-xs text-green-600 font-semibold">Available</span>
+                <span className="text-xs text-emerald-400 font-semibold">Available</span>
               </div>
             </div>
-            <p className="text-brown-500 mt-0.5">{mentor.specialty}</p>
-            <p className="text-sm text-brown-400">{mentor.department} Department</p>
+            <p className="text-text-secondary mt-0.5">{mentor.specialty}</p>
+            <p className="text-sm text-text-secondary/70">{mentor.department} Department</p>
           </div>
           {/* Hint */}
-          <div className="bg-teal-50 border border-teal-200 rounded-xl px-4 py-2.5 text-xs text-teal-700 font-medium flex-shrink-0">
+          <div className="bg-brand-500/10 border border-brand-500/20 rounded-xl px-4 py-2.5 text-xs text-brand-400 font-medium flex-shrink-0">
             💬 Use the <strong>Chat</strong> tab to message your mentor
           </div>
         </div>
@@ -784,16 +784,16 @@ function BuddySection({ myTasks, mentor }: {
       {/* Stats grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Tasks Assigned', value: mentorTasks.length,                 color: 'bg-brown-50 text-brown-700',   icon: <Bell size={20} /> },
-          { label: 'Completed',      value: doneMentor,                          color: 'bg-green-50 text-green-700',   icon: <CheckCircle size={20} /> },
-          { label: 'In Progress',    value: activeMentor,                        color: 'bg-teal-50 text-teal-700',     icon: <Clock size={20} /> },
+          { label: 'Tasks Assigned', value: mentorTasks.length,                 color: 'bg-surface-elevated text-text-primary',   icon: <Bell size={20} /> },
+          { label: 'Completed',      value: doneMentor,                          color: 'bg-emerald-500/10 text-emerald-400',   icon: <CheckCircle size={20} /> },
+          { label: 'In Progress',    value: activeMentor,                        color: 'bg-brand-500/10 text-brand-400',     icon: <Clock size={20} /> },
           { label: 'Pending',        value: mentorTasks.filter(t => t.status === 'pending').length, color: 'bg-orange-50 text-orange-700', icon: <AlertCircle size={20} /> },
         ].map(s => (
-          <div key={s.label} className="card flex items-center gap-4">
+          <div key={s.label} className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm flex items-center gap-4">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>{s.icon}</div>
             <div>
-              <p className="text-sm text-brown-500 font-medium">{s.label}</p>
-              <p className="font-bold text-brown-900 text-2xl leading-tight">{s.value}</p>
+              <p className="text-sm text-text-secondary font-medium">{s.label}</p>
+              <p className="font-bold text-text-primary text-2xl leading-tight">{s.value}</p>
             </div>
           </div>
         ))}
@@ -801,30 +801,30 @@ function BuddySection({ myTasks, mentor }: {
 
       {/* Mentor tasks list */}
       {mentorTasks.length > 0 && (
-        <div className="card">
-          <h3 className="font-bold text-brown-900 mb-4 flex items-center gap-2">
-            <Users size={16} className="text-teal-600" /> Tasks from Your Mentor
+        <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
+          <h3 className="font-bold text-text-primary mb-4 flex items-center gap-2">
+            <Users size={16} className="text-brand-400" /> Tasks from Your Mentor
           </h3>
           <div className="space-y-2">
             {mentorTasks.map(task => (
               <div key={task.id} className={`flex items-center gap-3 p-3 rounded-xl border ${
-                task.status === 'done'        ? 'border-green-200 bg-green-50/40' :
-                task.status === 'in-progress' ? 'border-teal-200 bg-teal-50/40' :
-                'border-brown-100'
+                task.status === 'done'        ? 'border-emerald-500/20 bg-emerald-500/10/40' :
+                task.status === 'in-progress' ? 'border-brand-500/20 bg-brand-500/10/40' :
+                'border-border'
               }`}>
                 <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                   task.status === 'done'        ? 'bg-green-500 border-green-500' :
-                  task.status === 'in-progress' ? 'border-teal-500' : 'border-brown-300'
+                  task.status === 'in-progress' ? 'border-teal-500' : 'border-border'
                 }`}>
                   {task.status === 'done' && <CheckCircle size={9} className="text-white" />}
                   {task.status === 'in-progress' && <div className="w-1.5 h-1.5 bg-teal-500 rounded-full" />}
                 </div>
-                <span className={`text-sm flex-1 truncate ${task.status === 'done' ? 'line-through text-brown-400' : 'text-brown-800 font-medium'}`}>
+                <span className={`text-sm flex-1 truncate ${task.status === 'done' ? 'line-through text-text-secondary/70' : 'text-text-primary font-medium'}`}>
                   {task.title}
                 </span>
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <span className="badge-brown text-xs">{task.category}</span>
-                  <span className="text-xs text-brown-400">{task.estimatedTime}</span>
+                  <span className="text-xs text-text-secondary/70">{task.estimatedTime}</span>
                 </div>
               </div>
             ))}
@@ -855,9 +855,9 @@ function SettingsSection({ employee, myTasks }: { employee: any; myTasks: Task[]
   return (
     <div className="space-y-6">
       {/* Profile hero */}
-      <div className="card">
-        <h3 className="font-bold text-brown-900 mb-5 flex items-center gap-2">
-          <SettingsIcon size={18} className="text-brown-500" /> Profile & Settings
+      <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
+        <h3 className="font-bold text-text-primary mb-5 flex items-center gap-2">
+          <SettingsIcon size={18} className="text-text-secondary" /> Profile & Settings
         </h3>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
           <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-white font-bold text-3xl flex-shrink-0 shadow-md"
@@ -865,9 +865,9 @@ function SettingsSection({ employee, myTasks }: { employee: any; myTasks: Task[]
             {employee.initials}
           </div>
           <div className="flex-1 min-w-0">
-            <h2 className="font-bold text-brown-900 text-xl">{employee.name}</h2>
-            <p className="text-brown-500">{employee.role} · {employee.team}</p>
-            <p className="text-sm text-brown-400 mt-0.5">{employee.email}</p>
+            <h2 className="font-bold text-text-primary text-xl">{employee.name}</h2>
+            <p className="text-text-secondary">{employee.role} · {employee.team}</p>
+            <p className="text-sm text-text-secondary/70 mt-0.5">{employee.email}</p>
           </div>
         </div>
       </div>
@@ -875,49 +875,49 @@ function SettingsSection({ employee, myTasks }: { employee: any; myTasks: Task[]
       {/* Profile details grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Start Date', value: employee.startDate,                        color: 'text-blue-700' },
-          { label: 'Day',        value: `${employee.day} / ${employee.totalDays}`, color: 'text-teal-700' },
+          { label: 'Start Date', value: employee.startDate,                        color: 'text-blue-400' },
+          { label: 'Day',        value: `${employee.day} / ${employee.totalDays}`, color: 'text-brand-400' },
           { label: 'Team',       value: employee.team,                             color: 'text-purple-700' },
-          { label: 'Status',     value: employee.status === 'onboarding' ? 'Onboarding 🟡' : 'Completed ✅', color: 'text-green-700' },
+          { label: 'Status',     value: employee.status === 'prarambh' ? 'Prarambh 🟡' : 'Completed ✅', color: 'text-emerald-400' },
         ].map(s => (
-          <div key={s.label} className="card">
+          <div key={s.label} className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
             <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${s.color}`}>{s.label}</p>
-            <p className="font-bold text-brown-900 text-base">{s.value}</p>
+            <p className="font-bold text-text-primary text-base">{s.value}</p>
           </div>
         ))}
       </div>
 
       {/* Task-based progress */}
-      <div className="card space-y-5">
+      <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm space-y-5">
         <div className="flex items-center justify-between">
-          <h3 className="font-bold text-brown-900 flex items-center gap-2">
-            <CheckCircle size={16} className="text-teal-600" /> Task Progress
+          <h3 className="font-bold text-text-primary flex items-center gap-2">
+            <CheckCircle size={16} className="text-brand-400" /> Task Progress
           </h3>
-          <span className="text-2xl font-black text-brown-900">{taskProgress}%</span>
+          <span className="text-2xl font-black text-text-primary">{taskProgress}%</span>
         </div>
 
         {/* Main bar */}
         <div>
-          <div className="h-4 bg-brown-100 rounded-full overflow-hidden">
+          <div className="h-4 bg-surface-elevated/50 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-teal-500 to-teal-700 rounded-full transition-all duration-700"
               style={{ width: `${taskProgress}%` }}
             />
           </div>
-          <p className="text-xs text-brown-400 mt-1.5">{done} of {total} tasks completed · {pending} pending · {inProgress} in progress</p>
+          <p className="text-xs text-text-secondary/70 mt-1.5">{done} of {total} tasks completed · {pending} pending · {inProgress} in progress</p>
         </div>
 
         {/* Status breakdown */}
         <div className="grid grid-cols-3 gap-3">
           {[
-            { label: 'Done',        count: done,       color: 'bg-green-500',  bg: 'bg-green-50  border-green-200'  },
-            { label: 'In Progress', count: inProgress, color: 'bg-teal-500',   bg: 'bg-teal-50   border-teal-200'   },
+            { label: 'Done',        count: done,       color: 'bg-green-500',  bg: 'bg-emerald-500/10  border-emerald-500/20'  },
+            { label: 'In Progress', count: inProgress, color: 'bg-teal-500',   bg: 'bg-brand-500/10   border-brand-500/20'   },
             { label: 'Pending',     count: pending,    color: 'bg-orange-400', bg: 'bg-orange-50 border-orange-200' },
           ].map(s => (
             <div key={s.label} className={`rounded-xl border p-3 ${s.bg}`}>
-              <p className="text-xs font-semibold text-brown-500 mb-1">{s.label}</p>
-              <p className="text-2xl font-black text-brown-900">{s.count}</p>
-              <div className="mt-2 h-1.5 bg-white/60 rounded-full overflow-hidden">
+              <p className="text-xs font-semibold text-text-secondary mb-1">{s.label}</p>
+              <p className="text-2xl font-black text-text-primary">{s.count}</p>
+              <div className="mt-2 h-1.5 bg-surface/60 rounded-full overflow-hidden">
                 <div className={`h-full ${s.color} rounded-full`} style={{ width: `${total > 0 ? (s.count / total) * 100 : 0}%` }} />
               </div>
             </div>
@@ -927,15 +927,15 @@ function SettingsSection({ employee, myTasks }: { employee: any; myTasks: Task[]
         {/* Per-category breakdown */}
         {byCategory.length > 0 && (
           <div>
-            <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-3">By Category</p>
+            <p className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-3">By Category</p>
             <div className="space-y-2.5">
               {byCategory.map(({ cat, total: ct, done: cd, pct }) => (
                 <div key={cat}>
-                  <div className="flex justify-between text-xs text-brown-600 mb-1 font-medium">
+                  <div className="flex justify-between text-xs text-text-secondary mb-1 font-medium">
                     <span>{cat}</span>
                     <span>{cd}/{ct} · {pct}%</span>
                   </div>
-                  <div className="h-2 bg-brown-100 rounded-full overflow-hidden">
+                  <div className="h-2 bg-surface-elevated/50 rounded-full overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all duration-500 ${pct === 100 ? 'bg-green-500' : 'bg-teal-500'}`}
                       style={{ width: `${pct}%` }}
@@ -949,7 +949,7 @@ function SettingsSection({ employee, myTasks }: { employee: any; myTasks: Task[]
       </div>
 
       {/* Info notice */}
-      <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-sm text-blue-700 flex items-start gap-3">
+      <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 text-sm text-blue-400 flex items-start gap-3">
         <Bot size={16} className="flex-shrink-0 mt-0.5" />
         <p>To update your profile details such as name, role, or team, please contact <strong>HR</strong> or your <strong>Admin</strong>.</p>
       </div>
@@ -967,13 +967,13 @@ export default function NewHireDashboard({ activeSection, onMessageMentor }: Pro
   const mentor   = initialMentors.find(m => m.id === employee?.mentorId)
 
   if (!employee) return (
-    <div className="min-h-screen flex items-center justify-center text-brown-500">
+    <div className="min-h-screen flex items-center justify-center text-text-secondary">
       <p>No employee profile found. Please log in again.</p>
     </div>
   )
 
   return (
-    <div className="min-h-screen" style={{ background: '#F0F7FF' }}>
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 py-6">
         {activeSection === 'dashboard' && (
           <OverviewSection employee={employee} myTasks={myTasks} mentor={mentor} onMessageMentor={onMessageMentor} />

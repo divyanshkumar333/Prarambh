@@ -118,7 +118,7 @@ function getExtIcon(ext: string) {
   if (ext === 'pdf')              return <span className="text-[9px] font-black text-red-500">PDF</span>
   if (ext === 'ppt' || ext === 'pptx') return <span className="text-[9px] font-black text-orange-500">PPT</span>
   if (ext === 'doc' || ext === 'docx') return <span className="text-[9px] font-black text-blue-500">DOC</span>
-  return <span className="text-[9px] font-black text-gray-400">FILE</span>
+  return <span className="text-[9px] font-black text-text-secondary">FILE</span>
 }
 
 function fileToAttachment(file: File): Attachment {
@@ -133,14 +133,14 @@ function fileToAttachment(file: File): Attachment {
 
 function AttachmentChip({ att, onRemove }: { att: Attachment; onRemove?: () => void }) {
   return (
-    <div className="inline-flex items-center gap-1.5 bg-gray-100 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs max-w-[160px]">
-      <div className="w-5 h-5 rounded bg-white border border-gray-200 flex items-center justify-center flex-shrink-0">
+    <div className="inline-flex items-center gap-1.5 bg-surface border border-border rounded-lg px-2.5 py-1.5 text-xs max-w-[160px]">
+      <div className="w-5 h-5 rounded bg-surface border border-border flex items-center justify-center flex-shrink-0">
         {getExtIcon(att.ext)}
       </div>
-      <span className="truncate text-gray-700 font-medium">{att.name}</span>
-      <span className="text-gray-400 flex-shrink-0">{att.size}</span>
+      <span className="truncate text-text-secondary font-medium">{att.name}</span>
+      <span className="text-text-secondary flex-shrink-0">{att.size}</span>
       {onRemove && (
-        <button onClick={onRemove} className="text-gray-400 hover:text-red-500 flex-shrink-0 ml-0.5 transition-colors">
+        <button onClick={onRemove} className="text-text-secondary hover:text-red-500 flex-shrink-0 ml-0.5 transition-colors">
           <X size={10} />
         </button>
       )}
@@ -153,11 +153,11 @@ function AttachmentChip({ att, onRemove }: { att: Attachment; onRemove?: () => v
 function TypingIndicator({ name }: { name: string }) {
   return (
     <div className="flex gap-3 items-end">
-      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-600 flex-shrink-0">
+      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-400 flex-shrink-0">
         {name.split(' ').map(n => n[0]).join('')}
       </div>
-      <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm flex items-center gap-1.5">
-        <span className="text-xs text-gray-400 italic">{name.split(' ')[0]} is typing</span>
+      <div className="bg-surface border border-border rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm flex items-center gap-1.5">
+        <span className="text-xs text-text-secondary italic">{name.split(' ')[0]} is typing</span>
         <span className="flex gap-0.5 ml-1">
           {[0, 1, 2].map(i => (
             <span
@@ -405,24 +405,24 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
     <div className="fixed inset-0 z-[60] flex flex-col bg-[#F6F8FA]">
 
       {/* ── Top bar ─────────────────────────────────────────────────────────── */}
-      <div className="flex items-center justify-between px-5 py-2.5 bg-white border-b border-gray-200 shadow-sm flex-shrink-0">
+      <div className="flex items-center justify-between px-5 py-2.5 bg-surface border-b border-border shadow-sm flex-shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-orange-50 border border-orange-200 flex items-center justify-center">
             <FlaskConical size={15} className="text-orange-500" />
           </div>
           <div>
-            <p className="text-sm font-bold text-gray-900 leading-none">{task.title}</p>
-            <p className="text-[10px] text-gray-400 mt-0.5">💰 Sales Mail Playground · practice your pitch — responses powered by AI agent</p>
+            <p className="text-sm font-bold text-text-primary leading-none">{task.title}</p>
+            <p className="text-[10px] text-text-secondary mt-0.5">💰 Sales Mail Playground · practice your pitch — responses powered by AI agent</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={onMarkDone}
-            className="text-xs font-bold bg-teal-600 hover:bg-teal-500 text-white px-3 py-1.5 rounded-lg transition-colors"
+            className="text-xs font-bold bg-brand-500 hover:bg-teal-500 text-white px-3 py-1.5 rounded-lg transition-colors"
           >✓ Mark Done</button>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors"
+            className="p-1.5 rounded-lg hover:bg-surface text-text-secondary hover:text-text-secondary transition-colors"
           ><X size={16} /></button>
         </div>
       </div>
@@ -430,7 +430,7 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
       <div className="flex flex-1 min-h-0">
 
         {/* ── Left sidebar ────────────────────────────────────────────────── */}
-        <div className="w-60 bg-white border-r border-gray-200 flex flex-col flex-shrink-0">
+        <div className="w-60 bg-surface border-r border-border flex flex-col flex-shrink-0">
 
           {/* Compose button */}
           <div className="p-3">
@@ -454,7 +454,7 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                 className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   view === item.id && !composing
                     ? 'bg-orange-50 text-orange-700'
-                    : 'text-gray-600 hover:bg-gray-50'
+                    : 'text-text-secondary hover:bg-surface'
                 }`}
               >
                 {item.icon}
@@ -469,9 +469,9 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
           </nav>
 
           {/* Thread list */}
-          <div className="flex-1 overflow-y-auto border-t border-gray-100 mt-2">
+          <div className="flex-1 overflow-y-auto border-t border-border mt-2">
             {sidebarThreads.length === 0 ? (
-              <p className="text-xs text-gray-400 text-center mt-6 px-3 leading-relaxed">
+              <p className="text-xs text-text-secondary text-center mt-6 px-3 leading-relaxed">
                 {view === 'inbox' ? 'No replies yet.\nSend a pitch to get started!' : 'No sent emails yet.'}
               </p>
             ) : (
@@ -479,20 +479,20 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                 <button
                   key={t.id}
                   onClick={() => { setActiveThread(t); setComposing(false); setThreads(prev => prev.map(th => th.id === t.id ? { ...th, unread: false } : th)) }}
-                  className={`w-full text-left px-3 py-3 border-b border-gray-100 hover:bg-gray-50 transition-colors ${activeThread?.id === t.id ? 'bg-orange-50 border-l-2 border-l-orange-400' : ''}`}
+                  className={`w-full text-left px-3 py-3 border-b border-border hover:bg-surface transition-colors ${activeThread?.id === t.id ? 'bg-orange-50 border-l-2 border-l-orange-400' : ''}`}
                 >
                   <div className="flex items-center gap-2 mb-0.5">
                     <div
                       className="w-5 h-5 rounded-full flex items-center justify-center text-[8px] font-bold text-white flex-shrink-0"
                       style={{ backgroundColor: t.prospect.color }}
                     >{t.prospect.initials}</div>
-                    <p className={`text-xs truncate flex-1 ${t.unread ? 'font-bold text-gray-900' : 'font-medium text-gray-700'}`}>
+                    <p className={`text-xs truncate flex-1 ${t.unread ? 'font-bold text-text-primary' : 'font-medium text-text-secondary'}`}>
                       {t.prospect.name}
                     </p>
                     {t.unread && <span className="w-2 h-2 rounded-full bg-orange-500 flex-shrink-0" />}
                   </div>
-                  <p className="text-[11px] text-gray-500 truncate pl-7">{t.subject}</p>
-                  <p className="text-[10px] text-gray-400 pl-7 mt-0.5">{formatTime(t.lastAt)}</p>
+                  <p className="text-[11px] text-text-secondary truncate pl-7">{t.subject}</p>
+                  <p className="text-[10px] text-text-secondary pl-7 mt-0.5">{formatTime(t.lastAt)}</p>
                 </button>
               ))
             )}
@@ -500,10 +500,10 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
 
           {/* Subtask hints */}
           {(task.subtasks ?? []).length > 0 && (
-            <div className="border-t border-gray-100 p-3 flex-shrink-0">
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">Task Steps</p>
+            <div className="border-t border-border p-3 flex-shrink-0">
+              <p className="text-[10px] font-bold text-text-secondary uppercase tracking-wider mb-2">Task Steps</p>
               {task.subtasks!.slice(0, 4).map((s, i) => (
-                <p key={s.id} className="text-[10px] text-gray-400 mb-1 leading-snug">{i + 1}. {s.title}</p>
+                <p key={s.id} className="text-[10px] text-text-secondary mb-1 leading-snug">{i + 1}. {s.title}</p>
               ))}
             </div>
           )}
@@ -515,14 +515,14 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
           {/* COMPOSE VIEW */}
           {composing && (
             <div className="flex-1 overflow-y-auto p-6">
-              <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+              <div className="max-w-2xl mx-auto bg-surface rounded-2xl shadow-sm border border-border overflow-hidden">
 
                 {/* Compose header */}
-                <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-                  <h3 className="font-bold text-gray-800 flex items-center gap-2">
+                <div className="px-5 py-4 border-b border-border flex items-center justify-between">
+                  <h3 className="font-bold text-text-primary flex items-center gap-2">
                     <Mail size={15} className="text-orange-500" /> New Message
                   </h3>
-                  <button onClick={() => setComposing(false)} className="p-1 rounded hover:bg-gray-100 text-gray-400">
+                  <button onClick={() => setComposing(false)} className="p-1 rounded hover:bg-surface text-text-secondary">
                     <X size={15} />
                   </button>
                 </div>
@@ -530,21 +530,21 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                 {/* Fields */}
                 <div className="divide-y divide-gray-100">
                   <div className="flex items-center gap-3 px-5 py-3">
-                    <span className="text-xs font-semibold text-gray-400 w-16 flex-shrink-0">To</span>
+                    <span className="text-xs font-semibold text-text-secondary w-16 flex-shrink-0">To</span>
                     <input
                       value={compTo}
                       onChange={e => setCompTo(e.target.value)}
                       placeholder="Prospect name or email…"
-                      className="flex-1 text-sm text-gray-800 focus:outline-none placeholder-gray-300"
+                      className="flex-1 text-sm text-text-primary focus:outline-none placeholder-gray-300"
                     />
                   </div>
                   <div className="flex items-center gap-3 px-5 py-3">
-                    <span className="text-xs font-semibold text-gray-400 w-16 flex-shrink-0">Subject</span>
+                    <span className="text-xs font-semibold text-text-secondary w-16 flex-shrink-0">Subject</span>
                     <input
                       value={compSubject}
                       onChange={e => setCompSubject(e.target.value)}
                       placeholder="Introducing our solution…"
-                      className="flex-1 text-sm text-gray-800 focus:outline-none placeholder-gray-300"
+                      className="flex-1 text-sm text-text-primary focus:outline-none placeholder-gray-300"
                     />
                   </div>
                 </div>
@@ -554,14 +554,14 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                   value={compBody}
                   onChange={e => setCompBody(e.target.value)}
                   placeholder={`Hi [Name],\n\nI'm reaching out because I believe our product can help ${task.description ? task.description.slice(0, 60) + '…' : 'solve a key challenge at your company'}.\n\n[Write your pitch here]`}
-                  className="w-full px-5 py-4 text-sm text-gray-800 focus:outline-none resize-none border-none"
+                  className="w-full px-5 py-4 text-sm text-text-primary focus:outline-none resize-none border-none"
                   rows={10}
                   style={{ minHeight: 200 }}
                 />
 
                 {/* Attachments */}
                 {compAttachments.length > 0 && (
-                  <div className="px-5 pb-3 flex flex-wrap gap-2 border-t border-gray-100 pt-3">
+                  <div className="px-5 pb-3 flex flex-wrap gap-2 border-t border-border pt-3">
                     {compAttachments.map((a, i) => (
                       <AttachmentChip
                         key={i} att={a}
@@ -572,7 +572,7 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                 )}
 
                 {/* Footer */}
-                <div className="px-5 py-3 border-t border-gray-100 flex items-center justify-between bg-gray-50">
+                <div className="px-5 py-3 border-t border-border flex items-center justify-between bg-surface">
                   <div className="flex items-center gap-2">
                     <input
                       ref={compFileRef}
@@ -584,7 +584,7 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                     />
                     <button
                       onClick={() => compFileRef.current?.click()}
-                      className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-700 px-2.5 py-1.5 rounded-lg hover:bg-gray-200 transition-colors"
+                      className="flex items-center gap-1.5 text-xs text-text-secondary hover:text-text-secondary px-2.5 py-1.5 rounded-lg hover:bg-surface-elevated transition-colors"
                     >
                       <Paperclip size={13} /> Attach
                     </button>
@@ -607,20 +607,20 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
             <div className="flex-1 flex flex-col overflow-hidden">
 
               {/* Thread header */}
-              <div className="px-6 py-4 bg-white border-b border-gray-200 flex items-center gap-3 flex-shrink-0">
+              <div className="px-6 py-4 bg-surface border-b border-border flex items-center gap-3 flex-shrink-0">
                 <button
                   onClick={() => setActiveThread(null)}
-                  className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 transition-colors"
+                  className="p-1.5 rounded-lg hover:bg-surface text-text-secondary transition-colors"
                 >
                   <ChevronLeft size={16} />
                 </button>
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-gray-900 truncate">{activeThread.subject}</p>
-                  <p className="text-xs text-gray-400">
+                  <p className="font-bold text-text-primary truncate">{activeThread.subject}</p>
+                  <p className="text-xs text-text-secondary">
                     {activeThread.prospect.name} · {activeThread.prospect.role} · {activeThread.prospect.company}
                   </p>
                 </div>
-                <span className="text-xs text-gray-400 bg-gray-100 px-2.5 py-1 rounded-full">
+                <span className="text-xs text-text-secondary bg-surface px-2.5 py-1 rounded-full">
                   {activeThread.messages.length} message{activeThread.messages.length !== 1 ? 's' : ''}
                 </span>
               </div>
@@ -632,9 +632,9 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                     {/* Date separator */}
                     {idx === 0 || new Date(msg.timestamp).toDateString() !== new Date(activeThread.messages[idx - 1].timestamp).toDateString() ? (
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="flex-1 h-px bg-gray-200" />
-                        <span className="text-[10px] text-gray-400 font-medium">{new Date(msg.timestamp).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</span>
-                        <div className="flex-1 h-px bg-gray-200" />
+                        <div className="flex-1 h-px bg-surface-elevated" />
+                        <span className="text-[10px] text-text-secondary font-medium">{new Date(msg.timestamp).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</span>
+                        <div className="flex-1 h-px bg-surface-elevated" />
                       </div>
                     ) : null}
 
@@ -659,9 +659,9 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                         <div className={`rounded-2xl px-4 py-3 shadow-sm ${
                           msg.direction === 'sent'
                             ? 'bg-orange-500 text-white rounded-tr-sm'
-                            : 'bg-white border border-gray-200 text-gray-800 rounded-tl-sm'
+                            : 'bg-surface border border-border text-text-primary rounded-tl-sm'
                         }`}>
-                          <p className={`text-[10px] font-semibold mb-1.5 ${msg.direction === 'sent' ? 'text-orange-100' : 'text-gray-400'}`}>
+                          <p className={`text-[10px] font-semibold mb-1.5 ${msg.direction === 'sent' ? 'text-orange-100' : 'text-text-secondary'}`}>
                             {msg.direction === 'sent'
                               ? `To: ${msg.to} <${msg.toEmail}>`
                               : `From: ${msg.from} <${msg.fromEmail}>`}
@@ -677,14 +677,14 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                           )}
 
                           {msg.attachments.length > 0 && (
-                            <div className={`mt-3 pt-3 flex flex-wrap gap-1.5 ${msg.direction === 'sent' ? 'border-t border-orange-400/30' : 'border-t border-gray-100'}`}>
+                            <div className={`mt-3 pt-3 flex flex-wrap gap-1.5 ${msg.direction === 'sent' ? 'border-t border-orange-400/30' : 'border-t border-border'}`}>
                               {msg.attachments.map((a, i) => (
                                 <div
                                   key={i}
                                   className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs ${
                                     msg.direction === 'sent'
                                       ? 'bg-orange-400/30 text-orange-100'
-                                      : 'bg-gray-100 text-gray-600'
+                                      : 'bg-surface text-text-secondary'
                                   }`}
                                 >
                                   <Paperclip size={10} />
@@ -696,7 +696,7 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                           )}
                         </div>
 
-                        <p className="text-[10px] text-gray-400 mt-1.5 px-1">
+                        <p className="text-[10px] text-text-secondary mt-1.5 px-1">
                           {formatTimeFull(msg.timestamp)}
                         </p>
                       </div>
@@ -712,16 +712,16 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
               </div>
 
               {/* Reply area */}
-              <div className="px-6 py-4 border-t border-gray-200 bg-white flex-shrink-0">
+              <div className="px-6 py-4 border-t border-border bg-surface flex-shrink-0">
                 {replyOpen ? (
-                  <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-                    <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
-                      <span className="text-xs font-semibold text-gray-500">
+                  <div className="border border-border rounded-xl overflow-hidden shadow-sm">
+                    <div className="px-4 py-2.5 bg-surface border-b border-border flex items-center justify-between">
+                      <span className="text-xs font-semibold text-text-secondary">
                         Reply to {activeThread.prospect.name} &lt;{activeThread.prospect.email}&gt;
                       </span>
                       <button
                         onClick={() => { setReplyOpen(false); setReplyBody(''); setReplyAttachments([]) }}
-                        className="text-gray-400 hover:text-gray-600"
+                        className="text-text-secondary hover:text-text-secondary"
                       >
                         <X size={13} />
                       </button>
@@ -731,11 +731,11 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                       value={replyBody}
                       onChange={e => setReplyBody(e.target.value)}
                       placeholder="Write your reply…"
-                      className="w-full px-4 py-3 text-sm text-gray-800 bg-white focus:outline-none resize-none"
+                      className="w-full px-4 py-3 text-sm text-text-primary bg-surface focus:outline-none resize-none"
                       rows={5}
                     />
                     {replyAttachments.length > 0 && (
-                      <div className="px-4 pb-3 flex flex-wrap gap-2 border-t border-gray-100 pt-2">
+                      <div className="px-4 pb-3 flex flex-wrap gap-2 border-t border-border pt-2">
                         {replyAttachments.map((a, i) => (
                           <AttachmentChip
                             key={i} att={a}
@@ -744,7 +744,7 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                         ))}
                       </div>
                     )}
-                    <div className="flex items-center justify-between px-4 py-2.5 bg-gray-50 border-t border-gray-200">
+                    <div className="flex items-center justify-between px-4 py-2.5 bg-surface border-t border-border">
                       <div className="flex items-center gap-1.5">
                         <input
                           ref={replyFileRef}
@@ -756,7 +756,7 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                         />
                         <button
                           onClick={() => replyFileRef.current?.click()}
-                          className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-700 px-2 py-1.5 rounded-lg hover:bg-gray-200 transition-colors"
+                          className="flex items-center gap-1.5 text-xs text-text-secondary hover:text-text-secondary px-2 py-1.5 rounded-lg hover:bg-surface-elevated transition-colors"
                         >
                           <Paperclip size={12} /> Attach
                         </button>
@@ -765,7 +765,7 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => { setReplyOpen(false); setReplyBody(''); setReplyAttachments([]) }}
-                          className="text-xs text-gray-500 hover:text-gray-700 px-3 py-1.5 rounded-lg hover:bg-gray-200 transition-colors"
+                          className="text-xs text-text-secondary hover:text-text-secondary px-3 py-1.5 rounded-lg hover:bg-surface-elevated transition-colors"
                         >
                           Discard
                         </button>
@@ -782,7 +782,7 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                 ) : (
                   <button
                     onClick={() => setReplyOpen(true)}
-                    className="w-full text-left px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-400 hover:border-orange-300 hover:bg-orange-50/50 transition-colors flex items-center gap-2"
+                    className="w-full text-left px-4 py-3 bg-surface border border-border rounded-xl text-sm text-text-secondary hover:border-orange-300 hover:bg-orange-50/50 transition-colors flex items-center gap-2"
                   >
                     <Mail size={13} className="text-gray-300" />
                     Reply to {activeThread.prospect.name}…
@@ -799,11 +799,11 @@ export default function MailPlaygroundModal({ task, onClose, onMarkDone }: Props
                 <div className="w-20 h-20 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center mx-auto mb-5">
                   <Mail size={32} className="text-orange-300" />
                 </div>
-                <p className="text-lg font-bold text-gray-800 mb-2">Sales Mail Playground</p>
-                <p className="text-sm text-gray-500 mb-2 leading-relaxed">
+                <p className="text-lg font-bold text-text-primary mb-2">Sales Mail Playground</p>
+                <p className="text-sm text-text-secondary mb-2 leading-relaxed">
                   Practice your sales pitch by writing cold emails. An AI agent will reply as a real B2B client — ask tough questions, raise objections, and push back to test your skills.
                 </p>
-                <p className="text-xs text-gray-400 mb-5">
+                <p className="text-xs text-text-secondary mb-5">
                   Attach PDFs, decks, or docs to simulate real outreach.
                 </p>
                 <button

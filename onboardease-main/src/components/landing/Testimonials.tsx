@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 const testimonials = [
   {
-    quote: "We went from spending 3 full days onboarding each engineer to having them contributing PRs on day 2. Prarambh is genuinely magic for a 12-person startup.",
+    quote: "We went from spending 3 full days prarambh each engineer to having them contributing PRs on day 2. Prarambh is genuinely magic for a 12-person startup.",
     name: "Sarah Chen",
     role: "CTO",
     company: "BuildFast Labs",
@@ -21,7 +21,7 @@ const testimonials = [
     stars: 5,
   },
   {
-    quote: "Setting up took 11 minutes. We connected Slack, GitHub, and Notion, and it automatically generated a perfect dev onboarding flow. I was blown away.",
+    quote: "Setting up took 11 minutes. We connected Slack, GitHub, and Notion, and it automatically generated a perfect dev prarambh flow. I was blown away.",
     name: "Priya Sharma",
     role: "Founder & CEO",
     company: "DataSprint",
@@ -39,7 +39,7 @@ const testimonials = [
     stars: 5,
   },
   {
-    quote: "I uploaded our 80-page employee handbook and it turned it into 45 actionable onboarding tasks in 3 minutes. Absolutely incredible.",
+    quote: "I uploaded our 80-page employee handbook and it turned it into 45 actionable prarambh tasks in 3 minutes. Absolutely incredible.",
     name: "Aisha Williams",
     role: "HR Manager",
     company: "NexGen Fintech",
@@ -48,7 +48,7 @@ const testimonials = [
     stars: 5,
   },
   {
-    quote: "We're a 7-person team with no HR department. Prarambh lets us onboard like a company 10x our size. Couldn't imagine doing it without it.",
+    quote: "We're a 7-person team with no HR department. Prarambh lets us prarambh like a company 10x our size. Couldn't imagine doing it without it.",
     name: "David Park",
     role: "CEO",
     company: "Clarity AI",
@@ -71,7 +71,7 @@ export default function Testimonials() {
           </div>
           <h2 className="section-title">Loved by 500+ startup teams</h2>
           <p className="section-subtitle">
-            From solo founders to 50-person teams — Prarambh helps every startup onboard faster.
+            From solo founders to 50-person teams — Prarambh helps every startup prarambh faster.
           </p>
         </div>
 
@@ -138,7 +138,7 @@ export default function Testimonials() {
         <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { value: '500+', label: 'Startup Customers' },
-            { value: '12,000+', label: 'New Hires Onboarded' },
+            { value: '12,000+', label: 'New Hires Prarambh' },
             { value: '4.9/5', label: 'Customer Rating' },
             { value: '<5%', label: 'Monthly Churn' },
           ].map(stat => (

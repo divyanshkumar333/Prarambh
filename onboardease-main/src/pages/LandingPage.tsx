@@ -24,7 +24,7 @@ export default function LandingPage() {
         <section className="py-20 bg-brown-900 text-white text-center">
           <div className="max-w-3xl mx-auto px-4">
             <h2 className="text-4xl font-extrabold mb-4">
-              Ready to transform your onboarding?
+              Ready to transform your prarambh?
             </h2>
             <p className="text-brown-300 text-lg mb-8">
               Join 500+ startups already using Prarambh to get new hires productive in 48 hours.

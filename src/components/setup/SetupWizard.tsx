@@ -74,21 +74,21 @@ export default function SetupWizard() {
 
   if (complete) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-brown-50" style={{ background: '#F0F7FF' }}>
+      <div className="min-h-screen flex items-center justify-center bg-surface">
         <div className="text-center animate-bounce-in">
           <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle size={48} className="text-green-600" />
           </div>
-          <h2 className="text-3xl font-bold text-brown-900 mb-3">🎉 You're all set!</h2>
-          <p className="text-brown-600 text-lg mb-2">Your onboarding system is live.</p>
-          <p className="text-brown-500 text-sm">Redirecting to your dashboard...</p>
+          <h2 className="text-3xl font-bold text-text-primary mb-3">🎉 You're all set!</h2>
+          <p className="text-text-secondary text-lg mb-2">Your prarambh system is live.</p>
+          <p className="text-text-secondary text-sm">Redirecting to your dashboard...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#F0F7FF' }}>
+    <div className="min-h-screen">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Step progress */}
         <div className="mb-10">
@@ -102,39 +102,39 @@ export default function SetupWizard() {
                         ? 'bg-green-500 text-white'
                         : step.id === currentStep
                         ? 'bg-brown-500 text-white shadow-lg scale-110'
-                        : 'bg-brown-200 text-brown-500'
+                        : 'bg-surface-elevated text-text-secondary'
                     }`}
                   >
                     {step.id < currentStep ? <CheckCircle size={18} /> : step.icon}
                   </div>
                   <span className={`text-xs mt-2 font-medium hidden sm:block ${
-                    step.id === currentStep ? 'text-brown-700' : 'text-brown-400'
+                    step.id === currentStep ? 'text-text-secondary' : 'text-text-secondary'
                   }`}>
                     {step.label}
                   </span>
                 </div>
                 {i < steps.length - 1 && (
                   <div className={`flex-1 h-0.5 mx-2 transition-all duration-300 ${
-                    step.id < currentStep ? 'bg-green-400' : 'bg-brown-200'
+                    step.id < currentStep ? 'bg-green-400' : 'bg-surface-elevated'
                   }`} />
                 )}
               </div>
             ))}
           </div>
           <div className="text-center">
-            <p className="text-brown-500 text-sm">Step {currentStep} of {steps.length}</p>
+            <p className="text-text-secondary text-sm">Step {currentStep} of {steps.length}</p>
           </div>
         </div>
 
         {/* Step content */}
-        <div className="bg-white rounded-2xl border border-brown-200 shadow-md overflow-hidden">
+        <div className="bg-surface-elevated rounded-2xl border border-border shadow-md overflow-hidden">
           <div className="bg-gradient-to-r from-brown-500 to-brown-700 px-8 py-6">
             <h2 className="text-2xl font-bold text-white">{steps[currentStep - 1].label}</h2>
             <p className="text-white/70 text-sm mt-1">
               {currentStep === 1 && 'Tell us about your company to get started.'}
-              {currentStep === 2 && 'Help us tailor onboarding for your team size and industry.'}
+              {currentStep === 2 && 'Help us tailor prarambh for your team size and industry.'}
               {currentStep === 3 && 'Connect the tools your team already uses.'}
-              {currentStep === 4 && 'Select role templates to auto-generate onboarding paths.'}
+              {currentStep === 4 && 'Select role templates to auto-generate prarambh paths.'}
               {currentStep === 5 && "Review your setup and launch when you're ready."}
             </p>
           </div>
@@ -144,7 +144,7 @@ export default function SetupWizard() {
             {currentStep === 1 && (
               <div className="space-y-6 animate-fade-in">
                 <div>
-                  <label className="block text-sm font-semibold text-brown-800 mb-2">Company Name *</label>
+                  <label className="block text-sm font-semibold text-text-primary mb-2">Company Name *</label>
                   <input
                     type="text"
                     className="input-field"
@@ -154,7 +154,7 @@ export default function SetupWizard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-brown-800 mb-2">Company Website</label>
+                  <label className="block text-sm font-semibold text-text-primary mb-2">Company Website</label>
                   <input
                     type="url"
                     className="input-field"
@@ -164,11 +164,11 @@ export default function SetupWizard() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-brown-800 mb-2">Company Logo</label>
-                  <div className="border-2 border-dashed border-brown-200 rounded-xl p-8 text-center hover:border-brown-400 transition-colors cursor-pointer">
-                    <Upload size={28} className="text-brown-400 mx-auto mb-3" />
-                    <p className="text-brown-600 text-sm font-medium">Drag and drop or click to upload</p>
-                    <p className="text-brown-400 text-xs mt-1">PNG, JPG, SVG up to 5MB</p>
+                  <label className="block text-sm font-semibold text-text-primary mb-2">Company Logo</label>
+                  <div className="border-2 border-dashed border-border rounded-xl p-8 text-center hover:border-brown-400 transition-colors cursor-pointer">
+                    <Upload size={28} className="text-text-secondary mx-auto mb-3" />
+                    <p className="text-text-secondary text-sm font-medium">Drag and drop or click to upload</p>
+                    <p className="text-text-secondary text-xs mt-1">PNG, JPG, SVG up to 5MB</p>
                   </div>
                 </div>
               </div>
@@ -178,7 +178,7 @@ export default function SetupWizard() {
             {currentStep === 2 && (
               <div className="space-y-6 animate-fade-in">
                 <div>
-                  <label className="block text-sm font-semibold text-brown-800 mb-3">Team Size</label>
+                  <label className="block text-sm font-semibold text-text-primary mb-3">Team Size</label>
                   <div className="grid grid-cols-3 gap-3">
                     {['1-5', '5-15', '15-30', '30-50', '50+'].map(size => (
                       <button
@@ -186,8 +186,8 @@ export default function SetupWizard() {
                         onClick={() => setFormData(p => ({ ...p, teamSize: size }))}
                         className={`py-3 px-4 rounded-xl border-2 font-semibold text-sm transition-all duration-200 ${
                           formData.teamSize === size
-                            ? 'border-brown-500 bg-brown-50 text-brown-800'
-                            : 'border-brown-200 text-brown-600 hover:border-brown-300'
+                            ? 'border-brown-500 bg-surface text-text-primary'
+                            : 'border-border text-text-secondary hover:border-border'
                         }`}
                       >
                         {size} people
@@ -196,7 +196,7 @@ export default function SetupWizard() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-brown-800 mb-3">Industry</label>
+                  <label className="block text-sm font-semibold text-text-primary mb-3">Industry</label>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {industries.map(ind => (
                       <button
@@ -204,8 +204,8 @@ export default function SetupWizard() {
                         onClick={() => setSelectedIndustry(ind)}
                         className={`py-2.5 px-4 rounded-xl border-2 font-medium text-sm transition-all duration-200 ${
                           selectedIndustry === ind
-                            ? 'border-brown-500 bg-brown-50 text-brown-800'
-                            : 'border-brown-200 text-brown-600 hover:border-brown-300'
+                            ? 'border-brown-500 bg-surface text-text-primary'
+                            : 'border-border text-text-secondary hover:border-border'
                         }`}
                       >
                         {ind}
@@ -219,7 +219,7 @@ export default function SetupWizard() {
             {/* Step 3: Integrations */}
             {currentStep === 3 && (
               <div className="animate-fade-in">
-                <p className="text-brown-600 text-sm mb-6">
+                <p className="text-text-secondary text-sm mb-6">
                   Select the tools your team uses. Prarambh will automatically provision accounts for new hires.
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -229,14 +229,14 @@ export default function SetupWizard() {
                       onClick={() => toggleIntegration(int.id)}
                       className={`p-4 rounded-xl border-2 flex items-center gap-3 transition-all duration-200 ${
                         selectedIntegrations.includes(int.id)
-                          ? 'border-brown-500 bg-brown-50'
-                          : 'border-brown-200 hover:border-brown-300'
+                          ? 'border-brown-500 bg-surface'
+                          : 'border-border hover:border-border'
                       }`}
                     >
                       <span className="text-2xl">{int.emoji}</span>
                       <div className="text-left">
                         <p className={`font-semibold text-sm ${
-                          selectedIntegrations.includes(int.id) ? 'text-brown-800' : 'text-brown-600'
+                          selectedIntegrations.includes(int.id) ? 'text-text-primary' : 'text-text-secondary'
                         }`}>
                           {int.name}
                         </p>
@@ -247,7 +247,7 @@ export default function SetupWizard() {
                     </button>
                   ))}
                 </div>
-                <p className="text-brown-500 text-xs mt-4 text-center">
+                <p className="text-text-secondary text-xs mt-4 text-center">
                   {selectedIntegrations.length} integration{selectedIntegrations.length !== 1 ? 's' : ''} selected
                 </p>
               </div>
@@ -256,8 +256,8 @@ export default function SetupWizard() {
             {/* Step 4: Templates */}
             {currentStep === 4 && (
               <div className="animate-fade-in">
-                <p className="text-brown-600 text-sm mb-6">
-                  Select the roles you typically hire for. AI will generate tailored onboarding paths for each.
+                <p className="text-text-secondary text-sm mb-6">
+                  Select the roles you typically hire for. AI will generate tailored prarambh paths for each.
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {roleTemplates.map(template => (
@@ -266,17 +266,17 @@ export default function SetupWizard() {
                       onClick={() => toggleTemplate(template.id)}
                       className={`p-4 rounded-xl border-2 text-center transition-all duration-200 ${
                         selectedTemplates.includes(template.id)
-                          ? 'border-brown-500 bg-brown-50'
-                          : 'border-brown-200 hover:border-brown-300'
+                          ? 'border-brown-500 bg-surface'
+                          : 'border-border hover:border-border'
                       }`}
                     >
                       <span className="text-3xl mb-2 block">{template.icon}</span>
                       <p className={`font-semibold text-sm mb-1 ${
-                        selectedTemplates.includes(template.id) ? 'text-brown-800' : 'text-brown-600'
+                        selectedTemplates.includes(template.id) ? 'text-text-primary' : 'text-text-secondary'
                       }`}>
                         {template.label}
                       </p>
-                      <p className="text-xs text-brown-400">{template.desc}</p>
+                      <p className="text-xs text-text-secondary">{template.desc}</p>
                     </button>
                   ))}
                 </div>
@@ -303,11 +303,11 @@ export default function SetupWizard() {
                     { label: 'Role Templates', value: `${selectedTemplates.length} selected`, icon: '📋' },
                     { label: 'AI Features', value: 'Fully enabled', icon: '✨' },
                   ].map(item => (
-                    <div key={item.label} className="flex items-center gap-3 bg-brown-50 rounded-xl p-4 border border-brown-100">
+                    <div key={item.label} className="flex items-center gap-3 bg-surface rounded-xl p-4 border border-border">
                       <span className="text-2xl">{item.icon}</span>
                       <div>
-                        <p className="text-xs text-brown-500 font-medium">{item.label}</p>
-                        <p className="font-semibold text-brown-900 text-sm">{item.value}</p>
+                        <p className="text-xs text-text-secondary font-medium">{item.label}</p>
+                        <p className="font-semibold text-text-primary text-sm">{item.value}</p>
                       </div>
                     </div>
                   ))}

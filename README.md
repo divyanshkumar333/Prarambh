@@ -1,136 +1,110 @@
-# Prarambh: AI-Assisted Onboarding OS
+# Prarambh — AI-Powered Onboarding OS
 
-> **Attribution Note:** This project builds upon the open-source "OnboardEase" project as its foundational base per hackathon rules. We acknowledge and thank the original authors for their open-source contributions. 
-> 
-> **Prarambh Delta:** We have overhauled the base platform to serve as an enterprise-grade "AI-Assisted Onboarding OS", adding enhanced workflows, security optimizations, deeper AI integrations, and a refined enterprise UI tailored for large-scale deployments.
-
----
-
-## Overview
-
-**Prarambh** is a comprehensive, enterprise-ready AI-Assisted Onboarding OS designed to streamline the new-hire experience from day one. By unifying HR teams, managers, mentors, and new hires in a single platform, Prarambh leverages advanced AI to auto-generate personalized onboarding task plans, track progress, and provide interactive, real-time tools that accelerate ramp-up time.
+> **Get every new hire ready from day one.**  
+> Prarambh auto-generates role-specific task plans, pairs each hire with an AI mentor, and gives your HR team real-time visibility — all in a single platform.
 
 ---
 
-## Key Features
+## ✨ Key Features
 
 | Feature | Description |
 |---|---|
-| **Role-based Dashboards** | Tailored views and controls for New Hires, Mentors, Admins, and HR professionals. |
-| **AI Task Builder** | Intelligent onboarding task generation based on job roles, resumes, and enterprise requirements, powered by LangGraph. |
-| **Bulk Task Generation** | One-click generation of complete onboarding plans for entire cohorts. |
-| **Interactive Code Playground** | Embedded Monaco editor with a real PTY bash terminal via WebSocket for technical onboarding. |
-| **AI Context-Aware Chat** | An advanced, GPT-powered onboarding assistant that provides immediate support and answers. |
-| **Secure Document Management** | Inline PDF viewing for onboarding documents and policies. |
-| **Mentorship & Tracking** | Seamlessly assign mentors, track employee progress, and ensure accountability. |
+| **AI Task Builder** | Generates role-specific onboarding plans from any job description in seconds |
+| **Smart Buddy Matching** | AI pairs new hires with the right mentor based on role and experience |
+| **Document Intelligence** | Upload HR policies & handbooks — AI extracts onboarding tasks automatically |
+| **Live Analytics** | Real-time dashboards with completion rates, engagement scores, and risk alerts |
+| **Integration Hub** | Auto-provisions Slack, GitHub, Notion and 20+ tools on day one |
+| **Compliance Tracking** | Automated tracking of documents, training, and deadlines with audit trails |
+| **AI Assistant (24/7)** | Chatbot trained on your company policies — answers questions, escalates issues |
+| **Feedback Loops** | Milestone surveys, sentiment analysis, and improvement recommendations |
 
 ---
 
-## Tech Stack
+## 🏗️ Tech Stack
 
-### Frontend
-- **React 18** + **TypeScript**
-- **Vite** — High-performance build tooling & dev server
-- **Tailwind CSS** — Utility-first, enterprise-grade styling
-- **React Router v6** — Robust client-side routing
-- **Monaco Editor & xterm.js** — Integrated IDE and terminal emulator
-- **Axios** — Seamless API integrations
-
-### Backend (`onboarding-agent/`)
-- **FastAPI** — High-performance REST API + WebSocket server
-- **LangGraph & LangChain** — Complex agentic AI workflows and intelligent task orchestration
-- **PyPDF2** — Efficient resume and document parsing
-- **ptyprocess** — Real PTY shell for the interactive code playground
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS + Framer Motion (animations)
+- **Routing**: React Router v6
+- **Icons**: Lucide React
+- **AI Backend**: Python (FastAPI) + LangGraph + MongoDB
+- **Interactive FX**: Custom canvas DotField component (React Bits)
 
 ---
 
-## Project Structure
-
-```
-Prarambh/                  # React/Vite frontend
-├── src/
-│   ├── pages/             # Route-level page components
-│   ├── components/        # Reusable UI components and modules
-│   ├── context/           # Global application state management
-│   └── services/          # API and AI service integrations
-├── vite.config.ts         # Vite configuration
-└── package.json           # Frontend dependencies
-
-onboarding-agent/          # Python FastAPI backend
-├── main.py                # FastAPI app, REST endpoints, WebSocket PTY
-├── agent.py               # LangGraph onboarding agent logic
-├── models.py              # Data models and schemas
-└── requirements.txt       # Backend dependencies
-```
-
----
-
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js >= 18
-- Python >= 3.12
-- pip
+- Node.js `>=18`
+- npm `>=9`
 
-### Frontend Setup
+### Install & Run
 
 ```bash
 # Install dependencies
 npm install
 
-# Start the development server
+# Start dev server
 npm run dev
 
 # Build for production
 npm run build
 ```
 
-### Backend Setup
-
-```bash
-cd onboarding-agent
-
-# Install Python dependencies
-pip install -r requirements.txt
-```
-
-Create a `.env` file in the `onboarding-agent/` directory:
-```env
-PORT=3016
-```
-
-Start the backend service:
-```bash
-python main.py
-```
-*The API will be available at `http://localhost:3016`.*
+The app will be available at `http://localhost:5173`.
 
 ---
 
-## API Endpoints
+## 📁 Project Structure
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/health` | System health check |
-| `POST` | `/api/generate` | Generate onboarding tasks from role/context |
-| `POST` | `/api/refine` | Refine existing tasks using AI |
-| `POST` | `/api/parse-resume` | Extract information from uploaded resumes (PDF/TXT) |
-| `WS` | `/ws/pty` | WebSocket PTY terminal session |
+```
+src/
+├── components/
+│   ├── common/        # Navbar, Footer, Logo, AIChatWidget
+│   ├── dashboard/     # AdminPanel, HRDashboard, MentorDashboard, NewHireDashboard
+│   ├── landing/       # Hero, Features, HowItWorks, Testimonials, Pricing, DotField
+│   ├── modals/        # All modal dialogs
+│   ├── chat/          # AI chat widgets
+│   └── setup/         # Setup wizard
+├── pages/             # Route-level pages
+├── context/           # AppContext (global state)
+├── services/          # AI service layer
+└── index.css          # Global styles + Tailwind config
+```
 
 ---
 
-## Enterprise Roles & Access
+## 👤 Role Simulation
 
-| Role | Access Level |
+The portal lets you explore all four perspectives:
+
+| Role | Access |
 |---|---|
-| **New Hire** | Personal task dashboard, AI chat assistant, code playground, and document viewer. |
-| **Mentor** | Progress tracking for assigned new-hires and task management. |
-| **Admin** | Full system control, employee/mentor management, bulk generation, and analytics. |
-| **HR** | Employee records and high-level onboarding progress overviews. |
+| **Admin** | Full platform control — employees, mentors, documents, settings |
+| **HR Manager** | Onboarding plans, AI task generation, analytics |
+| **Mentor / Buddy** | Mentee tracking, task creation, AI personalization |
+| **New Hire** | Personal dashboard, task progress, AI assistant |
 
 ---
 
-## License
+## 🎨 Design System
 
-Copyright © 2026 Prarambh. All rights reserved.
-Author: divyansh Kumar
+- **Color palette**: Near-black `#0A0A0F` background · Cyan `#22D3EE` · Purple `#A855F7`
+- **Typography**: System font stack, tight tracking, `clamp()` fluid sizes
+- **Motion**: Framer Motion blur-in entrance, `AnimatePresence` transitions, spring physics
+- **Glassmorphism**: `backdrop-blur` + `rgba` surfaces throughout
+
+---
+
+## 🔧 Environment Variables
+
+Create a `.env` file in the root:
+
+```env
+VITE_GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+---
+
+## 📄 License
+
+MIT © 2025 Prarambh

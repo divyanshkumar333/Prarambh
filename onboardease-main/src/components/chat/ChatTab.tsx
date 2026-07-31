@@ -661,7 +661,7 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
                   <label className="block text-xs font-semibold text-brown-600 mb-1.5">Group name (optional)</label>
                   <input
                     className="input-field text-sm py-2"
-                    placeholder="e.g. Onboarding Team"
+                    placeholder="e.g. Prarambh Team"
                     value={groupName}
                     onChange={e => setGroupName(e.target.value)}
                   />

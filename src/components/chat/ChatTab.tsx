@@ -318,7 +318,7 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
 
   // ── render ───────────────────────────────────────────────────────────────────
   return (
-    <div className="flex h-[calc(100vh-4rem)] bg-white relative">
+    <div className="flex h-[calc(100vh-4rem)] bg-surface relative">
 
       {/* Toast */}
       {toast && (
@@ -328,12 +328,12 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
       )}
 
       {/* ─── Left: Conversation list ─────────────────────────────────────────── */}
-      <aside className="w-72 flex-shrink-0 flex flex-col border-r border-brown-100">
+      <aside className="w-72 flex-shrink-0 flex flex-col border-r border-border">
         {/* Header */}
-        <div className="px-4 py-4 border-b border-brown-100">
+        <div className="px-4 py-4 border-b border-border">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-bold text-brown-900 text-base flex items-center gap-2">
-              <MessageSquare size={16} className="text-brown-500" /> Messages
+            <h2 className="font-bold text-text-primary text-base flex items-center gap-2">
+              <MessageSquare size={16} className="text-text-secondary" /> Messages
               {totalUnread > 0 && (
                 <span className="bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 leading-none">
                   {totalUnread}
@@ -349,9 +349,9 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
             </button>
           </div>
           <div className="relative">
-            <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-brown-400" />
+            <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-text-secondary/70" />
             <input
-              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-brown-200 bg-brown-50 focus:outline-none focus:ring-1 focus:ring-brown-400"
+              className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-border bg-surface-elevated focus:outline-none focus:ring-1 focus:ring-brown-400"
               placeholder="Search conversations…"
               value={convSearch}
               onChange={e => setConvSearch(e.target.value)}
@@ -362,7 +362,7 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
         {/* Conversation list */}
         <div className="flex-1 overflow-y-auto divide-y divide-brown-50">
           {filteredConvs.length === 0 && (
-            <div className="flex flex-col items-center justify-center py-16 text-brown-400 px-4 text-center">
+            <div className="flex flex-col items-center justify-center py-16 text-text-secondary/70 px-4 text-center">
               <MessageSquare size={32} className="mb-3 opacity-30" />
               <p className="text-sm font-medium">No conversations yet</p>
               <p className="text-xs mt-1">Click <strong>+</strong> to start chatting</p>
@@ -379,33 +379,33 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
             return (
               <div
                 key={conv.id}
-                className={`relative group flex items-center gap-3 px-4 py-3.5 transition-colors cursor-pointer ${isSelected ? 'bg-brown-50' : 'hover:bg-brown-50/60'}`}
+                className={`relative group flex items-center gap-3 px-4 py-3.5 transition-colors cursor-pointer ${isSelected ? 'bg-surface-elevated' : 'hover:bg-surface-elevated/60'}`}
                 onClick={() => { if (!isPending) setSelectedConvId(conv.id) }}
               >
                 {/* Avatar */}
                 {conv.type === 'group' ? (
-                  <div className="w-9 h-9 rounded-full bg-brown-200 flex items-center justify-center flex-shrink-0">
-                    <Users size={16} className="text-brown-600" />
+                  <div className="w-9 h-9 rounded-full bg-surface-elevated flex items-center justify-center flex-shrink-0">
+                    <Users size={16} className="text-text-secondary" />
                   </div>
                 ) : avatar ? (
                   <Avatar user={avatar} size={9} />
                 ) : (
-                  <div className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 text-xs font-bold text-gray-600">?</div>
+                  <div className="w-9 h-9 rounded-full bg-surface-elevated flex items-center justify-center flex-shrink-0 text-xs font-bold text-text-secondary">?</div>
                 )}
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <p className={`text-sm truncate ${unread > 0 ? 'font-bold text-brown-900' : 'font-medium text-brown-700'}`}>{name}</p>
+                    <p className={`text-sm truncate ${unread > 0 ? 'font-bold text-text-primary' : 'font-medium text-text-primary'}`}>{name}</p>
                     {last && !isPending && (
-                      <span className="text-[10px] text-brown-400 flex-shrink-0 ml-1">
+                      <span className="text-[10px] text-text-secondary/70 flex-shrink-0 ml-1">
                         {new Date(last.createdAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     )}
                   </div>
                   {!isPending && (
                     <div className="flex items-center justify-between mt-0.5">
-                      <p className="text-xs text-brown-400 truncate">
+                      <p className="text-xs text-text-secondary/70 truncate">
                         {last ? (last.type !== 'text' ? `📎 ${last.fileName}` : last.content) : 'No messages yet'}
                       </p>
                       {unread > 0 && (
@@ -419,14 +419,14 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
                   {/* Inline delete confirm */}
                   {isPending && (
                     <div className="flex items-center gap-2 mt-0.5" onClick={e => e.stopPropagation()}>
-                      <span className="text-xs text-red-600 font-medium">Delete this chat?</span>
+                      <span className="text-xs text-red-400 font-medium">Delete this chat?</span>
                       <button
                         onClick={() => deleteConversation(conv.id)}
                         className="text-xs font-bold text-white bg-red-500 hover:bg-red-600 px-2 py-0.5 rounded-md transition-colors"
                       >Yes</button>
                       <button
                         onClick={() => setPendingDeleteId(null)}
-                        className="text-xs font-medium text-brown-600 bg-brown-100 hover:bg-brown-200 px-2 py-0.5 rounded-md transition-colors"
+                        className="text-xs font-medium text-text-secondary bg-surface-elevated/50 hover:bg-surface-elevated px-2 py-0.5 rounded-md transition-colors"
                       >No</button>
                     </div>
                   )}
@@ -436,7 +436,7 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
                 {!isPending && (
                   <button
                     onClick={e => { e.stopPropagation(); setPendingDeleteId(conv.id) }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-brown-300 hover:text-red-500 hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 rounded-lg text-text-secondary/50 hover:text-red-500 hover:bg-red-500/10 transition-colors opacity-0 group-hover:opacity-100"
                     title="Delete conversation"
                   >
                     <Trash2 size={13} />
@@ -452,18 +452,18 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
       {selectedConv ? (
         <div className="flex-1 flex flex-col min-w-0">
           {/* Conv header */}
-          <div className="px-5 py-3.5 border-b border-brown-100 flex items-center gap-3 bg-white">
+          <div className="px-5 py-3.5 border-b border-border flex items-center gap-3 bg-surface">
             {selectedConv.type === 'group' ? (
-              <div className="w-9 h-9 rounded-full bg-brown-200 flex items-center justify-center flex-shrink-0">
-                <Users size={16} className="text-brown-600" />
+              <div className="w-9 h-9 rounded-full bg-surface-elevated flex items-center justify-center flex-shrink-0">
+                <Users size={16} className="text-text-secondary" />
               </div>
             ) : (() => {
               const av = getConvAvatar(selectedConv)
               return av ? <Avatar user={av} size={9} /> : null
             })()}
             <div>
-              <p className="font-bold text-brown-900 text-sm">{getConvName(selectedConv)}</p>
-              <p className="text-xs text-brown-400">
+              <p className="font-bold text-text-primary text-sm">{getConvName(selectedConv)}</p>
+              <p className="text-xs text-text-secondary/70">
                 {selectedConv.type === 'group'
                   ? `${selectedConv.participants.length} participants`
                   : allUsers.find(u => u.id === selectedConv.participants.find(p => p !== currentId))?.role ?? ''}
@@ -482,7 +482,7 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
                   ) : null
                 })}
                 {selectedConv.participants.length > 4 && (
-                  <div className="w-6 h-6 rounded-full border-2 border-white bg-brown-300 flex items-center justify-center text-[9px] font-bold text-brown-700">
+                  <div className="w-6 h-6 rounded-full border-2 border-white bg-brown-300 flex items-center justify-center text-[9px] font-bold text-text-primary">
                     +{selectedConv.participants.length - 4}
                   </div>
                 )}
@@ -491,9 +491,9 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-3" style={{ background: '#F8FBFF' }}>
+          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-3">
             {activeMessages.length === 0 && (
-              <div className="flex flex-col items-center justify-center h-full text-brown-400">
+              <div className="flex flex-col items-center justify-center h-full text-text-secondary/70">
                 <MessageSquare size={36} className="mb-3 opacity-30" />
                 <p className="text-sm font-medium">No messages yet</p>
                 <p className="text-xs mt-1">Say hello! 👋</p>
@@ -517,7 +517,7 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
                   <div className={`flex flex-col max-w-[65%] ${isMine ? 'items-end' : 'items-start'}`}>
                     {showSenderInfo && (
                       <div className={`flex items-center gap-1.5 mb-1 ${isMine ? 'flex-row-reverse' : ''}`}>
-                        <span className="text-xs font-semibold text-brown-700">{msg.senderName}</span>
+                        <span className="text-xs font-semibold text-text-primary">{msg.senderName}</span>
                         <span className="text-[10px]">{ROLE_ICONS[msg.senderRole] ?? ''}</span>
                       </div>
                     )}
@@ -526,15 +526,15 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
                     <div className={`rounded-2xl px-3.5 py-2.5 shadow-sm ${
                       isMine
                         ? 'bg-brown-600 text-white rounded-tr-sm'
-                        : 'bg-white text-brown-800 border border-brown-100 rounded-tl-sm'
+                        : 'bg-surface text-text-primary border border-border rounded-tl-sm'
                     }`}>
                       {msg.type === 'image' && msg.fileData && (
                         <img src={msg.fileData} alt={msg.fileName} className="max-w-xs max-h-48 rounded-lg mb-1.5 object-cover" />
                       )}
                       {msg.type === 'file' && (
-                        <div className={`flex items-center gap-2 mb-1.5 px-2 py-1.5 rounded-lg ${isMine ? 'bg-white/10' : 'bg-brown-50'}`}>
-                          <FileText size={14} className={isMine ? 'text-white/80' : 'text-brown-500'} />
-                          <span className={`text-xs font-medium truncate max-w-[150px] ${isMine ? 'text-white' : 'text-brown-700'}`}>
+                        <div className={`flex items-center gap-2 mb-1.5 px-2 py-1.5 rounded-lg ${isMine ? 'bg-surface/10' : 'bg-surface-elevated'}`}>
+                          <FileText size={14} className={isMine ? 'text-white/80' : 'text-text-secondary'} />
+                          <span className={`text-xs font-medium truncate max-w-[150px] ${isMine ? 'text-white' : 'text-text-primary'}`}>
                             {msg.fileName}
                           </span>
                         </div>
@@ -546,13 +546,13 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
 
                     {/* Timestamp + read receipt */}
                     <div className={`flex items-center gap-1 mt-0.5 ${isMine ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-[10px] text-brown-400">
+                      <span className="text-[10px] text-text-secondary/70">
                         {new Date(msg.createdAt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                       </span>
                       {isMine && (
                         msg.readBy.length > 1
                           ? <CheckCheck size={11} className="text-blue-500" />
-                          : <Check size={11} className="text-brown-400" />
+                          : <Check size={11} className="text-text-secondary/70" />
                       )}
                     </div>
                   </div>
@@ -563,14 +563,14 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
           </div>
 
           {/* Input */}
-          <div className="px-4 py-3 border-t border-brown-100 bg-white">
+          <div className="px-4 py-3 border-t border-border bg-surface">
             {attachedFile && (
-              <div className="flex items-center gap-2 mb-2 px-3 py-1.5 bg-brown-50 rounded-lg border border-brown-200">
+              <div className="flex items-center gap-2 mb-2 px-3 py-1.5 bg-surface-elevated rounded-lg border border-border">
                 {attachedFile.type.startsWith('image/')
-                  ? <Image size={13} className="text-brown-500 flex-shrink-0" />
-                  : <FileText size={13} className="text-brown-500 flex-shrink-0" />}
-                <span className="text-xs text-brown-700 flex-1 truncate">{attachedFile.name}</span>
-                <button onClick={() => { setAttachedFile(null); setAttachedData(null) }} className="text-brown-400 hover:text-red-500 transition-colors">
+                  ? <Image size={13} className="text-text-secondary flex-shrink-0" />
+                  : <FileText size={13} className="text-text-secondary flex-shrink-0" />}
+                <span className="text-xs text-text-primary flex-1 truncate">{attachedFile.name}</span>
+                <button onClick={() => { setAttachedFile(null); setAttachedData(null) }} className="text-text-secondary/70 hover:text-red-500 transition-colors">
                   <X size={13} />
                 </button>
               </div>
@@ -579,13 +579,13 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
               <input ref={fileInputRef} type="file" className="hidden" accept="image/*,.pdf,.doc,.docx,.txt" onChange={handleFileChange} />
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="p-2 rounded-lg text-brown-400 hover:bg-brown-100 hover:text-brown-600 transition-colors flex-shrink-0"
+                className="p-2 rounded-lg text-text-secondary/70 hover:bg-surface-elevated/50 hover:text-text-secondary transition-colors flex-shrink-0"
                 title="Attach file or image"
               >
                 <Paperclip size={18} />
               </button>
               <input
-                className="flex-1 px-3.5 py-2 text-sm rounded-xl border border-brown-200 bg-brown-50 focus:outline-none focus:ring-2 focus:ring-brown-400 focus:bg-white transition-colors"
+                className="flex-1 px-3.5 py-2 text-sm rounded-xl border border-border bg-surface-elevated focus:outline-none focus:ring-2 focus:ring-brown-400 focus:bg-surface transition-colors"
                 placeholder="Type a message…"
                 value={input}
                 onChange={e => setInput(e.target.value)}
@@ -603,29 +603,29 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
         </div>
       ) : (
         /* Empty state */
-        <div className="flex-1 flex flex-col items-center justify-center text-brown-400" style={{ background: '#F8FBFF' }}>
+        <div className="flex-1 flex flex-col items-center justify-center text-text-secondary/70">
           <MessageSquare size={48} className="mb-4 opacity-20" />
-          <p className="text-base font-semibold text-brown-500">Select a conversation</p>
-          <p className="text-sm mt-1 text-brown-400">or start a new one with the <strong>+</strong> button</p>
+          <p className="text-base font-semibold text-text-secondary">Select a conversation</p>
+          <p className="text-sm mt-1 text-text-secondary/70">or start a new one with the <strong>+</strong> button</p>
         </div>
       )}
 
       {/* ─── New Chat Modal ───────────────────────────────────────────────────── */}
       {showNewChat && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={() => setShowNewChat(false)}>
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md animate-fade-in" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-5 py-4 border-b border-brown-100">
-              <h3 className="font-bold text-brown-900 flex items-center gap-2"><Plus size={16} />New Conversation</h3>
-              <button onClick={() => setShowNewChat(false)} className="p-1.5 rounded-lg hover:bg-brown-100 text-brown-500 transition-colors"><X size={16} /></button>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm backdrop-blur-sm" />
+          <div className="relative bg-surface rounded-2xl shadow-2xl w-full max-w-md border border-border animate-fade-in" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+              <h3 className="font-bold text-text-primary flex items-center gap-2"><Plus size={16} />New Conversation</h3>
+              <button onClick={() => setShowNewChat(false)} className="p-1.5 rounded-lg hover:bg-surface-elevated/50 text-text-secondary transition-colors"><X size={16} /></button>
             </div>
 
             <div className="p-5 space-y-4">
               {/* Search */}
               <div className="relative">
-                <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-brown-400" />
+                <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary/70" />
                 <input
-                  className="w-full pl-8 pr-3 py-2 text-sm rounded-xl border border-brown-200 focus:outline-none focus:ring-1 focus:ring-brown-400"
+                  className="w-full pl-8 pr-3 py-2 text-sm rounded-xl border border-border focus:outline-none focus:ring-1 focus:ring-brown-400"
                   placeholder="Search people…"
                   value={newChatSearch}
                   onChange={e => setNewChatSearch(e.target.value)}
@@ -639,17 +639,17 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
                   const sel = selectedPeople.includes(user.id)
                   return (
                     <label key={user.id}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors ${sel ? 'bg-brown-50 border border-brown-300' : 'hover:bg-brown-50 border border-transparent'}`}>
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-colors ${sel ? 'bg-surface-elevated border border-border' : 'hover:bg-surface-elevated border border-transparent'}`}>
                       <input type="checkbox" className="sr-only" checked={sel}
                         onChange={() => setSelectedPeople(prev =>
                           prev.includes(user.id) ? prev.filter(id => id !== user.id) : [...prev, user.id]
                         )} />
                       <Avatar user={user} size={9} />
                       <div className="flex-1">
-                        <p className="text-sm font-semibold text-brown-800">{user.name}</p>
-                        <p className="text-xs text-brown-400 capitalize">{ROLE_ICONS[user.role]} {user.role}</p>
+                        <p className="text-sm font-semibold text-text-primary">{user.name}</p>
+                        <p className="text-xs text-text-secondary/70 capitalize">{ROLE_ICONS[user.role]} {user.role}</p>
                       </div>
-                      {sel && <CheckCheck size={16} className="text-brown-600 flex-shrink-0" />}
+                      {sel && <CheckCheck size={16} className="text-text-secondary flex-shrink-0" />}
                     </label>
                   )
                 })}
@@ -658,10 +658,10 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
               {/* Group name if >1 person selected */}
               {selectedPeople.length > 1 && (
                 <div>
-                  <label className="block text-xs font-semibold text-brown-600 mb-1.5">Group name (optional)</label>
+                  <label className="block text-xs font-semibold text-text-secondary mb-1.5">Group name (optional)</label>
                   <input
-                    className="input-field text-sm py-2"
-                    placeholder="e.g. Onboarding Team"
+                    className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm py-2"
+                    placeholder="e.g. Prarambh Team"
                     value={groupName}
                     onChange={e => setGroupName(e.target.value)}
                   />
@@ -669,7 +669,7 @@ export default function ChatTab({ openWithUserId }: { openWithUserId?: string })
               )}
 
               {selectedPeople.length > 0 && (
-                <p className="text-xs text-brown-500">
+                <p className="text-xs text-text-secondary">
                   {selectedPeople.length === 1
                     ? `Direct message with ${allUsers.find(u => u.id === selectedPeople[0])?.name}`
                     : `Group of ${selectedPeople.length + 1} people`}

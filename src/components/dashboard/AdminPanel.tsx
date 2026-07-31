@@ -14,6 +14,10 @@ import AIDocumentChat from '../chat/AIDocumentChat'
 import AdminChatWidget from '../chat/AdminChatWidget'
 import BulkTaskGenerationModal from '../modals/BulkTaskGenerationModal'
 import type { Employee, Document, MentorUser } from '../../context/AppContext'
+import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card'
+import { Button } from '../ui/Button'
+import { Badge } from '../ui/Badge'
+import { ProgressRing } from '../ui/ProgressRing'
 
 interface Props { activeSection?: string; isHR?: boolean }
 
@@ -44,31 +48,39 @@ function SettingsSection() {
   return (
     <div className="grid lg:grid-cols-2 gap-6">
       {/* Company Settings */}
-      <div className="card">
-        <h3 className="font-bold text-brown-900 mb-5 flex items-center gap-2"><Settings size={18} />Company Settings</h3>
-        <div className="space-y-4">
-          <div><label className="block text-xs font-semibold text-brown-600 mb-1.5">Company Name</label><input ref={nameRef} type="text" defaultValue={cs.name} className="input-field text-sm py-2.5" /></div>
-          <div><label className="block text-xs font-semibold text-brown-600 mb-1.5">Industry</label><input ref={industRef} type="text" defaultValue={cs.industry} className="input-field text-sm py-2.5" /></div>
-          <div><label className="block text-xs font-semibold text-brown-600 mb-1.5">Team Size</label><input ref={sizeRef} type="text" defaultValue={cs.teamSize} className="input-field text-sm py-2.5" /></div>
-          <div>
-            <label className="block text-xs font-semibold text-brown-600 mb-1.5">About the Company</label>
-            <textarea ref={aboutRef} rows={4} defaultValue={cs.about} className="input-field text-sm py-2.5 resize-none w-full" placeholder="Write a short description about your company…" />
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2"><Settings size={18} />Company Settings</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div><label className="block text-xs font-semibold text-text-secondary mb-1.5">Company Name</label><input ref={nameRef} type="text" defaultValue={cs.name} className="bg-surface-elevated border border-border rounded-xl px-4 py-3 text-text-primary focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all duration-300 ease-apple placeholder-text-secondary/50 text-sm py-2.5 w-full" /></div>
+            <div><label className="block text-xs font-semibold text-text-secondary mb-1.5">Industry</label><input ref={industRef} type="text" defaultValue={cs.industry} className="bg-surface-elevated border border-border rounded-xl px-4 py-3 text-text-primary focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all duration-300 ease-apple placeholder-text-secondary/50 text-sm py-2.5 w-full" /></div>
+            <div><label className="block text-xs font-semibold text-text-secondary mb-1.5">Team Size</label><input ref={sizeRef} type="text" defaultValue={cs.teamSize} className="bg-surface-elevated border border-border rounded-xl px-4 py-3 text-text-primary focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all duration-300 ease-apple placeholder-text-secondary/50 text-sm py-2.5 w-full" /></div>
+            <div>
+              <label className="block text-xs font-semibold text-text-secondary mb-1.5">About the Company</label>
+              <textarea ref={aboutRef} rows={4} defaultValue={cs.about} className="bg-surface-elevated border border-border rounded-xl px-4 py-3 text-text-primary focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all duration-300 ease-apple placeholder-text-secondary/50 text-sm py-2.5 resize-none w-full" placeholder="Write a short description about your company…" />
+            </div>
           </div>
-        </div>
-        <button onClick={handleSave} className={`w-full mt-5 text-sm py-2.5 font-bold rounded-xl transition-colors ${saved ? 'bg-green-600 text-white' : 'btn-primary'}`}>
-          {saved ? '✓ Saved!' : 'Save Changes'}
-        </button>
-      </div>
+          <Button onClick={handleSave} variant={saved ? "secondary" : "primary"} className={saved ? 'w-full mt-5 bg-green-500/20 text-green-400 border-green-500/30' : 'w-full mt-5'}>
+            {saved ? '✓ Saved!' : 'Save Changes'}
+          </Button>
+        </CardContent>
+      </Card>
       {/* Security & Compliance */}
-      <div className="card">
-        <h3 className="font-bold text-brown-900 mb-5 flex items-center gap-2"><Shield size={18} />Security &amp; Compliance</h3>
-        <div className="space-y-4">
-          {[{ label: 'Authentication', value: 'SSO + MFA Enabled' }, { label: 'Data Encryption', value: 'AES-256' }, { label: 'Compliance', value: 'GDPR · CCPA · SOC 2' }].map(f => (
-            <div key={f.label}><label className="block text-xs font-semibold text-brown-600 mb-1.5">{f.label}</label><input type="text" defaultValue={f.value} className="input-field text-sm py-2.5" /></div>
-          ))}
-        </div>
-        <button className="btn-primary w-full mt-5 text-sm py-2.5">Save Changes</button>
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2"><Shield size={18} />Security &amp; Compliance</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {[{ label: 'Authentication', value: 'SSO + MFA Enabled' }, { label: 'Data Encryption', value: 'AES-256' }, { label: 'Compliance', value: 'GDPR · CCPA · SOC 2' }].map(f => (
+              <div key={f.label}><label className="block text-xs font-semibold text-text-secondary mb-1.5">{f.label}</label><input type="text" defaultValue={f.value} className="bg-surface-elevated border border-border rounded-xl px-4 py-3 text-text-primary focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all duration-300 ease-apple placeholder-text-secondary/50 text-sm py-2.5 w-full" /></div>
+            ))}
+          </div>
+          <Button className="w-full mt-5">Save Changes</Button>
+        </CardContent>
+      </Card>
     </div>
   )
 }
@@ -124,7 +136,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
   )
 
   const atRisk     = state.employees.filter(e => e.risk === 'high').length
-  const onboarding = state.employees.filter(e => e.status === 'onboarding').length
+  const prarambh = state.employees.filter(e => e.status === 'prarambh').length
 
   // Compute progress dynamically from task completion; fall back to emp.progress if no tasks assigned
   const getProgress = (emp: Employee) => {
@@ -141,7 +153,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
     id ? initialMentors.find(m => m.id === id)?.name ?? '—' : 'Unassigned'
 
   return (
-    <div className="min-h-screen" style={{ background: '#F0F7FF' }}>
+    <div className="min-h-screen">
       {/* Always-rendered hidden file input for document upload */}
       <input
         ref={docUploadRef}
@@ -155,19 +167,19 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
         {/* Stats — hidden on Mentors and Docs tabs */}
         {activeSection !== 'mentors' && activeSection !== 'docs' && <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { icon: <Users size={20} />,        label: 'Total Employees', value: state.employees.length, sub: `${onboarding} onboarding`,  color: 'bg-blue-50 text-blue-600'   },
-            { icon: <TrendingUp size={20} />,    label: 'Avg Progress',   value: `${avgProg}%`,          sub: 'across all hires',           color: 'bg-green-50 text-green-600' },
-            { icon: <AlertTriangle size={20} />, label: 'At Risk',        value: atRisk,                 sub: atRisk > 0 ? 'need attention' : 'all on track ✅', color: atRisk > 0 ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600' },
-            { icon: <FileText size={20} />,      label: 'Documents',      value: state.documents.length, sub: `${state.documents.filter(d => d.status === 'processed').length} processed`, color: 'bg-purple-50 text-purple-600' },
+            { icon: <Users size={20} />,        label: 'Total Employees', value: state.employees.length, sub: `${prarambh} prarambh`,  color: 'bg-blue-500/10 text-blue-400'   },
+            { icon: <TrendingUp size={20} />,    label: 'Avg Progress',   value: `${avgProg}%`,          sub: 'across all hires',           color: 'bg-green-500/10 text-green-400' },
+            { icon: <AlertTriangle size={20} />, label: 'At Risk',        value: atRisk,                 sub: atRisk > 0 ? 'need attention' : 'all on track ✅', color: atRisk > 0 ? 'bg-red-500/10 text-red-400' : 'bg-green-500/10 text-green-400' },
+            { icon: <FileText size={20} />,      label: 'Documents',      value: state.documents.length, sub: `${state.documents.filter(d => d.status === 'processed').length} processed`, color: 'bg-purple-500/10 text-purple-400' },
           ].map(s => (
-            <div key={s.label} className="card flex items-center gap-4">
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>{s.icon}</div>
+            <Card key={s.label} className="flex items-center gap-4 py-4 px-5">
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>{s.icon}</div>
               <div>
-                <p className="text-sm text-brown-500 font-medium">{s.label}</p>
-                <p className="font-bold text-brown-900 text-xl leading-tight">{s.value}</p>
-                <p className="text-xs text-brown-400">{s.sub}</p>
+                <p className="text-sm text-text-secondary font-medium tracking-tight">{s.label}</p>
+                <p className="font-bold text-text-primary text-2xl leading-tight mt-0.5">{s.value}</p>
+                <p className="text-xs text-text-secondary/70 mt-0.5">{s.sub}</p>
               </div>
-            </div>
+            </Card>
           ))}
         </div>}
 
@@ -175,56 +187,56 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
         {activeSection === 'overview' && (
           <div className="grid lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-5">
-              <div className="card">
+              <Card>
                 <div className="flex items-center justify-between mb-5">
-                  <h3 className="font-bold text-brown-900 flex items-center gap-2"><BarChart3 size={18} />Employee Progress</h3>
+                  <h3 className="font-bold text-text-primary flex items-center gap-2"><BarChart3 size={18} className="text-brand-400" />Employee Progress</h3>
                   <div className="flex items-center gap-2">
-                    <button onClick={() => setShowBulkGenerate(true)} className="btn-secondary text-sm py-2 px-3 flex items-center gap-1.5"><Sparkles size={14} />AI Generate Tasks</button>
-                    {!isHR && <button onClick={() => setShowAddEmployee(true)} className="btn-primary text-sm py-2 px-4 flex items-center gap-2"><Plus size={14} />Add Employee</button>}
+                    <Button onClick={() => setShowBulkGenerate(true)} variant="secondary" className="text-sm py-2 px-3 flex items-center gap-1.5"><Sparkles size={14} />AI Generate Tasks</Button>
+                    {!isHR && <Button onClick={() => setShowAddEmployee(true)} className="text-sm py-2 px-4 flex items-center gap-2"><Plus size={14} />Add Employee</Button>}
                   </div>
                 </div>
                 <div className="space-y-4">
-                  {state.employees.filter(e => e.status === 'onboarding').map(emp => {
+                  {state.employees.filter(e => e.status === 'prarambh').map(emp => {
                     const prog     = getProgress(emp)
                     const hasTask  = hasTasks(emp.id)
                     return (
-                      <button key={emp.id} onClick={() => setSelectedEmployee(emp)} className="w-full flex items-center gap-4 text-left hover:bg-brown-50 -mx-2 px-2 py-1 rounded-lg transition-colors">
-                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ background: emp.color }}>{emp.initials}</div>
+                      <button key={emp.id} onClick={() => setSelectedEmployee(emp)} className="w-full flex items-center gap-4 text-left hover:bg-surface-elevated -mx-2 px-2 py-2 rounded-xl transition-all duration-300 ease-apple active:scale-[0.99] group">
+                        <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ background: emp.color }}>{emp.initials}</div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex justify-between mb-1">
-                            <span className="text-sm font-semibold text-brown-800 truncate">{emp.name}</span>
+                          <div className="flex justify-between mb-1.5">
+                            <span className="text-sm font-semibold text-text-primary group-hover:text-brand-400 transition-colors truncate">{emp.name}</span>
                             {hasTask
-                              ? <span className="text-xs text-brown-500 ml-2 flex-shrink-0">Day {emp.day}/{emp.totalDays} · {prog}%</span>
-                              : <span className="text-xs text-orange-500 ml-2 flex-shrink-0 font-medium">No task assigned</span>
+                              ? <span className="text-xs text-text-secondary ml-2 flex-shrink-0 font-medium">Day {emp.day}/{emp.totalDays} · <span className="text-text-primary">{prog}%</span></span>
+                              : <span className="text-xs text-orange-400 ml-2 flex-shrink-0 font-medium">No task assigned</span>
                             }
                           </div>
                           {hasTask
-                            ? <div className="progress-bar"><div className={`progress-fill ${emp.risk === 'high' ? '!bg-red-400' : ''}`} style={{ width: `${prog}%` }} /></div>
-                            : <div className="h-2 rounded-full bg-orange-100 border border-dashed border-orange-300" />
+                            ? <ProgressRing progress={prog} size={8} strokeWidth={4} />
+                            : <div className="h-2 rounded-full bg-orange-500/10 border border-dashed border-orange-500/30 w-full" />
                           }
-                          <p className="text-xs text-brown-400 mt-0.5">Mentor: {getMentor(emp.mentorId)}</p>
+                          <p className="text-xs text-text-secondary/70 mt-1">Mentor: {getMentor(emp.mentorId)}</p>
                         </div>
-                        {emp.risk === 'high' && <AlertTriangle size={16} className="text-red-500 flex-shrink-0" />}
+                        {emp.risk === 'high' && <AlertTriangle size={16} className="text-red-400 flex-shrink-0" />}
                         {!isHR && (
                           <button
                             onClick={e => { e.stopPropagation(); setConfirmRemove(emp) }}
-                            className="p-1.5 rounded-lg text-red-400 hover:bg-red-50 hover:text-red-600 transition-colors flex-shrink-0"
+                            className="p-2 rounded-lg text-red-400/50 hover:bg-red-500/10 hover:text-red-400 transition-colors flex-shrink-0 opacity-0 group-hover:opacity-100"
                             title="Remove employee"
                           >
-                            <Trash2 size={14} />
+                            <Trash2 size={16} />
                           </button>
                         )}
                       </button>
                     )
                   })}
-                  {state.employees.filter(e => e.status === 'onboarding').length === 0 && (
-                    <div className="text-center py-8 text-brown-400">
-                      <Users size={32} className="mx-auto mb-2 opacity-50" />
-                      <p className="text-sm">No active onboarding.{!isHR && <> <button onClick={() => setShowAddEmployee(true)} className="text-brown-600 underline">Add employee</button></>}</p>
+                  {state.employees.filter(e => e.status === 'prarambh').length === 0 && (
+                    <div className="text-center py-10">
+                      <Users size={32} className="mx-auto mb-3 text-text-secondary/30" />
+                      <p className="text-sm text-text-secondary">No active prarambh.{!isHR && <> <button onClick={() => setShowAddEmployee(true)} className="text-brand-400 font-medium hover:underline">Add employee</button></>}</p>
                     </div>
                   )}
                 </div>
-              </div>
+              </Card>
               <AdminChatWidget
                 employeeCount={state.employees.length}
                 atRiskCount={atRisk}
@@ -234,27 +246,37 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
               />
             </div>
             <div className="space-y-5">
-              <div className="card">
-                <h3 className="font-bold text-brown-900 mb-4 flex items-center gap-2"><Bot size={16} />AI Insights</h3>
-                <div className="space-y-3">
-                  {atRisk > 0 && <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-xs text-red-800">⚠️ <strong>{state.employees.filter(e => e.risk === 'high').map(e => e.name).join(', ')}</strong> — low engagement. Schedule a check-in.</div>}
-                  <div className="bg-green-50 border border-green-200 rounded-xl p-3 text-xs text-green-800">✅ {state.documents.filter(d => d.status === 'processed').length} documents processed and ready.</div>
-                  <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs text-blue-800">💡 Click any employee row to view full details, tasks and analytics.</div>
-                </div>
-              </div>
-              <div className="card">
-                <h3 className="font-bold text-brown-900 mb-4">Quick Actions</h3>
-                <div className="space-y-2">
-                  {!isHR && (
-                    <button onClick={() => setShowAddEmployee(true)} className="w-full flex items-center gap-3 p-3 rounded-xl bg-brown-50 hover:bg-brown-100 border border-brown-200 transition-colors text-left">
-                      <Plus size={16} className="text-brown-600 flex-shrink-0" /><span className="text-sm font-semibold text-brown-800">Add New Employee</span>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2"><Bot size={16} className="text-brand-400" />AI Insights</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {atRisk > 0 && <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-xs text-red-400">⚠️ <strong className="text-red-300">{state.employees.filter(e => e.risk === 'high').map(e => e.name).join(', ')}</strong> — low engagement. Schedule a check-in.</div>}
+                    <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-xs text-emerald-400">✅ {state.documents.filter(d => d.status === 'processed').length} documents processed and ready.</div>
+                    <div className="bg-brand-500/10 border border-brand-500/20 rounded-xl p-3 text-xs text-brand-400">💡 Click any employee row to view full details, tasks and analytics.</div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Quick Actions</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {!isHR && (
+                      <button onClick={() => setShowAddEmployee(true)} className="w-full flex items-center gap-3 p-3.5 rounded-xl bg-surface-elevated hover:bg-border/50 border border-border transition-all duration-300 ease-apple active:scale-[0.98] text-left group">
+                        <div className="bg-border/50 p-1.5 rounded-lg group-hover:bg-brand-500/20 group-hover:text-brand-400 transition-colors"><Plus size={16} className="flex-shrink-0" /></div>
+                        <span className="text-sm font-semibold text-text-primary group-hover:text-brand-400 transition-colors">Add New Employee</span>
+                      </button>
+                    )}
+                    <button onClick={() => docUploadRef.current?.click()} className="w-full flex items-center gap-3 p-3.5 rounded-xl bg-surface-elevated hover:bg-border/50 border border-border transition-all duration-300 ease-apple active:scale-[0.98] text-left group">
+                      <div className="bg-border/50 p-1.5 rounded-lg group-hover:bg-brand-500/20 group-hover:text-brand-400 transition-colors"><Upload size={16} className="flex-shrink-0" /></div>
+                      <span className="text-sm font-semibold text-text-primary group-hover:text-brand-400 transition-colors">Upload Documents</span>
                     </button>
-                  )}
-                  <button onClick={() => docUploadRef.current?.click()} className="w-full flex items-center gap-3 p-3 rounded-xl bg-brown-50 hover:bg-brown-100 border border-brown-200 transition-colors text-left">
-                    <Upload size={16} className="text-brown-600 flex-shrink-0" /><span className="text-sm font-semibold text-brown-800">Upload Documents</span>
-                  </button>
-                </div>
-              </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         )}
@@ -264,46 +286,46 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-3 justify-between">
               <div className="relative max-w-sm w-full">
-                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-brown-400" />
-                <input placeholder="Search employees…" value={search} onChange={e => setSearch(e.target.value)} className="input-field pl-9 py-2.5 text-sm" />
+                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary" />
+                <input placeholder="Search employees…" value={search} onChange={e => setSearch(e.target.value)} className="bg-surface-elevated border border-border rounded-xl px-4 py-2.5 text-text-primary focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-all duration-300 ease-apple placeholder-text-secondary/50 pl-9 w-full text-sm" />
               </div>
               <div className="flex items-center gap-2">
-                <button onClick={() => setShowBulkGenerate(true)} className="btn-secondary inline-flex items-center gap-2 py-2.5 px-4 text-sm"><Sparkles size={15} />AI Generate Tasks</button>
-                {!isHR && <button onClick={() => setShowAddEmployee(true)} className="btn-primary inline-flex items-center gap-2 py-2.5 px-5 text-sm"><Plus size={16} />Add New Employee</button>}
+                <Button onClick={() => setShowBulkGenerate(true)} variant="secondary" className="inline-flex items-center gap-2 py-2.5 px-4 text-sm"><Sparkles size={15} />AI Generate Tasks</Button>
+                {!isHR && <Button onClick={() => setShowAddEmployee(true)} className="inline-flex items-center gap-2 py-2.5 px-5 text-sm"><Plus size={16} />Add New Employee</Button>}
               </div>
             </div>
-            <div className="card overflow-hidden p-0">
+            <Card className="overflow-hidden p-0">
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-brown-50 border-b border-brown-200">
-                    <tr>{['Employee', 'Role / Team', 'Mentor', 'Progress', 'Tasks', 'Status', 'Resume', ''].map(h => <th key={h} className="text-left text-xs font-semibold text-brown-600 px-4 py-3.5 whitespace-nowrap">{h}</th>)}</tr>
+                  <thead className="bg-surface-elevated/50 border-b border-border">
+                    <tr>{['Employee', 'Role / Team', 'Mentor', 'Progress', 'Tasks', 'Status', 'Resume', ''].map(h => <th key={h} className="text-left text-xs font-semibold text-text-secondary px-4 py-3.5 whitespace-nowrap">{h}</th>)}</tr>
                   </thead>
-                  <tbody className="divide-y divide-brown-100">
+                  <tbody className="divide-y divide-border/50">
                     {filtered.map(emp => {
                       const myTasks = state.tasks.filter(t => t.assignedTo === emp.id)
                       const done    = myTasks.filter(t => t.status === 'done').length
                       const prog    = getProgress(emp)
                       const hasTask = hasTasks(emp.id)
                       return (
-                        <tr key={emp.id} onClick={() => setSelectedEmployee(emp)} className="hover:bg-brown-50/60 transition-colors cursor-pointer">
-                          <td className="px-4 py-4"><div className="flex items-center gap-3"><div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style={{ background: emp.color }}>{emp.initials}</div><div><span className="font-semibold text-brown-900 text-sm">{emp.name}</span><p className="text-xs text-brown-400">{emp.email}</p></div></div></td>
-                          <td className="px-4 py-4"><p className="text-sm text-brown-800 font-medium">{emp.role}</p><p className="text-xs text-brown-400">{emp.team}</p></td>
-                          <td className="px-4 py-4 text-sm text-brown-600 whitespace-nowrap">{getMentor(emp.mentorId)}</td>
+                        <tr key={emp.id} onClick={() => setSelectedEmployee(emp)} className="hover:bg-surface-elevated/60 transition-colors cursor-pointer group">
+                          <td className="px-4 py-4"><div className="flex items-center gap-3"><div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-sm" style={{ background: emp.color }}>{emp.initials}</div><div><span className="font-semibold text-text-primary text-sm group-hover:text-brand-400 transition-colors">{emp.name}</span><p className="text-xs text-text-secondary">{emp.email}</p></div></div></td>
+                          <td className="px-4 py-4"><p className="text-sm text-text-primary font-medium">{emp.role}</p><p className="text-xs text-text-secondary/70">{emp.team}</p></td>
+                          <td className="px-4 py-4 text-sm text-text-secondary whitespace-nowrap">{getMentor(emp.mentorId)}</td>
                           <td className="px-4 py-4">
                             {hasTask
-                              ? <div className="flex items-center gap-2"><div className="w-20 progress-bar"><div className={`progress-fill ${emp.risk === 'high' ? '!bg-red-400' : ''}`} style={{ width: `${prog}%` }} /></div><span className="text-xs text-brown-500 font-medium">{prog}%</span></div>
-                              : <span className="text-xs font-semibold text-orange-500 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full whitespace-nowrap">No task assigned</span>
+                              ? <div className="flex items-center gap-2"><div className="w-20"><ProgressRing progress={prog} size={16} strokeWidth={4} /></div><span className="text-xs text-text-secondary font-medium">{prog}%</span></div>
+                              : <span className="text-[10px] font-semibold text-orange-400 bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 rounded-full whitespace-nowrap">No task assigned</span>
                             }
                           </td>
-                          <td className="px-4 py-4 text-sm text-brown-600 whitespace-nowrap">{done}/{myTasks.length} done</td>
-                          <td className="px-4 py-4">{emp.status === 'completed' ? <span className="badge-green">Completed</span> : <span className="badge-orange">Onboarding</span>}</td>
-                          <td className="px-4 py-4">{emp.resumeFileName ? <span className="badge-green flex items-center gap-1 w-fit"><CheckCircle size={11} />{emp.resumeFileName.slice(0, 12)}…</span> : <span className="text-xs text-brown-400">—</span>}</td>
-                          <td className="px-4 py-4 text-xs text-brown-400 underline">View →</td>
+                          <td className="px-4 py-4 text-sm text-text-secondary whitespace-nowrap"><span className="text-text-primary">{done}</span>/{myTasks.length} done</td>
+                          <td className="px-4 py-4">{emp.status === 'completed' ? <Badge variant="success">Completed</Badge> : <Badge variant="warning">Prarambh</Badge>}</td>
+                          <td className="px-4 py-4">{emp.resumeFileName ? <Badge variant="success" className="flex items-center gap-1 w-fit"><CheckCircle size={11} />{emp.resumeFileName.slice(0, 12)}…</Badge> : <span className="text-xs text-text-secondary/50">—</span>}</td>
+                          <td className="px-4 py-4 text-xs text-brand-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity">View →</td>
                           {!isHR && (
                             <td className="px-4 py-4">
                               <button
                                 onClick={e => { e.stopPropagation(); setConfirmRemove(emp) }}
-                                className="p-1.5 rounded-lg text-red-400 hover:bg-red-50 hover:text-red-600 transition-colors"
+                                className="p-1.5 rounded-lg text-red-400/50 hover:bg-red-500/10 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
                                 title="Remove employee"
                               >
                                 <Trash2 size={15} />
@@ -315,57 +337,52 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                     })}
                   </tbody>
                 </table>
-                {filtered.length === 0 && <div className="text-center py-12 text-brown-400"><Users size={36} className="mx-auto mb-3 opacity-40" /><p className="text-sm font-medium">No employees found</p><button onClick={() => setShowAddEmployee(true)} className="text-brown-600 underline text-sm mt-1">Add first employee</button></div>}
+                {filtered.length === 0 && <div className="text-center py-12 text-text-secondary"><Users size={36} className="mx-auto mb-3 opacity-20" /><p className="text-sm font-medium">No employees found</p><button onClick={() => setShowAddEmployee(true)} className="text-brand-400 font-medium hover:underline text-sm mt-1">Add first employee</button></div>}
               </div>
-            </div>
+            </Card>
           </div>
         )}
 
         {/* ═══ DOCUMENTS ═══ */}
         {activeSection === 'docs' && (
           <div className="space-y-5">
-            <div className="border-2 border-dashed border-brown-200 rounded-2xl p-10 text-center hover:border-brown-400 transition-all">
-              <div className="w-16 h-16 bg-brown-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><Upload size={28} className="text-brown-500" /></div>
-              <h3 className="font-bold text-brown-900 text-lg mb-2">Upload Documents</h3>
-              <p className="text-brown-500 text-sm mb-5">Upload HR policies, guides, playbooks and onboarding materials</p>
-              <button
-                onClick={() => docUploadRef.current?.click()}
-                className="btn-primary text-sm py-2.5 px-6 inline-flex items-center gap-2"
-              >
-                <Upload size={16} /> Upload Document
-              </button>
+            <div className="border-2 border-dashed border-border rounded-2xl p-10 text-center hover:border-brand-400 transition-all duration-300 ease-apple bg-surface-elevated/30">
+              <div className="w-16 h-16 bg-surface-elevated rounded-2xl flex items-center justify-center mx-auto mb-4 border border-border shadow-sm"><Upload size={28} className="text-text-primary" /></div>
+              <h3 className="font-bold text-text-primary text-lg mb-2">Upload Documents</h3>
+              <p className="text-text-secondary text-sm mb-5">Upload HR policies, guides, playbooks and prarambh materials</p>
+              <Button onClick={() => docUploadRef.current?.click()} className="inline-flex items-center gap-2"><Upload size={16} /> Upload Document</Button>
             </div>
-            <div className="card p-0 overflow-hidden">
-              <div className="px-6 py-4 border-b border-brown-100 flex justify-between items-center">
-                <h3 className="font-bold text-brown-900">Uploaded Documents</h3>
-                <span className="badge-brown">{roleDocs.length} files</span>
+            <Card className="p-0 overflow-hidden">
+              <div className="px-6 py-4 border-b border-border flex justify-between items-center bg-surface-elevated/50">
+                <h3 className="font-bold text-text-primary">Uploaded Documents</h3>
+                <Badge variant="default">{roleDocs.length} files</Badge>
               </div>
-              <div className="divide-y divide-brown-100">
+              <div className="divide-y divide-border/50">
                 {roleDocs.length === 0 && (
-                  <div className="text-center py-10 text-brown-400">
-                    <BookOpen size={28} className="mx-auto mb-2 opacity-40" />
+                  <div className="text-center py-10 text-text-secondary">
+                    <BookOpen size={28} className="mx-auto mb-2 opacity-30" />
                     <p className="text-sm">No documents uploaded yet.</p>
                   </div>
                 )}
                 {roleDocs.map(doc => (
-                  <div key={doc.id} className={`transition-colors ${confirmDeleteDoc === doc.id ? 'bg-red-50' : 'hover:bg-brown-50/50'}`}>
+                  <div key={doc.id} className={`transition-colors duration-300 ease-apple ${confirmDeleteDoc === doc.id ? 'bg-red-500/10' : 'hover:bg-surface-elevated'}`}>
                     {/* Main row */}
-                    <div className="flex items-center gap-4 px-6 py-4">
-                      <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center border border-red-200 flex-shrink-0">
-                        <BookOpen size={18} className="text-red-500" />
+                    <div className="flex items-center gap-4 px-6 py-4 group">
+                      <div className="w-10 h-10 bg-surface-elevated rounded-xl flex items-center justify-center border border-border flex-shrink-0 shadow-sm group-hover:bg-brand-500/10 group-hover:border-brand-500/20 transition-colors">
+                        <BookOpen size={18} className="text-text-primary group-hover:text-brand-400 transition-colors" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-brown-900 text-sm truncate">{doc.name}</p>
-                        <p className="text-xs text-brown-400">{doc.type} · {doc.size} · {doc.date}</p>
+                        <p className="font-semibold text-text-primary text-sm truncate">{doc.name}</p>
+                        <p className="text-xs text-text-secondary/70 mt-0.5">{doc.type} · {doc.size} · {doc.date}</p>
                       </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
+                      <div className="flex items-center gap-3 flex-shrink-0">
                         {doc.status === 'processed'
-                          ? <span className="badge-green flex items-center gap-1"><CheckCircle size={11} />Processed</span>
-                          : <span className="badge-orange">Processing…</span>
+                          ? <Badge variant="success" className="flex items-center gap-1"><CheckCircle size={11} />Processed</Badge>
+                          : <Badge variant="warning">Processing…</Badge>
                         }
                         <button
                           onClick={() => setViewingDoc(doc)}
-                          className="text-xs font-semibold text-brown-600 border border-brown-200 bg-white px-2.5 py-1.5 rounded-lg hover:bg-brown-50 transition-colors flex items-center gap-1"
+                          className="text-xs font-semibold text-text-secondary border border-border bg-surface-elevated px-2.5 py-1.5 rounded-lg hover:bg-card hover:text-text-primary transition-all duration-300 ease-apple flex items-center gap-1 active:scale-[0.97]"
                         >
                           <Eye size={12} />View
                         </button>
@@ -380,7 +397,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                             }
                           }}
                           title="Delete document"
-                          className={`p-1.5 rounded-lg transition-colors ${confirmDeleteDoc === doc.id ? 'text-red-600 bg-red-100' : 'text-red-300 hover:text-red-600 hover:bg-red-50'}`}
+                          className={`p-1.5 rounded-lg transition-colors ${confirmDeleteDoc === doc.id ? 'text-red-400 bg-red-500/20' : 'text-text-secondary/50 hover:text-red-400 hover:bg-red-500/10'}`}
                         >
                           <Trash2 size={15} />
                         </button>
@@ -388,31 +405,31 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                     </div>
                     {/* Document in-use error */}
                     {docInUseError === doc.id && (
-                      <div className="flex items-center justify-between gap-3 px-6 py-3 bg-amber-50 border-t border-amber-200">
-                        <p className="text-xs text-amber-800 font-medium flex items-center gap-2">
-                          <AlertTriangle size={13} className="text-amber-600 flex-shrink-0" />
+                      <div className="flex items-center justify-between gap-3 px-6 py-3 bg-amber-500/10 border-t border-amber-500/20">
+                        <p className="text-xs text-amber-400 font-medium flex items-center gap-2">
+                          <AlertTriangle size={13} className="flex-shrink-0" />
                           This document is currently attached to one or more tasks and cannot be deleted.
                         </p>
-                        <button onClick={() => setDocInUseError(null)} className="text-xs px-3 py-1.5 rounded-lg border border-amber-300 bg-white text-amber-700 hover:bg-amber-50 transition-colors flex-shrink-0">Dismiss</button>
+                        <button onClick={() => setDocInUseError(null)} className="text-xs px-3 py-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 transition-colors flex-shrink-0 font-medium">Dismiss</button>
                       </div>
                     )}
                     {/* Inline delete confirmation */}
                     {confirmDeleteDoc === doc.id && (
-                      <div className="px-6 py-3 bg-red-50 border-t border-red-100 space-y-2">
+                      <div className="px-6 py-3 bg-red-500/5 border-t border-red-500/10 space-y-2">
                         {docInUseError && confirmDeleteDoc === doc.id && (
-                          <p className="text-xs text-red-700 font-semibold flex items-center gap-1">
+                          <p className="text-xs text-red-400 font-semibold flex items-center gap-1">
                             ⚠️ {docInUseError}
                           </p>
                         )}
                         {!docInUseError && (
                           <div className="flex items-center justify-between gap-3">
-                            <p className="text-xs text-red-700 font-medium">
-                              Delete <strong>{doc.name}</strong>? This cannot be undone.
+                            <p className="text-xs text-red-400 font-medium">
+                              Delete <strong className="text-red-300">{doc.name}</strong>? This cannot be undone.
                             </p>
                             <div className="flex gap-2 flex-shrink-0">
                               <button
                                 onClick={() => { setConfirmDeleteDoc(null); setDocInUseError(null) }}
-                                className="text-xs px-3 py-1.5 rounded-lg border border-brown-200 bg-white text-brown-600 hover:bg-brown-50 transition-colors"
+                                className="text-xs px-3 py-1.5 rounded-lg border border-border bg-surface-elevated text-text-secondary hover:text-text-primary hover:bg-card transition-colors font-medium"
                               >
                                 Cancel
                               </button>
@@ -427,7 +444,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                                   setConfirmDeleteDoc(null)
                                   setDocInUseError(null)
                                 }}
-                                className="text-xs px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors flex items-center gap-1"
+                                className="text-xs px-3 py-1.5 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold transition-colors flex items-center gap-1 shadow-sm"
                               >
                                 <Trash2 size={11} /> Delete
                               </button>
@@ -437,7 +454,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                         {docInUseError && confirmDeleteDoc === doc.id && (
                           <button
                             onClick={() => { setConfirmDeleteDoc(null); setDocInUseError(null) }}
-                            className="text-xs px-3 py-1.5 rounded-lg border border-brown-200 bg-white text-brown-600 hover:bg-brown-50 transition-colors"
+                            className="text-xs px-3 py-1.5 rounded-lg border border-border bg-surface-elevated text-text-secondary hover:text-text-primary hover:bg-card transition-colors font-medium"
                           >
                             Dismiss
                           </button>
@@ -447,7 +464,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                   </div>
                 ))}
               </div>
-            </div>
+            </Card>
           </div>
         )}
 
@@ -462,13 +479,19 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
               { icon: '⚙️', name: 'Operations Manager',  tasks: 40, days: 30 },
               { icon: '🤝', name: 'Customer Success',    tasks: 35, days: 21 },
             ].map(tmpl => (
-              <div key={tmpl.name} className="card hover:shadow-md transition-all duration-200">
-                <div className="flex items-center gap-3 mb-4"><span className="text-3xl">{tmpl.icon}</span><div><h4 className="font-bold text-brown-900 text-sm">{tmpl.name}</h4><p className="text-xs text-brown-500">{tmpl.tasks} tasks · {tmpl.days} days</p></div></div>
-                <div className="flex gap-2">
-                  <button className="flex-1 btn-secondary text-xs py-2">Edit</button>
-                  <button onClick={() => setShowAIChat(true)} className="flex-1 btn-primary text-xs py-2 flex items-center justify-center gap-1"><Bot size={11} />AI Generate</button>
+              <Card key={tmpl.name} className="hover:border-brand-500/30 group">
+                <div className="flex items-center gap-4 mb-5">
+                  <span className="text-4xl filter drop-shadow-sm group-hover:scale-110 transition-transform duration-300 ease-apple">{tmpl.icon}</span>
+                  <div>
+                    <h4 className="font-bold text-text-primary text-sm group-hover:text-brand-400 transition-colors">{tmpl.name}</h4>
+                    <p className="text-xs text-text-secondary/70">{tmpl.tasks} tasks · {tmpl.days} days</p>
+                  </div>
                 </div>
-              </div>
+                <div className="flex gap-2">
+                  <Button variant="secondary" className="flex-1 text-xs py-2">Edit</Button>
+                  <Button onClick={() => setShowAIChat(true)} className="flex-1 text-xs py-2 flex items-center justify-center gap-1.5"><Bot size={13} />AI Generate</Button>
+                </div>
+              </Card>
             ))}
           </div>
         )}
@@ -478,48 +501,56 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
           <div className="space-y-6">
             <div className="grid sm:grid-cols-3 gap-4">
               {[
-                { label: 'Avg Time to Productivity', value: '12 days', icon: <Clock size={20} />,    color: 'bg-blue-50 text-blue-600',     delta: '↓ 3 days vs last month' },
-                { label: 'Task Completion Rate',     value: `${avgProg}%`, icon: <Activity size={20} />, color: 'bg-green-50 text-green-600',  delta: '↑ 8% vs last month'   },
-                { label: 'Mentor Satisfaction',      value: '4.8/5',  icon: <Zap size={20} />,       color: 'bg-purple-50 text-purple-600', delta: 'Based on 12 reviews'  },
+                { label: 'Avg Time to Productivity', value: '12 days', icon: <Clock size={20} />,    color: 'bg-blue-500/10 text-blue-400',     delta: '↓ 3 days vs last month' },
+                { label: 'Task Completion Rate',     value: `${avgProg}%`, icon: <Activity size={20} />, color: 'bg-emerald-500/10 text-emerald-400',  delta: '↑ 8% vs last month'   },
+                { label: 'Mentor Satisfaction',      value: '4.8/5',  icon: <Zap size={20} />,       color: 'bg-purple-500/10 text-purple-400', delta: 'Based on 12 reviews'  },
               ].map(m => (
-                <div key={m.label} className="card flex items-center gap-4">
+                <Card key={m.label} className="flex items-center gap-4 py-5">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${m.color}`}>{m.icon}</div>
-                  <div><p className="text-xs text-brown-500 font-medium">{m.label}</p><p className="text-2xl font-black text-brown-900 leading-tight">{m.value}</p><p className="text-xs text-green-600 mt-0.5">{m.delta}</p></div>
-                </div>
+                  <div><p className="text-xs text-text-secondary font-medium">{m.label}</p><p className="text-2xl font-bold text-text-primary leading-tight mt-0.5">{m.value}</p><p className="text-xs text-emerald-400 mt-0.5 font-medium">{m.delta}</p></div>
+                </Card>
               ))}
             </div>
             <div className="grid lg:grid-cols-2 gap-6">
-              <div className="card">
-                <h3 className="font-bold text-brown-900 mb-4 flex items-center gap-2"><BarChart3 size={16} />Onboarding by Team</h3>
-                <div className="space-y-4">
-                  {['Engineering', 'Product', 'Sales', 'Design'].map((team, i) => {
-                    const emps = state.employees.filter(e => e.team === team)
-                    const avg  = emps.length ? Math.round(emps.reduce((a, e) => a + getProgress(e), 0) / emps.length) : ([60,80,45,90] as number[])[i]
-                    return (
-                      <div key={team}>
-                        <div className="flex justify-between mb-1.5"><span className="text-sm font-medium text-brown-700">{team}</span><span className="text-xs text-brown-500">{avg}%</span></div>
-                        <div className="progress-bar"><div className="progress-fill" style={{ width: `${avg}%` }} /></div>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2"><BarChart3 size={16} className="text-brand-400" />Prarambh by Team</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {['Engineering', 'Product', 'Sales', 'Design'].map((team, i) => {
+                      const emps = state.employees.filter(e => e.team === team)
+                      const avg  = emps.length ? Math.round(emps.reduce((a, e) => a + getProgress(e), 0) / emps.length) : ([60,80,45,90] as number[])[i]
+                      return (
+                        <div key={team}>
+                          <div className="flex justify-between mb-2"><span className="text-sm font-medium text-text-primary">{team}</span><span className="text-xs text-text-secondary">{avg}%</span></div>
+                          <ProgressRing progress={avg} size={8} strokeWidth={4} />
+                        </div>
+                      )
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2"><TrendingUp size={16} className="text-brand-400" />Employee Status</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {[
+                      { label: 'On Track',  count: state.employees.filter(e => e.risk === 'low').length,              color: 'bg-emerald-500' },
+                      { label: 'At Risk',   count: state.employees.filter(e => e.risk === 'high').length,             color: 'bg-red-500'   },
+                      { label: 'Completed', count: state.employees.filter(e => e.status === 'completed').length,      color: 'bg-brand-500'  },
+                    ].map(s => (
+                      <div key={s.label} className="flex items-center gap-3">
+                        <div className={`w-3 h-3 rounded-full flex-shrink-0 ${s.color} shadow-sm`} />
+                        <span className="text-sm text-text-secondary flex-1 font-medium">{s.label}</span>
+                        <span className="font-bold text-text-primary">{s.count}</span>
                       </div>
-                    )
-                  })}
-                </div>
-              </div>
-              <div className="card">
-                <h3 className="font-bold text-brown-900 mb-4 flex items-center gap-2"><TrendingUp size={16} />Employee Status</h3>
-                <div className="space-y-3">
-                  {[
-                    { label: 'On Track',  count: state.employees.filter(e => e.risk === 'low').length,              color: 'bg-green-500' },
-                    { label: 'At Risk',   count: state.employees.filter(e => e.risk === 'high').length,             color: 'bg-red-400'   },
-                    { label: 'Completed', count: state.employees.filter(e => e.status === 'completed').length,      color: 'bg-blue-400'  },
-                  ].map(s => (
-                    <div key={s.label} className="flex items-center gap-3">
-                      <div className={`w-3 h-3 rounded-full flex-shrink-0 ${s.color}`} />
-                      <span className="text-sm text-brown-700 flex-1">{s.label}</span>
-                      <span className="font-bold text-brown-900">{s.count}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Unassigned employees callout */}
@@ -527,25 +558,25 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
               const unassigned = state.employees.filter(e => !hasTasks(e.id))
               if (unassigned.length === 0) return null
               return (
-                <div className="card border-l-4 border-orange-400 bg-orange-50 p-4">
+                <Card className="border-l-4 border-l-orange-500/50 bg-orange-500/5 py-4">
                   <div className="flex items-start gap-3">
-                    <AlertTriangle size={18} className="text-orange-500 flex-shrink-0 mt-0.5" />
+                    <AlertTriangle size={18} className="text-orange-400 flex-shrink-0 mt-0.5" />
                     <div className="flex-1">
-                      <p className="text-sm font-bold text-orange-800 mb-2">Employees with no tasks assigned ({unassigned.length})</p>
+                      <p className="text-sm font-bold text-orange-400 mb-3">Employees with no tasks assigned ({unassigned.length})</p>
                       <div className="flex flex-wrap gap-2">
                         {unassigned.map(emp => (
-                          <div key={emp.id} className="flex items-center gap-2 bg-white border border-orange-200 rounded-lg px-3 py-1.5">
+                          <div key={emp.id} className="flex items-center gap-2 bg-surface-elevated border border-orange-500/20 rounded-lg px-3 py-1.5 shadow-sm">
                             <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ background: emp.color }}>{emp.initials}</div>
                             <div>
-                              <span className="text-xs font-semibold text-brown-800">{emp.name}</span>
-                              <span className="text-xs text-orange-500 ml-1.5 font-medium">· No task assigned</span>
+                              <span className="text-xs font-semibold text-text-primary">{emp.name}</span>
+                              <span className="text-[10px] text-orange-400 ml-1.5 font-medium tracking-wide uppercase">No task assigned</span>
                             </div>
                           </div>
                         ))}
                       </div>
                     </div>
                   </div>
-                </div>
+                </Card>
               )
             })()}
           </div>
@@ -567,31 +598,31 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
               {/* Stats */}
               <div className="grid sm:grid-cols-2 gap-4 max-w-sm">
                 {[
-                  { label: 'Total Mentors', value: mentors.length, icon: <Users size={20} />,      color: 'bg-blue-50 text-blue-600'   },
-                  { label: 'Total Mentees', value: totalMentees,   icon: <TrendingUp size={20} />, color: 'bg-green-50 text-green-600' },
+                  { label: 'Total Mentors', value: mentors.length, icon: <Users size={20} />,      color: 'bg-blue-500/10 text-blue-400'   },
+                  { label: 'Total Mentees', value: totalMentees,   icon: <TrendingUp size={20} />, color: 'bg-emerald-500/10 text-emerald-400' },
                 ].map(s => (
-                  <div key={s.label} className="card flex items-center gap-4">
+                  <Card key={s.label} className="flex items-center gap-4 py-4 px-5">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>{s.icon}</div>
                     <div>
-                      <p className="text-xs text-brown-500 font-medium">{s.label}</p>
-                      <p className="font-bold text-brown-900 text-xl leading-tight">{s.value}</p>
+                      <p className="text-xs text-text-secondary font-medium tracking-tight">{s.label}</p>
+                      <p className="font-bold text-text-primary text-xl leading-tight mt-0.5">{s.value}</p>
                     </div>
-                  </div>
+                  </Card>
                 ))}
               </div>
 
               {/* Header + Add button */}
               <div className="flex items-center justify-between">
-                <h3 className="font-bold text-brown-900 flex items-center gap-2"><Users size={18} />All Mentors <span className="text-xs font-medium bg-brown-100 text-brown-600 px-2 py-0.5 rounded-full">{mentors.length}</span></h3>
-                {!isHR && <button onClick={() => setShowAddMentor(true)} className="btn-primary text-sm py-2 px-4 flex items-center gap-2"><Plus size={14} />Add Mentor</button>}
+                <h3 className="font-bold text-text-primary flex items-center gap-2"><Users size={18} className="text-brand-400" />All Mentors <Badge variant="default" className="ml-1">{mentors.length}</Badge></h3>
+                {!isHR && <Button onClick={() => setShowAddMentor(true)} className="text-sm py-2 px-4 flex items-center gap-2"><Plus size={14} />Add Mentor</Button>}
               </div>
 
               {/* Mentor cards */}
               {mentors.length === 0 ? (
-                <div className="text-center py-14 bg-white rounded-2xl border border-dashed border-brown-200">
-                  <Users size={36} className="mx-auto mb-3 text-brown-300" />
-                  <p className="text-brown-500 font-medium mb-2">No mentors added yet</p>
-                  <button onClick={() => setShowAddMentor(true)} className="btn-primary text-sm py-2 px-5 inline-flex items-center gap-2"><Plus size={14} />Add First Mentor</button>
+                <div className="text-center py-14 bg-surface-elevated/30 rounded-2xl border border-dashed border-border hover:border-brand-500/50 transition-colors">
+                  <Users size={36} className="mx-auto mb-3 text-text-secondary/30" />
+                  <p className="text-text-secondary font-medium mb-3">No mentors added yet</p>
+                  <Button onClick={() => setShowAddMentor(true)} className="text-sm py-2 px-5 inline-flex items-center gap-2"><Plus size={14} />Add First Mentor</Button>
                 </div>
               ) : (
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -600,21 +631,21 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                     const avgPct    = getMenteeAvgProgress(mentor.id)
                     const atRiskCt  = mentees.filter(e => e.risk === 'high').length
                     return (
-                      <div key={mentor.id} className="card flex flex-col gap-4">
+                      <Card key={mentor.id} className="flex flex-col gap-5 hover:border-brand-500/30 group">
                         {/* Avatar + info */}
-                        <div className="flex items-start gap-3">
+                        <div className="flex items-start gap-4">
                           <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0 shadow-sm" style={{ background: mentor.color }}>
                             {mentor.initials}
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="font-bold text-brown-900 text-sm truncate">{mentor.name}</p>
-                            <p className="text-xs text-brown-500 truncate">{mentor.specialty}</p>
-                            <span className="inline-block mt-1 text-xs font-semibold bg-brown-100 text-brown-600 px-2 py-0.5 rounded-full">{mentor.department}</span>
+                            <p className="font-bold text-text-primary text-sm truncate group-hover:text-brand-400 transition-colors">{mentor.name}</p>
+                            <p className="text-xs text-text-secondary/70 truncate">{mentor.specialty}</p>
+                            <div className="mt-2"><Badge variant="default">{mentor.department}</Badge></div>
                           </div>
                           {!isHR && (
                             <button
                               onClick={() => setConfirmRemoveMentor(mentor)}
-                              className="p-1.5 rounded-lg text-red-400 hover:bg-red-50 hover:text-red-600 transition-colors flex-shrink-0"
+                              className="p-1.5 rounded-lg text-red-400/50 hover:bg-red-500/10 hover:text-red-400 transition-colors flex-shrink-0 opacity-0 group-hover:opacity-100"
                               title="Remove mentor"
                             >
                               <Trash2 size={14} />
@@ -623,42 +654,42 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                         </div>
 
                         {/* Mentees stats */}
-                        <div className="grid grid-cols-3 gap-2 text-center">
-                          <div className="bg-brown-50 rounded-lg p-2">
-                            <p className="font-bold text-brown-900">{mentees.length}</p>
-                            <p className="text-xs text-brown-500">Mentees</p>
+                        <div className="grid grid-cols-3 gap-2 text-center bg-surface-elevated/30 p-2 rounded-xl border border-border">
+                          <div>
+                            <p className="font-bold text-text-primary">{mentees.length}</p>
+                            <p className="text-[10px] text-text-secondary/70 font-medium uppercase tracking-wider">Mentees</p>
                           </div>
-                          <div className="bg-green-50 rounded-lg p-2">
-                            <p className="font-bold text-green-700">{mentees.filter(e => e.status === 'completed').length}</p>
-                            <p className="text-xs text-brown-500">Completed</p>
+                          <div className="border-x border-border/50">
+                            <p className="font-bold text-emerald-400">{mentees.filter(e => e.status === 'completed').length}</p>
+                            <p className="text-[10px] text-text-secondary/70 font-medium uppercase tracking-wider">Completed</p>
                           </div>
-                          <div className={`rounded-lg p-2 ${atRiskCt > 0 ? 'bg-red-50' : 'bg-green-50'}`}>
-                            <p className={`font-bold ${atRiskCt > 0 ? 'text-red-600' : 'text-green-700'}`}>{atRiskCt}</p>
-                            <p className="text-xs text-brown-500">At Risk</p>
+                          <div>
+                            <p className={`font-bold ${atRiskCt > 0 ? 'text-red-400' : 'text-emerald-400'}`}>{atRiskCt}</p>
+                            <p className="text-[10px] text-text-secondary/70 font-medium uppercase tracking-wider">At Risk</p>
                           </div>
                         </div>
 
                         {/* Avg progress bar */}
                         <div>
-                          <div className="flex justify-between mb-1.5">
-                            <span className="text-xs font-medium text-brown-600">Avg. Mentee Progress</span>
-                            <span className="text-xs font-bold text-brown-800">{avgPct}%</span>
+                          <div className="flex justify-between mb-2">
+                            <span className="text-xs font-medium text-text-secondary">Avg. Mentee Progress</span>
+                            <span className="text-xs font-bold text-text-primary">{avgPct}%</span>
                           </div>
-                          <div className="progress-bar">
-                            <div className="progress-fill" style={{ width: `${avgPct}%` }} />
+                          <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
+                            <div className="h-full bg-brand-500 rounded-full" style={{ width: `${avgPct}%` }} />
                           </div>
                         </div>
 
                         {/* Mentee list */}
                         {mentees.length > 0 && (
-                          <div className="border-t border-brown-100 pt-3">
-                            <p className="text-xs font-semibold text-brown-500 mb-2">Current Mentees</p>
-                            <div className="space-y-1.5">
+                          <div className="border-t border-border pt-4">
+                            <p className="text-xs font-semibold text-text-secondary/50 mb-3 uppercase tracking-wider">Current Mentees</p>
+                            <div className="space-y-2">
                               {mentees.map(e => (
-                                <div key={e.id} className="flex items-center gap-2">
-                                  <div className="w-5 h-5 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ background: e.color }}>{e.initials}</div>
-                                  <span className="text-xs text-brown-700 flex-1 truncate">{e.name}</span>
-                                  <span className={`text-xs font-semibold ${e.risk === 'high' ? 'text-red-500' : 'text-green-600'}`}>{getProgress(e)}%</span>
+                                <div key={e.id} className="flex items-center gap-3">
+                                  <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0 shadow-sm" style={{ background: e.color }}>{e.initials}</div>
+                                  <span className="text-xs text-text-secondary flex-1 truncate font-medium">{e.name}</span>
+                                  <span className={`text-xs font-bold ${e.risk === 'high' ? 'text-red-400' : 'text-emerald-400'}`}>{getProgress(e)}%</span>
                                 </div>
                               ))}
                             </div>
@@ -666,9 +697,11 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                         )}
 
                         {mentees.length === 0 && (
-                          <p className="text-xs text-brown-400 text-center py-1">No mentees assigned yet</p>
+                          <div className="border-t border-border pt-4 text-center">
+                            <p className="text-xs text-text-secondary/50 font-medium">No mentees assigned yet</p>
+                          </div>
                         )}
-                      </div>
+                      </Card>
                     )
                   })}
                 </div>
@@ -680,25 +713,25 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
         {/* ═══ INTEGRATIONS ═══ */}
         {activeSection === 'integrations' && (
           <div className="space-y-5">
-            <p className="text-brown-500 text-sm">Connect Prarambh with your existing tools for seamless data sync.</p>
+            <p className="text-text-secondary text-sm">Connect Prarambh with your existing tools for seamless data sync.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { name: 'Slack',            icon: <Slack size={24} />,        desc: 'Send onboarding notifications',   connected: true,  color: 'bg-purple-50 text-purple-600' },
-                { name: 'GitHub',           icon: <GitBranch size={24} />,    desc: 'Provision repo access on Day 1',  connected: false, color: 'bg-gray-50 text-gray-600'     },
-                { name: 'Google Workspace', icon: <Globe size={24} />,        desc: 'Sync calendar & Drive access',    connected: true,  color: 'bg-blue-50 text-blue-600'     },
-                { name: 'Jira',             icon: <ClipboardList size={24} />,desc: 'Auto-create onboarding tickets',  connected: false, color: 'bg-blue-50 text-blue-700'     },
-                { name: 'Okta',             icon: <Lock size={24} />,         desc: 'SSO and identity management',     connected: false, color: 'bg-red-50 text-red-600'       },
-                { name: 'Zapier',           icon: <Zap size={24} />,          desc: 'Automate with 5,000+ apps',       connected: false, color: 'bg-orange-50 text-orange-600' },
+                { name: 'Slack',            icon: <Slack size={24} />,        desc: 'Send prarambh notifications',   connected: true,  color: 'bg-purple-500/10 text-purple-400' },
+                { name: 'GitHub',           icon: <GitBranch size={24} />,    desc: 'Provision repo access on Day 1',  connected: false, color: 'bg-surface-elevated text-text-primary'     },
+                { name: 'Google Workspace', icon: <Globe size={24} />,        desc: 'Sync calendar & Drive access',    connected: true,  color: 'bg-blue-500/10 text-blue-400'     },
+                { name: 'Jira',             icon: <ClipboardList size={24} />,desc: 'Auto-create prarambh tickets',  connected: false, color: 'bg-brand-500/10 text-brand-400'     },
+                { name: 'Okta',             icon: <Lock size={24} />,         desc: 'SSO and identity management',     connected: false, color: 'bg-red-500/10 text-red-400'       },
+                { name: 'Zapier',           icon: <Zap size={24} />,          desc: 'Automate with 5,000+ apps',       connected: false, color: 'bg-orange-500/10 text-orange-400' },
               ].map(intg => (
-                <div key={intg.name} className="card flex flex-col gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${intg.color}`}>{intg.icon}</div>
-                    <div><p className="font-bold text-brown-900 text-sm">{intg.name}</p><p className="text-xs text-brown-500">{intg.desc}</p></div>
+                <Card key={intg.name} className="flex flex-col gap-5 hover:border-brand-500/30 group transition-all duration-300">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm ${intg.color} group-hover:scale-110 transition-transform duration-300 ease-apple`}>{intg.icon}</div>
+                    <div><p className="font-bold text-text-primary text-sm group-hover:text-brand-400 transition-colors">{intg.name}</p><p className="text-xs text-text-secondary/70 mt-0.5">{intg.desc}</p></div>
                   </div>
-                  <button className={`w-full text-xs font-semibold py-2 rounded-lg border transition-colors ${intg.connected ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100' : 'btn-secondary'}`}>
+                  <Button variant={intg.connected ? 'secondary' : 'ghost'} className={`w-full text-xs py-2 border ${intg.connected ? 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border-emerald-500/20' : 'border-border hover:border-brand-500/30'}`}>
                     {intg.connected ? '✓ Connected' : 'Connect'}
-                  </button>
-                </div>
+                  </Button>
+                </Card>
               ))}
             </div>
           </div>
@@ -709,35 +742,39 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
           <div className="space-y-6">
             <div className="grid sm:grid-cols-3 gap-4">
               {[
-                { label: 'Compliance Score', value: '94%',                icon: <Shield size={20} />,        color: 'text-green-600', bg: 'bg-green-50'                             },
-                { label: 'Policies Signed',  value: `${state.employees.length * 3}`, icon: <FileText size={20} />, color: 'text-blue-600', bg: 'bg-blue-50'                        },
-                { label: 'Pending Actions',  value: `${atRisk}`,          icon: <AlertTriangle size={20} />, color: atRisk > 0 ? 'text-red-600' : 'text-green-600', bg: atRisk > 0 ? 'bg-red-50' : 'bg-green-50' },
+                { label: 'Compliance Score', value: '94%',                icon: <Shield size={20} />,        color: 'text-emerald-400', bg: 'bg-emerald-500/10'                             },
+                { label: 'Policies Signed',  value: `${state.employees.length * 3}`, icon: <FileText size={20} />, color: 'text-brand-400', bg: 'bg-brand-500/10'                        },
+                { label: 'Pending Actions',  value: `${atRisk}`,          icon: <AlertTriangle size={20} />, color: atRisk > 0 ? 'text-red-400' : 'text-emerald-400', bg: atRisk > 0 ? 'bg-red-500/10' : 'bg-emerald-500/10' },
               ].map(s => (
-                <div key={s.label} className="card flex items-center gap-4">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.bg} ${s.color}`}>{s.icon}</div>
-                  <div><p className="text-xs text-brown-500">{s.label}</p><p className={`text-2xl font-black ${s.color}`}>{s.value}</p></div>
-                </div>
+                <Card key={s.label} className="flex items-center gap-4 py-4 px-5">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm ${s.bg} ${s.color}`}>{s.icon}</div>
+                  <div><p className="text-xs text-text-secondary font-medium tracking-tight">{s.label}</p><p className={`text-2xl font-bold leading-tight mt-0.5 ${s.color}`}>{s.value}</p></div>
+                </Card>
               ))}
             </div>
-            <div className="card">
-              <h3 className="font-bold text-brown-900 mb-4 flex items-center gap-2"><ClipboardList size={16} />Compliance Checklist</h3>
-              <div className="space-y-3">
-                {[
-                  { label: 'GDPR Data Processing Agreement',       done: true  },
-                  { label: 'Employee handbook acknowledgement',     done: true  },
-                  { label: 'IT Security policy training',           done: true  },
-                  { label: 'Background check completed',            done: false },
-                  { label: 'SOC 2 access provisioning audit',       done: true  },
-                  { label: 'CCPA data rights notification sent',    done: false },
-                ].map((item, i) => (
-                  <div key={i} className={`flex items-center gap-3 p-3 rounded-xl border ${item.done ? 'border-green-100 bg-green-50' : 'border-orange-100 bg-orange-50'}`}>
-                    {item.done ? <CheckCircle size={16} className="text-green-500 flex-shrink-0" /> : <Clock size={16} className="text-orange-500 flex-shrink-0" />}
-                    <span className={`text-sm font-medium ${item.done ? 'text-green-800' : 'text-orange-800'}`}>{item.label}</span>
-                    <span className={`ml-auto text-xs font-semibold px-2 py-0.5 rounded-full ${item.done ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>{item.done ? 'Complete' : 'Pending'}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2"><ClipboardList size={16} className="text-brand-400" />Compliance Checklist</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {[
+                    { label: 'GDPR Data Processing Agreement',       done: true  },
+                    { label: 'Employee handbook acknowledgement',     done: true  },
+                    { label: 'IT Security policy training',           done: true  },
+                    { label: 'Background check completed',            done: false },
+                    { label: 'SOC 2 access provisioning audit',       done: true  },
+                    { label: 'CCPA data rights notification sent',    done: false },
+                  ].map((item, i) => (
+                    <div key={i} className={`flex items-center gap-3 p-3.5 rounded-xl border transition-colors ${item.done ? 'border-emerald-500/20 bg-emerald-500/5' : 'border-orange-500/20 bg-orange-500/5'}`}>
+                      {item.done ? <CheckCircle size={16} className="text-emerald-400 flex-shrink-0" /> : <Clock size={16} className="text-orange-400 flex-shrink-0" />}
+                      <span className={`text-sm font-medium ${item.done ? 'text-text-primary' : 'text-text-secondary'}`}>{item.label}</span>
+                      <span className={`ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${item.done ? 'bg-emerald-500/10 text-emerald-400' : 'bg-orange-500/10 text-orange-400'}`}>{item.done ? 'Complete' : 'Pending'}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         )}
 
@@ -754,24 +791,24 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
 
       {/* ── Remove Mentor Confirmation ── */}
       {confirmRemoveMentor && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={() => setConfirmRemoveMentor(null)}>
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0"><Trash2 size={18} className="text-red-600" /></div>
-              <div><h3 className="font-bold text-brown-900">Remove Mentor</h3><p className="text-xs text-brown-500">This action cannot be undone</p></div>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4" onClick={() => setConfirmRemoveMentor(null)}>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="relative bg-surface rounded-2xl shadow-2xl w-full max-w-sm p-6 border border-border" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center gap-4 mb-5">
+              <div className="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center flex-shrink-0 border border-red-500/20"><Trash2 size={20} className="text-red-400" /></div>
+              <div><h3 className="font-bold text-text-primary text-lg">Remove Mentor</h3><p className="text-xs text-text-secondary/70">This action cannot be undone</p></div>
             </div>
-            <p className="text-sm text-brown-700 mb-5">
-              Remove <strong>{confirmRemoveMentor.name}</strong> as a mentor? Any employees assigned to them will be unassigned.
+            <p className="text-sm text-text-secondary mb-6">
+              Remove <strong className="text-text-primary">{confirmRemoveMentor.name}</strong> as a mentor? Any employees assigned to them will be unassigned.
             </p>
             <div className="flex gap-3">
-              <button onClick={() => setConfirmRemoveMentor(null)} className="flex-1 btn-secondary py-2.5 text-sm">Cancel</button>
-              <button
+              <Button onClick={() => setConfirmRemoveMentor(null)} variant="secondary" className="flex-1 py-2.5">Cancel</Button>
+              <Button
                 onClick={() => { dispatch({ type: 'REMOVE_MENTOR', payload: { id: confirmRemoveMentor.id } }); setConfirmRemoveMentor(null) }}
-                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl transition-colors text-sm flex items-center justify-center gap-2"
+                className="flex-1 bg-red-500 hover:bg-red-600 text-white border-transparent transition-colors py-2.5 flex items-center justify-center gap-2"
               >
                 <Trash2 size={14} /> Remove
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -779,38 +816,39 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
 
       {/* ── Remove Employee Confirmation ── */}
       {confirmRemove && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={() => setConfirmRemove(null)}>
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                <Trash2 size={18} className="text-red-600" />
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4" onClick={() => setConfirmRemove(null)}>
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="relative bg-surface rounded-2xl shadow-2xl w-full max-w-sm p-6 border border-border" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center gap-4 mb-5">
+              <div className="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center flex-shrink-0 border border-red-500/20">
+                <Trash2 size={20} className="text-red-400" />
               </div>
               <div>
-                <h3 className="font-bold text-brown-900">Remove Employee</h3>
-                <p className="text-xs text-brown-500">This action cannot be undone</p>
+                <h3 className="font-bold text-text-primary text-lg">Remove Employee</h3>
+                <p className="text-xs text-text-secondary/70">This action cannot be undone</p>
               </div>
             </div>
-            <p className="text-sm text-brown-700 mb-5">
-              Are you sure you want to remove <strong>{confirmRemove.name}</strong> ({confirmRemove.role}) from the organization? All their assigned tasks will also be deleted.
+            <p className="text-sm text-text-secondary mb-6">
+              Are you sure you want to remove <strong className="text-text-primary">{confirmRemove.name}</strong> ({confirmRemove.role}) from the organization? All their assigned tasks will also be deleted.
             </p>
             <div className="flex gap-3">
-              <button
+              <Button
                 onClick={() => setConfirmRemove(null)}
-                className="flex-1 btn-secondary py-2.5 text-sm"
+                variant="secondary"
+                className="flex-1 py-2.5"
               >
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={() => {
                   dispatch({ type: 'REMOVE_EMPLOYEE', payload: { id: confirmRemove.id } })
                   setConfirmRemove(null)
                   if (selectedEmployee?.id === confirmRemove.id) setSelectedEmployee(null)
                 }}
-                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-xl transition-colors text-sm flex items-center justify-center gap-2"
+                className="flex-1 bg-red-500 hover:bg-red-600 text-white border-transparent transition-colors py-2.5 flex items-center justify-center gap-2"
               >
                 <Trash2 size={14} /> Remove
-              </button>
+              </Button>
             </div>
           </div>
         </div>

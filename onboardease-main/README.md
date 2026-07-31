@@ -1,12 +1,12 @@
 # Prarambh
 
-An AI-powered employee onboarding platform that streamlines the new-hire experience through intelligent task management, mentorship tracking, and real-time collaboration.
+An AI-powered employee prarambh platform that streamlines the new-hire experience through intelligent task management, mentorship tracking, and real-time collaboration.
 
 ---
 
 ## Overview
 
-Prarambh connects HR teams, managers, mentors, and new hires in a single unified platform. It leverages AI (via LangGraph + LangChain) to auto-generate personalised onboarding task plans, and provides interactive tools like a live code playground and an AI chat assistant to accelerate ramp-up time.
+Prarambh connects HR teams, managers, mentors, and new hires in a single unified platform. It leverages AI (via LangGraph + LangChain) to auto-generate personalised prarambh task plans, and provides interactive tools like a live code playground and an AI chat assistant to accelerate ramp-up time.
 
 ---
 
@@ -15,12 +15,12 @@ Prarambh connects HR teams, managers, mentors, and new hires in a single unified
 | Feature | Description |
 |---|---|
 | **Role-based dashboards** | Separate views for New Hire, Mentor, Admin, and HR |
-| **AI Task Builder** | LangGraph-powered onboarding task generation from job role or resume |
-| **Bulk Task Generation** | Generate full onboarding plans in one click |
+| **AI Task Builder** | LangGraph-powered prarambh task generation from job role or resume |
+| **Bulk Task Generation** | Generate full prarambh plans in one click |
 | **Code Playground** | Monaco editor + real PTY bash terminal via WebSocket |
-| **AI Chat (OnboardBot)** | Context-aware assistant powered by GPT-5 |
-| **Mail Playground** | Simulate email-based onboarding communication |
-| **PDF Viewer** | View onboarding documents inline |
+| **AI Chat (PrarambhBot)** | Context-aware assistant powered by GPT-5 |
+| **Mail Playground** | Simulate email-based prarambh communication |
+| **PDF Viewer** | View prarambh documents inline |
 | **Employee & Mentor Management** | Add, assign, and track employees and mentors |
 | **Profile Management** | User profiles with role-specific settings |
 
@@ -37,7 +37,7 @@ Prarambh connects HR teams, managers, mentors, and new hires in a single unified
 - **xterm.js** — terminal emulator in the browser
 - **Axios** — HTTP client
 
-### Backend (`onboarding-agent/`)
+### Backend (`prarambh-agent/`)
 - **FastAPI** — REST API + WebSocket server
 - **Uvicorn** — ASGI server
 - **LangGraph** + **LangChain** — agentic AI workflows
@@ -65,16 +65,16 @@ prarambh/               # React/Vite frontend
 │   │   ├── dashboard/     # Role-specific dashboard panels
 │   │   ├── landing/       # Landing page sections
 │   │   ├── modals/        # Feature modals (AI builder, playground, etc.)
-│   │   ├── chat/          # OnboardBot chat widget
-│   │   └── setup/         # Onboarding setup flow
+│   │   ├── chat/          # PrarambhBot chat widget
+│   │   └── setup/         # Prarambh setup flow
 │   ├── context/           # Global app state (AppContext)
 │   └── services/          # AI service integrations
 ├── vite.config.ts
 └── package.json
 
-onboarding-agent/          # Python FastAPI backend
+prarambh-agent/          # Python FastAPI backend
 ├── main.py                # FastAPI app, REST endpoints, WebSocket PTY
-├── agent.py               # LangGraph onboarding agent
+├── agent.py               # LangGraph prarambh agent
 ├── models.py              # Pydantic request/response models
 ├── requirements.txt
 └── .env                   # PORT configuration
@@ -101,7 +101,7 @@ npm run build        # production build
 ### Backend Setup
 
 ```bash
-cd onboarding-agent
+cd prarambh-agent
 pip install -r requirements.txt
 ```
 
@@ -126,7 +126,7 @@ The API will be available at `http://localhost:3016`.
 | Method | Endpoint | Description |
 |---|---|---|
 | `GET` | `/health` | Health check |
-| `POST` | `/api/generate` | Generate onboarding tasks from role/context |
+| `POST` | `/api/generate` | Generate prarambh tasks from role/context |
 | `POST` | `/api/refine` | Refine existing tasks with AI |
 | `POST` | `/api/parse-resume` | Extract info from uploaded resume (PDF/TXT) |
 | `WS` | `/ws/pty` | WebSocket PTY terminal session |
@@ -160,10 +160,10 @@ The application is deployed at:
 
 | Role | Access |
 |---|---|
-| **New Hire** | Personal task dashboard, OnboardBot chat, code playground, document viewer |
+| **New Hire** | Personal task dashboard, PrarambhBot chat, code playground, document viewer |
 | **Mentor** | Assigned new-hire progress tracking, task management |
 | **Admin** | Full employee/mentor management, bulk task generation, analytics |
-| **HR** | Employee records, onboarding progress overview |
+| **HR** | Employee records, prarambh progress overview |
 
 ---
 

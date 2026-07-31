@@ -8,7 +8,7 @@ import Navbar from '../components/common/Navbar'
 import NewHireDashboard from '../components/dashboard/NewHireDashboard'
 import ChatTab, { useChatUnread } from '../components/chat/ChatTab'
 import Logo from '../components/common/Logo'
-import OnboardBotWidget from '../components/chat/OnboardBotWidget'
+import PrarambhBotWidget from '../components/chat/PrarambhBotWidget'
 import { useApp } from '../context/AppContext'
 
 const navItems = [
@@ -39,15 +39,15 @@ function NewHireNav({
           onClick={() => setActive(item.id)}
           className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 ${
             active === item.id
-              ? 'bg-brown-500 text-white shadow-sm'
-              : 'text-brown-600 hover:bg-brown-200 hover:text-brown-900'
+              ? 'bg-brand-500/10 text-brand-400'
+              : 'text-text-secondary hover:bg-surface-elevated hover:text-text-primary'
           }`}
         >
           {/* Icon with notification dot */}
           <span className="relative flex-shrink-0">
             {item.icon}
             {item.id === 'chat' && unread > 0 && (
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center leading-none">
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center leading-none shadow-sm">
                 {unread > 9 ? '9+' : unread}
               </span>
             )}
@@ -58,7 +58,7 @@ function NewHireNav({
             <span className="font-medium text-sm flex items-center gap-1.5 flex-1">
               {item.label}
               {item.id === 'chat' && unread > 0 && (
-                <span className="ml-auto bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 leading-none">
+                <span className="ml-auto bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 leading-none shadow-sm">
                   {unread > 9 ? '9+' : unread}
                 </span>
               )}
@@ -96,19 +96,19 @@ export default function NewHirePage() {
   }
 
   return (
-    <div className="flex min-h-screen" style={{ background: '#F0F7FF' }}>
+    <div className="flex min-h-screen bg-background text-text-primary">
 
       {/* Sidebar */}
       <aside
-        className="flex-shrink-0 flex flex-col border-r border-brown-200 transition-all duration-300"
-        style={{ background: '#E0EFFD', width: collapsed ? 64 : 240 }}
+        className="flex-shrink-0 flex flex-col border-r border-border bg-surface transition-all duration-300"
+        style={{ width: collapsed ? 64 : 240 }}
       >
-        {/* Logo + Collapse toggle in header (like AdminPage) */}
-        <div className="h-16 flex items-center justify-between px-3 border-b border-brown-200">
+        {/* Logo + Collapse toggle in header */}
+        <div className="h-16 flex items-center justify-between px-3 border-b border-border">
           {collapsed ? <Logo size="sm" variant="icon" /> : <Logo size="sm" />}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="p-1.5 rounded-lg text-brown-500 hover:bg-brown-200 transition-colors flex-shrink-0"
+            className="p-1.5 rounded-lg text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-colors flex-shrink-0"
           >
             {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
           </button>
@@ -134,7 +134,7 @@ export default function NewHirePage() {
           )}
         </main>
       </div>
-      <OnboardBotWidget />
+      <PrarambhBotWidget />
     </div>
   )
 }

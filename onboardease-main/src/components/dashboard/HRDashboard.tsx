@@ -36,7 +36,7 @@ export default function HRDashboard() {
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { icon: <Users size={20} />, label: 'Active New Hires', value: state.employees.filter(e => e.status === 'onboarding').length, color: 'bg-blue-50 text-blue-600' },
+            { icon: <Users size={20} />, label: 'Active New Hires', value: state.employees.filter(e => e.status === 'prarambh').length, color: 'bg-blue-50 text-blue-600' },
             { icon: <ListChecks size={20} />, label: 'Total Tasks Assigned', value: state.tasks.length, color: 'bg-purple-50 text-purple-600' },
             { icon: <CheckCircle size={20} />, label: 'Tasks Completed', value: state.tasks.filter(t => t.status === 'done').length, color: 'bg-green-50 text-green-600' },
             { icon: <AlertTriangle size={20} />, label: 'At-Risk Hires', value: state.employees.filter(e => e.risk === 'high').length, color: 'bg-red-50 text-red-600' },
@@ -72,7 +72,7 @@ export default function HRDashboard() {
                     <Sparkles size={22} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-bold text-lg mb-1">AI Onboarding Task Generator</h3>
+                    <h3 className="font-bold text-lg mb-1">AI Prarambh Task Generator</h3>
                     <p className="text-white/80 text-sm leading-relaxed mb-4">
                       Select a document (employee handbook, IT policy, etc.), chat with our AI, and instantly generate a task checklist you can assign to any new hire.
                     </p>
@@ -245,7 +245,7 @@ export default function HRDashboard() {
               <Bot size={20} className="text-purple-600 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="font-semibold text-purple-800 text-sm">AI Document Intelligence</p>
-                <p className="text-purple-700 text-xs mt-1">Click "Generate Tasks" on any document to open the AI chat and create an onboarding task list from it.</p>
+                <p className="text-purple-700 text-xs mt-1">Click "Generate Tasks" on any document to open the AI chat and create an prarambh task list from it.</p>
               </div>
             </div>
             <div className="card p-0 overflow-hidden">
@@ -341,7 +341,7 @@ export default function HRDashboard() {
           assignedByName="HR Team"
         />
       )}
-      {/* OnboardBotWidget is mounted at the HRPage level */}
+      {/* PrarambhBotWidget is mounted at the HRPage level */}
     </div>
   )
 }

@@ -124,7 +124,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
   )
 
   const atRisk     = state.employees.filter(e => e.risk === 'high').length
-  const onboarding = state.employees.filter(e => e.status === 'onboarding').length
+  const prarambh = state.employees.filter(e => e.status === 'prarambh').length
 
   // Compute progress dynamically from task completion; fall back to emp.progress if no tasks assigned
   const getProgress = (emp: Employee) => {
@@ -155,7 +155,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
         {/* Stats — hidden on Mentors and Docs tabs */}
         {activeSection !== 'mentors' && activeSection !== 'docs' && <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { icon: <Users size={20} />,        label: 'Total Employees', value: state.employees.length, sub: `${onboarding} onboarding`,  color: 'bg-blue-50 text-blue-600'   },
+            { icon: <Users size={20} />,        label: 'Total Employees', value: state.employees.length, sub: `${prarambh} prarambh`,  color: 'bg-blue-50 text-blue-600'   },
             { icon: <TrendingUp size={20} />,    label: 'Avg Progress',   value: `${avgProg}%`,          sub: 'across all hires',           color: 'bg-green-50 text-green-600' },
             { icon: <AlertTriangle size={20} />, label: 'At Risk',        value: atRisk,                 sub: atRisk > 0 ? 'need attention' : 'all on track ✅', color: atRisk > 0 ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600' },
             { icon: <FileText size={20} />,      label: 'Documents',      value: state.documents.length, sub: `${state.documents.filter(d => d.status === 'processed').length} processed`, color: 'bg-purple-50 text-purple-600' },
@@ -184,7 +184,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                   </div>
                 </div>
                 <div className="space-y-4">
-                  {state.employees.filter(e => e.status === 'onboarding').map(emp => {
+                  {state.employees.filter(e => e.status === 'prarambh').map(emp => {
                     const prog     = getProgress(emp)
                     const hasTask  = hasTasks(emp.id)
                     return (
@@ -217,10 +217,10 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                       </button>
                     )
                   })}
-                  {state.employees.filter(e => e.status === 'onboarding').length === 0 && (
+                  {state.employees.filter(e => e.status === 'prarambh').length === 0 && (
                     <div className="text-center py-8 text-brown-400">
                       <Users size={32} className="mx-auto mb-2 opacity-50" />
-                      <p className="text-sm">No active onboarding.{!isHR && <> <button onClick={() => setShowAddEmployee(true)} className="text-brown-600 underline">Add employee</button></>}</p>
+                      <p className="text-sm">No active prarambh.{!isHR && <> <button onClick={() => setShowAddEmployee(true)} className="text-brown-600 underline">Add employee</button></>}</p>
                     </div>
                   )}
                 </div>
@@ -296,7 +296,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
                             }
                           </td>
                           <td className="px-4 py-4 text-sm text-brown-600 whitespace-nowrap">{done}/{myTasks.length} done</td>
-                          <td className="px-4 py-4">{emp.status === 'completed' ? <span className="badge-green">Completed</span> : <span className="badge-orange">Onboarding</span>}</td>
+                          <td className="px-4 py-4">{emp.status === 'completed' ? <span className="badge-green">Completed</span> : <span className="badge-orange">Prarambh</span>}</td>
                           <td className="px-4 py-4">{emp.resumeFileName ? <span className="badge-green flex items-center gap-1 w-fit"><CheckCircle size={11} />{emp.resumeFileName.slice(0, 12)}…</span> : <span className="text-xs text-brown-400">—</span>}</td>
                           <td className="px-4 py-4 text-xs text-brown-400 underline">View →</td>
                           {!isHR && (
@@ -327,7 +327,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
             <div className="border-2 border-dashed border-brown-200 rounded-2xl p-10 text-center hover:border-brown-400 transition-all">
               <div className="w-16 h-16 bg-brown-100 rounded-2xl flex items-center justify-center mx-auto mb-4"><Upload size={28} className="text-brown-500" /></div>
               <h3 className="font-bold text-brown-900 text-lg mb-2">Upload Documents</h3>
-              <p className="text-brown-500 text-sm mb-5">Upload HR policies, guides, playbooks and onboarding materials</p>
+              <p className="text-brown-500 text-sm mb-5">Upload HR policies, guides, playbooks and prarambh materials</p>
               <button
                 onClick={() => docUploadRef.current?.click()}
                 className="btn-primary text-sm py-2.5 px-6 inline-flex items-center gap-2"
@@ -490,7 +490,7 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
             </div>
             <div className="grid lg:grid-cols-2 gap-6">
               <div className="card">
-                <h3 className="font-bold text-brown-900 mb-4 flex items-center gap-2"><BarChart3 size={16} />Onboarding by Team</h3>
+                <h3 className="font-bold text-brown-900 mb-4 flex items-center gap-2"><BarChart3 size={16} />Prarambh by Team</h3>
                 <div className="space-y-4">
                   {['Engineering', 'Product', 'Sales', 'Design'].map((team, i) => {
                     const emps = state.employees.filter(e => e.team === team)
@@ -683,10 +683,10 @@ export default function AdminPanel({ activeSection = 'overview', isHR = false }:
             <p className="text-brown-500 text-sm">Connect Prarambh with your existing tools for seamless data sync.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { name: 'Slack',            icon: <Slack size={24} />,        desc: 'Send onboarding notifications',   connected: true,  color: 'bg-purple-50 text-purple-600' },
+                { name: 'Slack',            icon: <Slack size={24} />,        desc: 'Send prarambh notifications',   connected: true,  color: 'bg-purple-50 text-purple-600' },
                 { name: 'GitHub',           icon: <GitBranch size={24} />,    desc: 'Provision repo access on Day 1',  connected: false, color: 'bg-gray-50 text-gray-600'     },
                 { name: 'Google Workspace', icon: <Globe size={24} />,        desc: 'Sync calendar & Drive access',    connected: true,  color: 'bg-blue-50 text-blue-600'     },
-                { name: 'Jira',             icon: <ClipboardList size={24} />,desc: 'Auto-create onboarding tickets',  connected: false, color: 'bg-blue-50 text-blue-700'     },
+                { name: 'Jira',             icon: <ClipboardList size={24} />,desc: 'Auto-create prarambh tickets',  connected: false, color: 'bg-blue-50 text-blue-700'     },
                 { name: 'Okta',             icon: <Lock size={24} />,         desc: 'SSO and identity management',     connected: false, color: 'bg-red-50 text-red-600'       },
                 { name: 'Zapier',           icon: <Zap size={24} />,          desc: 'Automate with 5,000+ apps',       connected: false, color: 'bg-orange-50 text-orange-600' },
               ].map(intg => (

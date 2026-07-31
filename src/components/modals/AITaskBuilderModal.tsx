@@ -21,20 +21,20 @@ interface Props {
 type Stage = 'prompt' | 'generating' | 'review' | 'refining' | 'confirmed'
 
 const PRIORITY_COLORS: Record<string, string> = {
-  high:   'bg-red-100 text-red-700',
-  medium: 'bg-amber-100 text-amber-700',
-  low:    'bg-green-100 text-green-700',
+  high:   'bg-red-100 text-red-400',
+  medium: 'bg-amber-100 text-amber-400',
+  low:    'bg-green-100 text-emerald-400',
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  Setup:       'bg-blue-100 text-blue-700',
+  Setup:       'bg-blue-100 text-blue-400',
   Learning:    'bg-purple-100 text-purple-700',
   Technical:   'bg-cyan-100 text-cyan-700',
-  Compliance:  'bg-red-100 text-red-700',
+  Compliance:  'bg-red-100 text-red-400',
   People:      'bg-pink-100 text-pink-700',
   Tools:       'bg-orange-100 text-orange-700',
-  Admin:       'bg-gray-100 text-gray-700',
-  General:     'bg-teal-100 text-teal-700',
+  Admin:       'bg-surface text-text-secondary',
+  General:     'bg-brand-500/20 text-brand-400',
 }
 
 const QUICK_PROMPTS = [
@@ -71,10 +71,10 @@ function TaskPreviewCard({
   }
 
   return (
-    <div className="border border-brown-200 rounded-xl overflow-hidden bg-white shadow-sm">
+    <div className="border border-border rounded-xl overflow-hidden bg-surface shadow-sm">
       {/* Header */}
       <div className="px-4 py-3 flex items-start gap-3">
-        <div className="w-6 h-6 rounded-full bg-brown-100 text-brown-600 text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+        <div className="w-6 h-6 rounded-full bg-surface-elevated/50 text-text-secondary text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
           {index + 1}
         </div>
         <div className="flex-1 min-w-0">
@@ -82,21 +82,21 @@ function TaskPreviewCard({
             <input
               value={editTitle}
               onChange={e => setEditTitle(e.target.value)}
-              className="w-full text-sm font-semibold text-brown-900 border-b border-brown-300 bg-transparent outline-none pb-0.5"
+              className="w-full text-sm font-semibold text-text-primary border-b border-border bg-transparent outline-none pb-0.5"
               autoFocus
             />
           ) : (
-            <p className="text-sm font-semibold text-brown-900 leading-tight">{task.title}</p>
+            <p className="text-sm font-semibold text-text-primary leading-tight">{task.title}</p>
           )}
           <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
-            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[task.category] || 'bg-gray-100 text-gray-700'}`}>
+            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[task.category] || 'bg-surface text-text-secondary'}`}>
               {task.category}
             </span>
             {editing ? (
               <select
                 value={editPrio}
                 onChange={e => setEditPrio(e.target.value as 'low' | 'medium' | 'high')}
-                className="text-xs border border-brown-200 rounded px-1 py-0.5 bg-white"
+                className="text-xs border border-border rounded px-1 py-0.5 bg-surface"
               >
                 {['low','medium','high'].map(p => <option key={p} value={p}>{p}</option>)}
               </select>
@@ -105,12 +105,12 @@ function TaskPreviewCard({
                 {task.priority || 'medium'}
               </span>
             )}
-            <span className="text-xs text-brown-400 flex items-center gap-1">
+            <span className="text-xs text-text-secondary/70 flex items-center gap-1">
               <Clock size={11} /> {editing ? (
                 <input
                   value={editTime}
                   onChange={e => setEditTime(e.target.value)}
-                  className="w-20 border-b border-brown-300 bg-transparent outline-none"
+                  className="w-20 border-b border-border bg-transparent outline-none"
                 />
               ) : task.estimatedTime}
             </span>
@@ -125,22 +125,22 @@ function TaskPreviewCard({
         <div className="flex items-center gap-1 flex-shrink-0">
           {editing ? (
             <>
-              <button onClick={saveEdit} className="p-1.5 rounded-lg bg-green-100 text-green-700 hover:bg-green-200 transition-colors" title="Save">
+              <button onClick={saveEdit} className="p-1.5 rounded-lg bg-green-100 text-emerald-400 hover:bg-green-200 transition-colors" title="Save">
                 <Check size={13} />
               </button>
-              <button onClick={() => setEditing(false)} className="p-1.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" title="Cancel">
+              <button onClick={() => setEditing(false)} className="p-1.5 rounded-lg bg-surface text-text-secondary hover:bg-surface-elevated transition-colors" title="Cancel">
                 <X size={13} />
               </button>
             </>
           ) : (
             <>
-              <button onClick={() => setEditing(true)} className="p-1.5 rounded-lg hover:bg-brown-100 text-brown-400 hover:text-brown-700 transition-colors" title="Edit">
+              <button onClick={() => setEditing(true)} className="p-1.5 rounded-lg hover:bg-surface-elevated/50 text-text-secondary/70 hover:text-text-primary transition-colors" title="Edit">
                 <Edit3 size={13} />
               </button>
-              <button onClick={onRemove} className="p-1.5 rounded-lg hover:bg-red-100 text-brown-400 hover:text-red-600 transition-colors" title="Remove">
+              <button onClick={onRemove} className="p-1.5 rounded-lg hover:bg-red-100 text-text-secondary/70 hover:text-red-400 transition-colors" title="Remove">
                 <Trash2 size={13} />
               </button>
-              <button onClick={() => setExpanded(v => !v)} className="p-1.5 rounded-lg hover:bg-brown-100 text-brown-400 transition-colors">
+              <button onClick={() => setExpanded(v => !v)} className="p-1.5 rounded-lg hover:bg-surface-elevated/50 text-text-secondary/70 transition-colors">
                 {expanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
               </button>
             </>
@@ -150,17 +150,17 @@ function TaskPreviewCard({
 
       {/* Expanded Details */}
       {expanded && !editing && (
-        <div className="px-4 pb-3 pt-1 border-t border-brown-100 space-y-3 bg-amber-50/40">
-          <p className="text-xs text-brown-600 leading-relaxed">{task.description}</p>
+        <div className="px-4 pb-3 pt-1 border-t border-border space-y-3 bg-amber-500/10/40">
+          <p className="text-xs text-text-secondary leading-relaxed">{task.description}</p>
 
           {/* Subtasks */}
           {task.subtasks && task.subtasks.length > 0 && (
             <div>
-              <p className="text-xs font-semibold text-brown-700 mb-1.5 flex items-center gap-1"><List size={12} /> Subtasks</p>
+              <p className="text-xs font-semibold text-text-primary mb-1.5 flex items-center gap-1"><List size={12} /> Subtasks</p>
               <div className="space-y-1">
                 {task.subtasks.map(sub => (
-                  <div key={sub.id} className="flex items-center gap-2 text-xs text-brown-600">
-                    <div className="w-3 h-3 rounded-full border border-brown-300 flex-shrink-0" />
+                  <div key={sub.id} className="flex items-center gap-2 text-xs text-text-secondary">
+                    <div className="w-3 h-3 rounded-full border border-border flex-shrink-0" />
                     {sub.title}
                   </div>
                 ))}
@@ -171,11 +171,11 @@ function TaskPreviewCard({
           {/* Links */}
           {task.supportingLinks && task.supportingLinks.length > 0 && (
             <div>
-              <p className="text-xs font-semibold text-brown-700 mb-1.5 flex items-center gap-1"><Link2 size={12} /> Resources</p>
+              <p className="text-xs font-semibold text-text-primary mb-1.5 flex items-center gap-1"><Link2 size={12} /> Resources</p>
               <div className="space-y-1">
                 {task.supportingLinks.map((link, i) => (
                   <a key={i} href={link.url} target="_blank" rel="noreferrer"
-                    className="flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-800 hover:underline truncate">
+                    className="flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-400 hover:underline truncate">
                     <Link2 size={10} className="flex-shrink-0" />
                     {link.label}
                   </a>
@@ -187,8 +187,8 @@ function TaskPreviewCard({
           {/* Input Required */}
           {task.requiresInput && task.inputPrompt && (
             <div className="bg-amber-100 rounded-lg p-2">
-              <p className="text-xs font-semibold text-amber-800 mb-0.5">Requires Input</p>
-              <p className="text-xs text-amber-700">{task.inputPrompt}</p>
+              <p className="text-xs font-semibold text-amber-400 mb-0.5">Requires Input</p>
+              <p className="text-xs text-amber-400">{task.inputPrompt}</p>
             </div>
           )}
         </div>
@@ -196,13 +196,13 @@ function TaskPreviewCard({
 
       {/* Editing expanded description */}
       {editing && (
-        <div className="px-4 pb-3 pt-1 border-t border-brown-100 bg-amber-50/40">
-          <p className="text-xs font-medium text-brown-600 mb-1">Description</p>
+        <div className="px-4 pb-3 pt-1 border-t border-border bg-amber-500/10/40">
+          <p className="text-xs font-medium text-text-secondary mb-1">Description</p>
           <textarea
             value={editDesc}
             onChange={e => setEditDesc(e.target.value)}
             rows={3}
-            className="w-full text-xs border border-brown-200 rounded-lg p-2 bg-white outline-none focus:border-brown-400 resize-none"
+            className="w-full text-xs border border-border rounded-lg p-2 bg-surface outline-none focus:border-brown-400 resize-none"
           />
         </div>
       )}
@@ -338,30 +338,30 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
   // ─── Render ─────────────────────────────────────────────────────────────────
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.55)' }}>
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden">
+      <div className="bg-surface rounded-2xl shadow-2xl w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden">
 
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-brown-100 bg-gradient-to-r from-amber-50 to-brown-50 flex-shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-gradient-to-r from-amber-50 to-brown-50 flex-shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-sm">
               <Sparkles size={18} className="text-white" />
             </div>
             <div>
-              <h2 className="font-bold text-brown-900 text-base">AI Task Builder</h2>
-              <p className="text-xs text-brown-500">Powered by LangGraph · GPT-4o</p>
+              <h2 className="font-bold text-text-primary text-base">AI Task Builder</h2>
+              <p className="text-xs text-text-secondary">Powered by LangGraph · GPT-4o</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             {/* Employee badge */}
-            <div className="flex items-center gap-2 bg-white border border-brown-200 rounded-xl px-3 py-1.5 shadow-sm">
+            <div className="flex items-center gap-2 bg-surface border border-border rounded-xl px-3 py-1.5 shadow-sm">
               <div className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold"
                 style={{ background: employee.color }}>{employee.initials}</div>
               <div>
-                <p className="text-xs font-semibold text-brown-800 leading-tight">{employee.name}</p>
-                <p className="text-xs text-brown-400 leading-tight">{employee.role}</p>
+                <p className="text-xs font-semibold text-text-primary leading-tight">{employee.name}</p>
+                <p className="text-xs text-text-secondary/70 leading-tight">{employee.role}</p>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 rounded-xl hover:bg-brown-100 transition-colors text-brown-500">
+            <button onClick={onClose} className="p-2 rounded-xl hover:bg-surface-elevated/50 transition-colors text-text-secondary">
               <X size={18} />
             </button>
           </div>
@@ -371,15 +371,15 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
         <div className="flex flex-1 min-h-0 overflow-hidden">
 
           {/* ─── Left: Prompt / Chat Panel ─────────────────────────────────── */}
-          <div className="w-80 flex-shrink-0 border-r border-brown-100 flex flex-col bg-amber-50/30">
+          <div className="w-80 flex-shrink-0 border-r border-border flex flex-col bg-amber-500/10/30">
 
             {/* Employee context */}
-            <div className="px-4 pt-4 pb-3 border-b border-brown-100">
-              <p className="text-xs font-semibold text-brown-700 mb-2 flex items-center gap-1"><User size={12} />Employee</p>
-              <div className="text-xs text-brown-600 space-y-0.5">
-                <p><span className="text-brown-400">Role:</span> {employee.role}</p>
-                <p><span className="text-brown-400">Team:</span> {employee.team}</p>
-                {employee.bio && <p className="text-brown-500 italic mt-1 leading-relaxed line-clamp-2">{employee.bio}</p>}
+            <div className="px-4 pt-4 pb-3 border-b border-border">
+              <p className="text-xs font-semibold text-text-primary mb-2 flex items-center gap-1"><User size={12} />Employee</p>
+              <div className="text-xs text-text-secondary space-y-0.5">
+                <p><span className="text-text-secondary/70">Role:</span> {employee.role}</p>
+                <p><span className="text-text-secondary/70">Team:</span> {employee.team}</p>
+                {employee.bio && <p className="text-text-secondary italic mt-1 leading-relaxed line-clamp-2">{employee.bio}</p>}
               </div>
 
               {/* Resume upload */}
@@ -391,8 +391,8 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
                   onClick={() => resumeRef.current?.click()}
                   className={`w-full flex items-center gap-2 text-xs px-3 py-2 rounded-lg border transition-all ${
                     resumeContent
-                      ? 'border-green-300 bg-green-50 text-green-700'
-                      : 'border-brown-200 bg-white text-brown-600 hover:border-brown-400'
+                      ? 'border-green-300 bg-emerald-500/10 text-emerald-400'
+                      : 'border-border bg-surface text-text-secondary hover:border-brown-400'
                   }`}
                 >
                   {resumeContent ? <CheckCircle2 size={13} /> : <Upload size={13} />}
@@ -403,7 +403,7 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
 
             {/* Prompt area */}
             <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
-              <p className="text-xs font-semibold text-brown-700 flex items-center gap-1"><Zap size={12} />Describe the tasks</p>
+              <p className="text-xs font-semibold text-text-primary flex items-center gap-1"><Zap size={12} />Describe the tasks</p>
 
               {/* Quick prompts */}
               {stage === 'prompt' && (
@@ -414,8 +414,8 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
                       onClick={() => setPrompt(qp)}
                       className={`w-full text-left text-xs px-3 py-2 rounded-lg border transition-all ${
                         prompt === qp
-                          ? 'border-amber-400 bg-amber-50 text-amber-800 font-medium'
-                          : 'border-brown-200 bg-white text-brown-600 hover:border-brown-300'
+                          ? 'border-amber-400 bg-amber-500/10 text-amber-400 font-medium'
+                          : 'border-border bg-surface text-text-secondary hover:border-border'
                       }`}
                     >
                       {qp}
@@ -431,20 +431,20 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
                 placeholder="e.g. Create tasks to help this engineer get familiar with the codebase, CI/CD pipeline, and code review process..."
                 rows={5}
                 disabled={stage === 'generating'}
-                className="w-full text-xs border border-brown-200 rounded-xl p-3 bg-white outline-none focus:border-amber-400 resize-none transition-colors disabled:opacity-60 placeholder:text-brown-300"
+                className="w-full text-xs border border-border rounded-xl p-3 bg-surface outline-none focus:border-amber-400 resize-none transition-colors disabled:opacity-60 placeholder:text-text-secondary/50"
               />
 
               {/* Error */}
               {error && (
-                <div className="flex items-start gap-2 bg-red-50 border border-red-200 rounded-lg p-2.5">
+                <div className="flex items-start gap-2 bg-red-500/10 border border-red-500/20 rounded-lg p-2.5">
                   <AlertCircle size={14} className="text-red-500 flex-shrink-0 mt-0.5" />
-                  <p className="text-xs text-red-700">{error}</p>
+                  <p className="text-xs text-red-400">{error}</p>
                 </div>
               )}
             </div>
 
             {/* Generate / Reset buttons */}
-            <div className="px-4 py-3 border-t border-brown-100 space-y-2">
+            <div className="px-4 py-3 border-t border-border space-y-2">
               {stage === 'review' || stage === 'refining' ? (
                 <>
                   {/* Refine input */}
@@ -455,7 +455,7 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
                       onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleRefine()}
                       placeholder="Edit instructions... e.g. Make task 2 high priority"
                       disabled={stage === 'refining'}
-                      className="flex-1 text-xs border border-brown-200 rounded-lg px-3 py-2 outline-none focus:border-amber-400 disabled:opacity-60"
+                      className="flex-1 text-xs border border-border rounded-lg px-3 py-2 outline-none focus:border-amber-400 disabled:opacity-60"
                     />
                     <button
                       onClick={handleRefine}
@@ -467,7 +467,7 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
                   </div>
                   <button
                     onClick={() => { setStage('prompt'); setTasks([]); setChangesNote('') }}
-                    className="w-full flex items-center justify-center gap-2 text-xs py-2 rounded-lg border border-brown-200 text-brown-600 hover:bg-brown-50 transition-colors"
+                    className="w-full flex items-center justify-center gap-2 text-xs py-2 rounded-lg border border-border text-text-secondary hover:bg-surface-elevated transition-colors"
                   >
                     <RotateCcw size={13} /> Start over
                   </button>
@@ -492,30 +492,30 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
 
             {/* Agent message / status bar */}
             {agentMessage && (stage === 'review' || stage === 'refining') && (
-              <div className="px-5 py-2.5 bg-amber-50 border-b border-amber-100 flex items-start gap-2 flex-shrink-0">
-                <Sparkles size={13} className="text-amber-600 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-amber-800 leading-relaxed">{agentMessage}</p>
+              <div className="px-5 py-2.5 bg-amber-500/10 border-b border-amber-100 flex items-start gap-2 flex-shrink-0">
+                <Sparkles size={13} className="text-amber-400 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-amber-400 leading-relaxed">{agentMessage}</p>
               </div>
             )}
 
             {changesNote && (
-              <div className="px-5 py-2 bg-blue-50 border-b border-blue-100 flex items-start gap-2 flex-shrink-0">
-                <Check size={13} className="text-blue-600 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-blue-800 leading-relaxed">{changesNote}</p>
+              <div className="px-5 py-2 bg-blue-500/10 border-b border-blue-100 flex items-start gap-2 flex-shrink-0">
+                <Check size={13} className="text-blue-400 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-blue-400 leading-relaxed">{changesNote}</p>
               </div>
             )}
 
             {/* Tasks list */}
             <div className="flex-1 overflow-y-auto px-5 py-4">
               {stage === 'prompt' && (
-                <div className="h-full flex flex-col items-center justify-center text-center text-brown-400 gap-4">
-                  <div className="w-16 h-16 rounded-2xl bg-amber-50 flex items-center justify-center">
+                <div className="h-full flex flex-col items-center justify-center text-center text-text-secondary/70 gap-4">
+                  <div className="w-16 h-16 rounded-2xl bg-amber-500/10 flex items-center justify-center">
                     <Sparkles size={32} className="text-amber-400" />
                   </div>
                   <div>
-                    <p className="font-semibold text-brown-600 text-sm">AI Task Builder</p>
-                    <p className="text-xs mt-1 max-w-xs text-brown-400">
-                      Describe the onboarding concepts you want to turn into tasks.<br />
+                    <p className="font-semibold text-text-secondary text-sm">AI Task Builder</p>
+                    <p className="text-xs mt-1 max-w-xs text-text-secondary/70">
+                      Describe the prarambh concepts you want to turn into tasks.<br />
                       The AI will generate structured tasks with subtasks, resources, and playground activities.
                     </p>
                   </div>
@@ -524,18 +524,18 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
 
               {stage === 'generating' && (
                 <div className="h-full flex flex-col items-center justify-center text-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center">
                     <Loader2 size={28} className="text-amber-500 animate-spin" />
                   </div>
                   <div>
-                    <p className="font-semibold text-brown-700 text-sm">Generating tasks...</p>
-                    <p className="text-xs text-brown-400 mt-1">
+                    <p className="font-semibold text-text-primary text-sm">Generating tasks...</p>
+                    <p className="text-xs text-text-secondary/70 mt-1">
                       Analyzing {employee.name}'s profile and crafting personalized tasks
                     </p>
                   </div>
                   <div className="flex gap-2">
                     {['Analyzing profile', 'Generating tasks', 'Adding resources'].map((s, i) => (
-                      <div key={s} className="flex items-center gap-1.5 text-xs text-brown-500 bg-amber-50 rounded-full px-3 py-1">
+                      <div key={s} className="flex items-center gap-1.5 text-xs text-text-secondary bg-amber-500/10 rounded-full px-3 py-1">
                         <Loader2 size={10} className="animate-spin" style={{ animationDelay: `${i * 0.3}s` }} />
                         {s}
                       </div>
@@ -547,9 +547,9 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
               {(stage === 'review' || stage === 'refining') && tasks.length > 0 && (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between mb-1">
-                    <p className="text-xs font-semibold text-brown-700">
+                    <p className="text-xs font-semibold text-text-primary">
                       {tasks.length} task{tasks.length !== 1 ? 's' : ''} generated
-                      {stage === 'refining' && <span className="text-amber-600 ml-2">· Refining...</span>}
+                      {stage === 'refining' && <span className="text-amber-400 ml-2">· Refining...</span>}
                     </p>
                     <div className="flex gap-1.5">
                       {['engineering', 'sales'].filter(t => tasks.some(task => task.playgroundType === t)).map(pt => (
@@ -572,7 +572,7 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
                   ))}
 
                   {/* Add task hint */}
-                  <p className="text-xs text-center text-brown-400 pt-2">
+                  <p className="text-xs text-center text-text-secondary/70 pt-2">
                     Use the chat on the left to add, remove, or edit tasks.
                   </p>
                 </div>
@@ -580,22 +580,22 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
 
               {stage === 'confirmed' && (
                 <div className="h-full flex flex-col items-center justify-center gap-3 text-center">
-                  <div className="w-16 h-16 rounded-2xl bg-green-50 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
                     <CheckCircle2 size={32} className="text-green-500" />
                   </div>
-                  <p className="font-bold text-green-700 text-base">{tasks.length} tasks added!</p>
-                  <p className="text-xs text-brown-400">Tasks have been assigned to {employee.name}.</p>
+                  <p className="font-bold text-emerald-400 text-base">{tasks.length} tasks added!</p>
+                  <p className="text-xs text-text-secondary/70">Tasks have been assigned to {employee.name}.</p>
                 </div>
               )}
             </div>
 
             {/* Confirm Footer */}
             {(stage === 'review' || stage === 'refining') && tasks.length > 0 && (
-              <div className="px-5 py-4 border-t border-brown-100 bg-white flex-shrink-0">
+              <div className="px-5 py-4 border-t border-border bg-surface flex-shrink-0">
                 <div className="flex items-center justify-between gap-4">
-                  <div className="text-xs text-brown-500">
-                    <span className="font-semibold text-brown-700">{tasks.length} tasks</span> ready to be assigned to{' '}
-                    <span className="font-semibold text-brown-700">{employee.name}</span>
+                  <div className="text-xs text-text-secondary">
+                    <span className="font-semibold text-text-primary">{tasks.length} tasks</span> ready to be assigned to{' '}
+                    <span className="font-semibold text-text-primary">{employee.name}</span>
                     {tasks.filter(t => t.playgroundEnabled).length > 0 && (
                       <span className="ml-1 text-violet-600">
                         · {tasks.filter(t => t.playgroundEnabled).length} with playground
@@ -606,7 +606,7 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
                     <button
                       onClick={() => { setStage('prompt'); setTasks([]); setChangesNote('') }}
                       disabled={stage === 'refining'}
-                      className="px-4 py-2 rounded-xl border border-brown-200 text-brown-600 text-sm hover:bg-brown-50 transition-colors disabled:opacity-50"
+                      className="px-4 py-2 rounded-xl border border-border text-text-secondary text-sm hover:bg-surface-elevated transition-colors disabled:opacity-50"
                     >
                       Discard
                     </button>

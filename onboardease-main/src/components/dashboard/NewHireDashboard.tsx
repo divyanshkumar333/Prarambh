@@ -397,7 +397,7 @@ function OverviewSection({ employee, myTasks, mentor, onMessageMentor }: {
                   ? `You've completed ${doneCount} of ${myTasks.length} tasks. Keep it up!`
                   : myTasks.length > 0
                   ? `You have ${myTasks.length} tasks assigned. Let's get started!`
-                  : 'Your onboarding tasks will appear here once assigned.'}
+                  : 'Your prarambh tasks will appear here once assigned.'}
               </p>
             </div>
             <div className="text-right">
@@ -571,7 +571,7 @@ function TasksSection({ myTasks }: { myTasks: Task[] }) {
     <div className="space-y-5">
       <div className="card">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="font-bold text-brown-900 text-lg">My Onboarding Tasks</h3>
+          <h3 className="font-bold text-brown-900 text-lg">My Prarambh Tasks</h3>
           <div className="flex gap-1 bg-brown-50 rounded-lg p-1 border border-brown-200">
             {(['all', 'pending', 'in-progress', 'done'] as const).map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab)}
@@ -878,7 +878,7 @@ function SettingsSection({ employee, myTasks }: { employee: any; myTasks: Task[]
           { label: 'Start Date', value: employee.startDate,                        color: 'text-blue-700' },
           { label: 'Day',        value: `${employee.day} / ${employee.totalDays}`, color: 'text-teal-700' },
           { label: 'Team',       value: employee.team,                             color: 'text-purple-700' },
-          { label: 'Status',     value: employee.status === 'onboarding' ? 'Onboarding 🟡' : 'Completed ✅', color: 'text-green-700' },
+          { label: 'Status',     value: employee.status === 'prarambh' ? 'Prarambh 🟡' : 'Completed ✅', color: 'text-green-700' },
         ].map(s => (
           <div key={s.label} className="card">
             <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${s.color}`}>{s.label}</p>

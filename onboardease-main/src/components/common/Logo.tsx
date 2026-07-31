@@ -26,7 +26,7 @@ export default function Logo({ size = 'md', variant = 'full', className = '' }: 
     <span className={`flex items-center gap-2 ${className}`}>
       {icon}
       <span className={`font-bold text-brown-900 ${textSizes[size]}`}>
-        Onboard<span className="text-brown-500">Ease</span>
+        Prarambh<span className="text-brown-500">Ease</span>
       </span>
     </span>
   )

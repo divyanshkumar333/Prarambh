@@ -49,7 +49,7 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
   const [step, setStep]               = useState<1 | 2>(1)
   const [selectedEmpIds, setSelectedEmpIds] = useState<string[]>(state.employees.map(e => e.id))
   const [selectedDocIds, setSelectedDocIds] = useState<string[]>([])
-  const [globalPrompt,   setGlobalPrompt]   = useState('Generate a complete onboarding task list tailored to each employee\'s role')
+  const [globalPrompt,   setGlobalPrompt]   = useState('Generate a complete prarambh task list tailored to each employee\'s role')
   const [results,        setResults]   = useState<EmployeeResult[]>([])
   const [expanded,       setExpanded]  = useState<Record<string, boolean>>({})
   const [running,        setRunning]   = useState(false)
@@ -163,7 +163,7 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
             </div>
             <div>
               <h2 className="font-bold text-white text-base">AI Bulk Task Generation</h2>
-              <p className="text-white/60 text-xs">Generate & assign onboarding tasks for all employees using AI</p>
+              <p className="text-white/60 text-xs">Generate & assign prarambh tasks for all employees using AI</p>
             </div>
           </div>
           <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-white/20 text-white transition-colors">

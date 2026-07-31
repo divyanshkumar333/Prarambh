@@ -53,18 +53,18 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
 
   return (
     <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl h-[90vh] flex flex-col overflow-hidden">
+      <div className="bg-surface rounded-2xl shadow-2xl w-full max-w-6xl h-[90vh] flex flex-col overflow-hidden">
 
         {/* ── Header ─────────────────────────────────────────────────────── */}
-        <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-teal-600 to-teal-700 flex-shrink-0">
+        <div className="flex items-center justify-between px-5 py-3.5 bg-gradient-to-r from-brand-600 to-teal-700 flex-shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center">
+            <div className="w-8 h-8 bg-surface/20 rounded-xl flex items-center justify-center">
               <Eye size={15} className="text-white" />
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <p className="text-white font-bold text-sm leading-tight">{task.title}</p>
-                <span className="text-[10px] font-bold bg-white/25 text-white px-2 py-0.5 rounded-full uppercase tracking-wide">
+                <span className="text-[10px] font-bold bg-surface/25 text-white px-2 py-0.5 rounded-full uppercase tracking-wide">
                   {isCode ? '💻 Engineering' : '📧 Sales Mail'} Playground
                 </span>
               </div>
@@ -82,25 +82,25 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-white/20 text-white transition-colors"
+            className="p-2 rounded-lg hover:bg-surface/20 text-white transition-colors"
           >
             <X size={18} />
           </button>
         </div>
 
         {/* ── Stats bar ──────────────────────────────────────────────────── */}
-        <div className="flex items-center gap-6 px-5 py-2 bg-gray-50 border-b border-gray-200 flex-shrink-0">
-          <div className="flex items-center gap-1.5 text-xs text-gray-500">
-            <FlaskConical size={12} className="text-teal-600" />
-            <span className="font-semibold text-gray-700">Playground Activity</span>
+        <div className="flex items-center gap-6 px-5 py-2 bg-surface border-b border-border flex-shrink-0">
+          <div className="flex items-center gap-1.5 text-xs text-text-secondary">
+            <FlaskConical size={12} className="text-brand-400" />
+            <span className="font-semibold text-text-secondary">Playground Activity</span>
           </div>
           {isCode && (
             <>
-              <div className="flex items-center gap-1.5 text-xs text-gray-500">
+              <div className="flex items-center gap-1.5 text-xs text-text-secondary">
                 <FileCode size={11} />
                 <span>{codeFiles.length} file{codeFiles.length !== 1 ? 's' : ''}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-gray-500">
+              <div className="flex items-center gap-1.5 text-xs text-text-secondary">
                 <Code size={11} />
                 <span>{totalLines} lines written</span>
               </div>
@@ -108,21 +108,21 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
           )}
           {isMail && (
             <>
-              <div className="flex items-center gap-1.5 text-xs text-gray-500">
+              <div className="flex items-center gap-1.5 text-xs text-text-secondary">
                 <Send size={11} />
                 <span>{sentCount} email{sentCount !== 1 ? 's' : ''} sent</span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-gray-500">
+              <div className="flex items-center gap-1.5 text-xs text-text-secondary">
                 <Inbox size={11} />
                 <span>{receivedCount} repl{receivedCount !== 1 ? 'ies' : 'y'} received</span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-gray-500">
+              <div className="flex items-center gap-1.5 text-xs text-text-secondary">
                 <Mail size={11} />
                 <span>{mailThreads.length} thread{mailThreads.length !== 1 ? 's' : ''}</span>
               </div>
             </>
           )}
-          <div className="ml-auto flex items-center gap-1.5 text-[10px] font-semibold text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-2.5 py-1">
+          <div className="ml-auto flex items-center gap-1.5 text-[10px] font-semibold text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2.5 py-1">
             <Eye size={10} /> Read-only view
           </div>
         </div>
@@ -130,9 +130,9 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
         {/* ── Body ───────────────────────────────────────────────────────── */}
         {!hasActivity ? (
           /* No activity yet */
-          <div className="flex-1 flex flex-col items-center justify-center gap-3 text-gray-400">
+          <div className="flex-1 flex flex-col items-center justify-center gap-3 text-text-secondary">
             <FlaskConical size={48} className="opacity-20" />
-            <p className="text-lg font-semibold text-gray-500">No activity yet</p>
+            <p className="text-lg font-semibold text-text-secondary">No activity yet</p>
             <p className="text-sm">{employeeName} hasn't used this playground yet.</p>
           </div>
 
@@ -141,7 +141,7 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
           <div className="flex-1 flex overflow-hidden">
 
             {/* File sidebar */}
-            <div className="w-52 border-r border-gray-200 bg-[#1e1e1e] flex flex-col flex-shrink-0">
+            <div className="w-52 border-r border-border bg-[#1e1e1e] flex flex-col flex-shrink-0">
               <div className="px-3 py-2.5 border-b border-white/10">
                 <p className="text-xs font-bold text-white/80 flex items-center gap-1.5">
                   <FolderOpenIcon /> Explorer
@@ -154,8 +154,8 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
                     onClick={() => setActiveFileId(f.id)}
                     className={`w-full text-left px-3 py-2 text-xs flex items-center gap-2 transition-colors ${
                       f.id === activeFileId
-                        ? 'bg-white/10 text-white border-l-2 border-teal-400'
-                        : 'text-white/60 hover:bg-white/5 hover:text-white/80'
+                        ? 'bg-surface/10 text-white border-l-2 border-teal-400'
+                        : 'text-white/60 hover:bg-surface/5 hover:text-white/80'
                     }`}
                   >
                     <FileCode size={11} className="flex-shrink-0 opacity-70" />
@@ -214,17 +214,17 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
           <div className="flex-1 flex overflow-hidden">
 
             {/* Thread sidebar */}
-            <div className="w-72 border-r border-gray-200 flex flex-col flex-shrink-0 bg-white">
+            <div className="w-72 border-r border-border flex flex-col flex-shrink-0 bg-surface">
               {/* Inbox / Sent tabs */}
-              <div className="px-3 py-2.5 border-b border-gray-100 bg-gray-50 flex gap-1">
+              <div className="px-3 py-2.5 border-b border-border bg-surface flex gap-1">
                 {(['inbox', 'sent'] as const).map(v => (
                   <button
                     key={v}
                     onClick={() => setMailView(v)}
                     className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
                       mailView === v
-                        ? 'bg-white shadow-sm text-gray-800 border border-gray-200'
-                        : 'text-gray-500 hover:text-gray-700'
+                        ? 'bg-surface shadow-sm text-text-primary border border-border'
+                        : 'text-text-secondary hover:text-text-secondary'
                     }`}
                   >
                     {v === 'inbox' ? <Inbox size={11} /> : <Send size={11} />}
@@ -236,7 +236,7 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
               {/* Thread list */}
               <div className="flex-1 overflow-y-auto divide-y divide-gray-100">
                 {sidebarThreads.length === 0 ? (
-                  <div className="text-center py-10 text-xs text-gray-400">
+                  <div className="text-center py-10 text-xs text-text-secondary">
                     No {mailView} messages
                   </div>
                 ) : sidebarThreads.map(t => (
@@ -246,7 +246,7 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
                     className={`w-full text-left px-4 py-3.5 transition-colors ${
                       t.id === activeThreadId
                         ? 'bg-orange-50 border-l-4 border-orange-400'
-                        : 'hover:bg-gray-50'
+                        : 'hover:bg-surface'
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-1">
@@ -256,13 +256,13 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
                       >
                         {t.prospect.initials}
                       </div>
-                      <span className="text-xs font-semibold text-gray-900 truncate">{t.prospect.name}</span>
+                      <span className="text-xs font-semibold text-text-primary truncate">{t.prospect.name}</span>
                     </div>
-                    <p className="text-xs font-medium text-gray-700 truncate mb-0.5">{t.subject}</p>
-                    <p className="text-[10px] text-gray-400">
+                    <p className="text-xs font-medium text-text-secondary truncate mb-0.5">{t.subject}</p>
+                    <p className="text-[10px] text-text-secondary">
                       {t.prospect.role} · {t.prospect.company}
                     </p>
-                    <p className="text-[10px] text-gray-400 mt-0.5">
+                    <p className="text-[10px] text-text-secondary mt-0.5">
                       {t.messages.length} message{t.messages.length !== 1 ? 's' : ''}
                     </p>
                   </button>
@@ -271,12 +271,12 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
             </div>
 
             {/* Message thread viewer */}
-            <div className="flex-1 overflow-hidden flex flex-col bg-gray-50">
+            <div className="flex-1 overflow-hidden flex flex-col bg-surface">
               {activeThread ? (
                 <>
                   {/* Thread header */}
-                  <div className="px-6 py-3.5 bg-white border-b border-gray-200 flex-shrink-0">
-                    <p className="font-bold text-gray-900 text-sm">{activeThread.subject}</p>
+                  <div className="px-6 py-3.5 bg-surface border-b border-border flex-shrink-0">
+                    <p className="font-bold text-text-primary text-sm">{activeThread.subject}</p>
                     <div className="flex items-center gap-2 mt-1.5">
                       <div
                         className="w-6 h-6 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0"
@@ -284,8 +284,8 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
                       >
                         {activeThread.prospect.initials}
                       </div>
-                      <p className="text-xs text-gray-500">
-                        <span className="font-semibold text-gray-700">{activeThread.prospect.name}</span>
+                      <p className="text-xs text-text-secondary">
+                        <span className="font-semibold text-text-secondary">{activeThread.prospect.name}</span>
                         {' · '}{activeThread.prospect.role}{' @ '}{activeThread.prospect.company}
                       </p>
                     </div>
@@ -301,22 +301,22 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
                         <div className={`max-w-[78%] rounded-2xl px-4 py-3 shadow-sm ${
                           msg.direction === 'sent'
                             ? 'bg-orange-500 text-white'
-                            : 'bg-white border border-gray-200 text-gray-800'
+                            : 'bg-surface border border-border text-text-primary'
                         }`}>
                           <div className="flex items-center gap-2 mb-1.5">
                             <p className={`text-[10px] font-semibold ${
-                              msg.direction === 'sent' ? 'text-orange-200' : 'text-gray-500'
+                              msg.direction === 'sent' ? 'text-orange-200' : 'text-text-secondary'
                             }`}>
                               {msg.direction === 'sent' ? employeeName : msg.from}
                             </p>
                             <p className={`text-[10px] ml-auto ${
-                              msg.direction === 'sent' ? 'text-orange-200' : 'text-gray-400'
+                              msg.direction === 'sent' ? 'text-orange-200' : 'text-text-secondary'
                             }`}>
                               {msg.timestamp}
                             </p>
                           </div>
                           <p className={`text-xs whitespace-pre-wrap leading-relaxed ${
-                            msg.direction === 'sent' ? 'text-white' : 'text-gray-700'
+                            msg.direction === 'sent' ? 'text-white' : 'text-text-secondary'
                           }`}>
                             {msg.body}
                           </p>
@@ -328,7 +328,7 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
                                   className={`text-[10px] px-2.5 py-1 rounded-full font-medium flex items-center gap-1 ${
                                     msg.direction === 'sent'
                                       ? 'bg-orange-400 text-white'
-                                      : 'bg-gray-100 text-gray-600 border border-gray-200'
+                                      : 'bg-surface text-text-secondary border border-border'
                                   }`}
                                 >
                                   📎 {a.name}
@@ -342,7 +342,7 @@ export default function PlaygroundActivityModal({ task, employeeName, onClose }:
                   </div>
                 </>
               ) : (
-                <div className="flex-1 flex flex-col items-center justify-center gap-2 text-gray-400">
+                <div className="flex-1 flex flex-col items-center justify-center gap-2 text-text-secondary">
                   <Mail size={32} className="opacity-30" />
                   <p className="text-sm">Select a thread to view messages</p>
                 </div>

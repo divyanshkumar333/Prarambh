@@ -6,7 +6,7 @@ const plans = [
   {
     name: 'Starter',
     price: { monthly: 49, annual: 39 },
-    description: 'Perfect for early-stage startups just getting started with structured onboarding.',
+    description: 'Perfect for early-stage startups just getting started with structured prarambh.',
     badge: null,
     features: [
       'Up to 10 employees',

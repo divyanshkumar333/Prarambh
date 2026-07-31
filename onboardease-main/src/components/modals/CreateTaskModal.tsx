@@ -713,7 +713,7 @@ export default function CreateTaskModal({ employee, onClose, assignedBy = 'admin
                       </div>
                       <div className="bg-brown-50 border border-brown-100 rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[88%]">
                         <p className="text-xs text-brown-700 leading-relaxed">
-                          Hi! I'm the onboarding agent. Tell me what tasks to create for <strong>{employee.name}</strong> ({employee.role}) and I'll generate a structured list. You can ask me to refine, add more, or change priorities at any time.
+                          Hi! I'm the prarambh agent. Tell me what tasks to create for <strong>{employee.name}</strong> ({employee.role}) and I'll generate a structured list. You can ask me to refine, add more, or change priorities at any time.
                         </p>
                       </div>
                     </div>
@@ -721,7 +721,7 @@ export default function CreateTaskModal({ employee, onClose, assignedBy = 'admin
                       {[
                         `Day 1 setup tasks for a ${employee.role}`,
                         'Create a compliance checklist',
-                        `3 high-priority tasks for ${employee.team} onboarding`,
+                        `3 high-priority tasks for ${employee.team} prarambh`,
                         'Tools & access setup tasks',
                       ].map(p => (
                         <button key={p} onClick={() => sendChat(p)} className="text-xs bg-white text-brown-600 border border-brown-200 px-3 py-1.5 rounded-full hover:bg-brown-50 hover:border-brown-400 transition-colors">

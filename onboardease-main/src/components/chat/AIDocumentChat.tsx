@@ -25,7 +25,7 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
   const [input, setInput]     = useState('')
   const [messages, setMessages] = useState<Message[]>([{
     id: '0', role: 'ai', timestamp: new Date(),
-    content: "👋 Hi! I'm your AI Onboarding Specialist. Select a document above and I'll generate a personalized task list from it.\n\nYou can ask me things like:\n• **\"Generate onboarding tasks for a new developer\"**\n• **\"Create a compliance checklist from this policy\"**\n• **\"What tasks should I assign for day 1?\"**",
+    content: "👋 Hi! I'm your AI Prarambh Specialist. Select a document above and I'll generate a personalized task list from it.\n\nYou can ask me things like:\n• **\"Generate prarambh tasks for a new developer\"**\n• **\"Create a compliance checklist from this policy\"**\n• **\"What tasks should I assign for day 1?\"**",
   }])
   const [typing, setTyping]   = useState(false)
   const [pendingTasks, setPendingTasks] = useState<ParsedTask[] | null>(null)
@@ -109,7 +109,7 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
                 <Sparkles size={18} className="text-white" />
               </div>
               <div>
-                <p className="font-bold text-white">AI Onboarding Specialist</p>
+                <p className="font-bold text-white">AI Prarambh Specialist</p>
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse-soft" />
                   <span className="text-white/70 text-xs">Online · Powered by Deploy AI</span>
@@ -189,7 +189,7 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
 
           {/* Quick prompts */}
           <div className="px-4 py-2 border-t border-brown-100 flex gap-2 overflow-x-auto flex-shrink-0">
-            {['Generate onboarding tasks', 'Create compliance checklist', 'Day 1 task plan', 'Tools & setup tasks'].map(p => (
+            {['Generate prarambh tasks', 'Create compliance checklist', 'Day 1 task plan', 'Tools & setup tasks'].map(p => (
               <button key={p} onClick={() => sendMessage(p)}
                 className="flex-shrink-0 text-xs bg-brown-50 text-brown-600 border border-brown-200 px-2.5 py-1.5 rounded-full hover:bg-brown-100 transition-colors">
                 {p}

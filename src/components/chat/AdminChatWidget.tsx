@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Bot, Send, Loader2, User, Sparkles, X } from 'lucide-react'
 import { useApp } from '../../context/AppContext'
-import { buildOnboardBotContext, sendOnboardBotMessage, type OnboardBotMessage } from '../../services/aiService'
+import { buildPrarambhBotContext, sendPrarambhBotMessage, type PrarambhBotMessage } from '../../services/aiService'
 import MarkdownRenderer from '../common/MarkdownRenderer'
 
 interface Message {
@@ -19,19 +19,19 @@ interface Props {
   atRiskNames: string[]
 }
 
-// Role-specific suggestion chips matching the OnboardBot spec
+// Role-specific suggestion chips matching the PrarambhBot spec
 const ROLE_PROMPTS: Record<string, string[]> = {
   admin: [
-    'Give me a full onboarding overview',
+    'Give me a full prarambh overview',
     'Any at-risk employees?',
     'What documents are uploaded?',
     'Show overall progress metrics',
   ],
   hr: [
-    'How many employees are onboarding?',
+    'How many employees are prarambh?',
     'Which employees are at risk?',
     'What documents are uploaded?',
-    'Give me an onboarding progress summary',
+    'Give me an prarambh progress summary',
   ],
   mentor: [
     "Show my mentees' progress",
@@ -52,10 +52,10 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
   const [loading,  setLoading]    = useState(false)
   const bottomRef  = useRef<HTMLDivElement>(null)
   const inputRef   = useRef<HTMLInputElement>(null)
-  // Persistent chat session ref for OnboardBot
+  // Persistent chat session ref for PrarambhBot
   const chatIdRef  = useRef<string | null>(null)
-  // History for OnboardBot — must NOT include the current user message on the first call
-  const botHistory = useRef<OnboardBotMessage[]>([])
+  // History for PrarambhBot — must NOT include the current user message on the first call
+  const botHistory = useRef<PrarambhBotMessage[]>([])
 
   // Resolve current role (admin | hr | mentor)
   const currentRole = (
@@ -89,8 +89,8 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
     setLoading(true)
 
     try {
-      const context = buildOnboardBotContext(state, currentUserId, currentRole)
-      const reply = await sendOnboardBotMessage(msg, context, prevHistory, chatIdRef)
+      const context = buildPrarambhBotContext(state, currentUserId, currentRole)
+      const reply = await sendPrarambhBotMessage(msg, context, prevHistory, chatIdRef)
       botHistory.current = [...botHistory.current, { role: 'bot', content: reply }]
       setMessages(prev => [...prev, { id: `a-${Date.now()}`, role: 'ai', content: reply, ts: timestamp() }])
     } catch {
@@ -106,22 +106,22 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
   }
 
   return (
-    <div className="rounded-2xl border border-brown-200 bg-white flex flex-col overflow-hidden" style={{ height: '380px' }}>
+    <div className="rounded-2xl border border-border bg-surface flex flex-col overflow-hidden" style={{ height: '380px' }}>
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-brown-100 bg-gradient-to-r from-brown-700 to-brown-900 flex-shrink-0">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-gradient-to-r from-brown-700 to-brown-900 flex-shrink-0">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center">
+          <div className="w-7 h-7 bg-surface/20 rounded-lg flex items-center justify-center">
             <Bot size={15} className="text-white" />
           </div>
           <div>
-            <p className="text-sm font-bold text-white leading-none">OnboardBot</p>
-            <p className="text-xs text-white/60 mt-0.5">{roleLabel} · AI Onboarding Assistant</p>
+            <p className="text-sm font-bold text-white leading-none">PrarambhBot</p>
+            <p className="text-xs text-white/60 mt-0.5">{roleLabel} · AI Prarambh Assistant</p>
           </div>
         </div>
         <div className="flex items-center gap-1">
           <div className="w-2 h-2 bg-green-400 rounded-full" />
           {messages.length > 0 && (
-            <button onClick={clearChat} className="ml-2 p-1 rounded hover:bg-white/20 text-white/60 hover:text-white transition-colors" title="Clear chat">
+            <button onClick={clearChat} className="ml-2 p-1 rounded hover:bg-surface/20 text-white/60 hover:text-white transition-colors" title="Clear chat">
               <X size={13} />
             </button>
           )}
@@ -137,21 +137,21 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
               <div className="w-7 h-7 rounded-full bg-gradient-to-br from-brown-600 to-brown-800 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <Bot size={14} className="text-white" />
               </div>
-              <div className="bg-brown-50 border border-brown-100 rounded-2xl rounded-tl-sm px-3 py-2.5 max-w-[85%]">
-                <p className="text-xs text-brown-700 leading-relaxed">
-                  Hi {roleLabel}! 👋 I'm <strong>OnboardBot</strong> — your AI onboarding assistant. I have full context about your {currentRole === 'mentor' ? "assigned mentees' tasks and progress" : 'employees, tasks, documents, and onboarding metrics'}. I can also answer general questions outside of onboarding. What do you need help with?
+              <div className="bg-surface-elevated border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 max-w-[85%]">
+                <p className="text-xs text-text-primary leading-relaxed">
+                  Hi {roleLabel}! 👋 I'm <strong>PrarambhBot</strong> — your AI prarambh assistant. I have full context about your {currentRole === 'mentor' ? "assigned mentees' tasks and progress" : 'employees, tasks, documents, and prarambh metrics'}. I can also answer general questions outside of prarambh. What do you need help with?
                 </p>
               </div>
             </div>
 
             {/* Quick prompts */}
             <div className="space-y-1.5 pb-1">
-              <p className="text-xs text-brown-400 font-medium flex items-center gap-1"><Sparkles size={11} />Quick questions</p>
+              <p className="text-xs text-text-secondary/70 font-medium flex items-center gap-1"><Sparkles size={11} />Quick questions</p>
               {quickPrompts.map(p => (
                 <button
                   key={p}
                   onClick={() => send(p)}
-                  className="w-full text-left text-xs text-brown-600 bg-brown-50 hover:bg-brown-100 border border-brown-100 px-3 py-2 rounded-xl transition-colors leading-relaxed"
+                  className="w-full text-left text-xs text-text-secondary bg-surface-elevated hover:bg-surface-elevated/50 border border-border px-3 py-2 rounded-xl transition-colors leading-relaxed"
                 >
                   {p}
                 </button>
@@ -176,13 +176,13 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
                   <div className={`px-3 py-2 rounded-2xl text-xs leading-relaxed ${
                     m.role === 'user'
                       ? 'bg-brown-700 text-white rounded-tr-sm'
-                      : 'bg-brown-50 border border-brown-100 text-brown-700 rounded-tl-sm'
+                      : 'bg-surface-elevated border border-border text-text-primary rounded-tl-sm'
                   }`}>
                     {m.role === 'ai'
                       ? <MarkdownRenderer content={m.content} theme="light" />
                       : m.content}
                   </div>
-                  <span className="text-xs text-brown-300 mt-0.5 px-1">{m.ts}</span>
+                  <span className="text-xs text-text-secondary/50 mt-0.5 px-1">{m.ts}</span>
                 </div>
               </div>
             ))}
@@ -191,9 +191,9 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-brown-600 to-brown-800 flex items-center justify-center flex-shrink-0">
                   <Bot size={12} className="text-white" />
                 </div>
-                <div className="bg-brown-50 border border-brown-100 rounded-2xl rounded-tl-sm px-3 py-2.5 flex items-center gap-1.5">
-                  <Loader2 size={12} className="text-brown-400 animate-spin" />
-                  <span className="text-xs text-brown-400">Thinking…</span>
+                <div className="bg-surface-elevated border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 flex items-center gap-1.5">
+                  <Loader2 size={12} className="text-text-secondary/70 animate-spin" />
+                  <span className="text-xs text-text-secondary/70">Thinking…</span>
                 </div>
               </div>
             )}
@@ -203,16 +203,16 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
       </div>
 
       {/* Input */}
-      <div className="border-t border-brown-100 px-3 py-2.5 flex gap-2 items-center flex-shrink-0 bg-white">
+      <div className="border-t border-border px-3 py-2.5 flex gap-2 items-center flex-shrink-0 bg-surface">
         <input
           ref={inputRef}
           type="text"
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && !e.shiftKey && send()}
-          placeholder="Ask about onboarding…"
+          placeholder="Ask about prarambh…"
           disabled={loading}
-          className="flex-1 text-xs bg-brown-50 border border-brown-200 rounded-xl px-3 py-2 outline-none focus:border-brown-400 transition-colors disabled:opacity-50 text-brown-800 placeholder-brown-400"
+          className="flex-1 text-xs bg-surface-elevated border border-border rounded-xl px-3 py-2 outline-none focus:border-brown-400 transition-colors disabled:opacity-50 text-text-primary placeholder-brown-400"
         />
         <button
           onClick={() => send()}

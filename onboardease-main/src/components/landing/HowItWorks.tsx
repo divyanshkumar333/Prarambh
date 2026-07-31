@@ -30,7 +30,7 @@ const steps = [
     number: '04',
     icon: <Rocket size={28} />,
     title: 'Track & Optimize',
-    description: 'Monitor real-time progress, receive AI-powered alerts for at-risk hires, and continuously improve your onboarding process.',
+    description: 'Monitor real-time progress, receive AI-powered alerts for at-risk hires, and continuously improve your prarambh process.',
     detail: ['Real-time dashboard', 'Risk alerts', 'Engagement metrics', 'Continuous improvement'],
     color: 'from-purple-500 to-indigo-500',
   },

@@ -16,12 +16,12 @@ const quickActions = [
 ]
 
 const aiResponses: Record<string, string> = {
-  default: "I'm your AI onboarding assistant! I'm here to help you navigate your first days. What would you like to know?",
+  default: "I'm your AI prarambh assistant! I'm here to help you navigate your first days. What would you like to know?",
   first: "Great question! Start by completing your profile setup, then check today's task list. Your first priority is the company overview module — it takes about 20 minutes and gives you key context about the mission and team. 🚀",
   tools: "Your tool access is being provisioned! You should receive invites to Slack, Google Workspace, and GitHub within the next 30 minutes. Check your email for setup links. Need help with any specific tool?",
   buddy: "You've been matched with Sarah Chen from the Engineering team! She has 3 years of experience and specializes in your role area. Your first check-in is scheduled for tomorrow at 2 PM. I've sent her a message about your questions!",
   schedule: "Here's your schedule for today:\n• 9:00 AM — Company overview module\n• 11:00 AM — Meet your buddy Sarah\n• 2:00 PM — HR paperwork completion\n• 4:00 PM — Team standup (observer)\nYou're doing great — 3 tasks already done!",
-  welcome: "Welcome to Prarambh! 🎉 I'm your AI onboarding assistant. I can help you with tasks, answer questions, find resources, and connect you with the right people. What would you like to know?",
+  welcome: "Welcome to Prarambh! 🎉 I'm your AI prarambh assistant. I can help you with tasks, answer questions, find resources, and connect you with the right people. What would you like to know?",
 }
 
 function getAIResponse(input: string): string {
@@ -31,7 +31,7 @@ function getAIResponse(input: string): string {
   if (lower.includes('buddy') || lower.includes('mentor') || lower.includes('partner')) return aiResponses.buddy
   if (lower.includes('schedule') || lower.includes('today') || lower.includes('calendar') || lower.includes('task')) return aiResponses.schedule
   if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) return aiResponses.welcome
-  return `Great question! Let me look that up for you...\n\nBased on your onboarding plan, I found relevant information in your knowledge base. For more specific guidance, you can also check the Resources section or ask your buddy Sarah. Is there anything else I can help clarify? 😊`
+  return `Great question! Let me look that up for you...\n\nBased on your prarambh plan, I found relevant information in your knowledge base. For more specific guidance, you can also check the Resources section or ask your buddy Sarah. Is there anything else I can help clarify? 😊`
 }
 
 export default function AIChatWidget() {
@@ -41,7 +41,7 @@ export default function AIChatWidget() {
     {
       id: '0',
       role: 'assistant',
-      content: "👋 Hi! I'm your AI onboarding assistant. How can I help you today?",
+      content: "👋 Hi! I'm your AI prarambh assistant. How can I help you today?",
       timestamp: new Date(),
     }
   ])

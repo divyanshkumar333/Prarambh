@@ -1,217 +1,324 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, CheckCircle, Star, Zap, Users, TrendingUp } from 'lucide-react'
+import { ArrowRight, CheckCircle, Zap, Users, TrendingUp, Brain, Clock, Shield } from 'lucide-react'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import DotField from './DotField'
 
-const stats = [
-  { icon: <Zap size={18} />, label: 'Faster Onboarding', value: '48hr' },
-  { icon: <TrendingUp size={18} />, label: 'HR Time Saved', value: '70%' },
-  { icon: <Users size={18} />, label: 'Retention Boost', value: '+25%' },
+const WORDS = ['Hire', 'Onboard', 'Empower', 'Retain']
+
+const features = [
+  {
+    icon: Brain,
+    title: 'AI Task Builder',
+    desc: 'Role-specific plans generated in seconds from any job description.',
+    color: '#a855f7',
+  },
+  {
+    icon: Users,
+    title: 'Smart Mentor Match',
+    desc: 'AI pairs each hire with the right mentor automatically.',
+    color: '#22d3ee',
+  },
+  {
+    icon: Clock,
+    title: '48-Hour Ramp-up',
+    desc: 'New hires hit productivity 6× faster than industry average.',
+    color: '#a855f7',
+  },
+  {
+    icon: Shield,
+    title: 'Compliance Built-in',
+    desc: 'Every step is tracked, documented, and audit-ready.',
+    color: '#22d3ee',
+  },
 ]
 
-const highlights = [
-  'Setup in under 15 minutes',
-  'AI-powered personalization',
-  'Works with your existing tools',
+const metrics = [
+  { value: '48h', label: 'avg ramp-up time' },
+  { value: '70%', label: 'HR hours saved' },
+  { value: '+25%', label: 'retention rate' },
+  { value: '500+', label: 'teams onboarded' },
 ]
+
+function CyclingWord() {
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const t = setInterval(() => setIndex(i => (i + 1) % WORDS.length), 2200)
+    return () => clearInterval(t)
+  }, [])
+
+  return (
+    <span
+      className="relative inline-flex items-center justify-center"
+      style={{ minWidth: '5ch', verticalAlign: 'baseline' }}
+    >
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={WORDS[index]}
+          initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, y: -20, filter: 'blur(6px)' }}
+          transition={{ duration: 0.45, ease: 'easeInOut' }}
+          style={{
+            background: 'linear-gradient(135deg, #22d3ee 0%, #a855f7 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            display: 'inline-block',
+          }}
+        >
+          {WORDS[index]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  )
+}
+
+
 
 export default function Hero() {
+  const featuresRef = useRef(null)
+  const featuresInView = useInView(featuresRef, { once: true, margin: '-80px' })
+
   return (
-    <section
-      id="hero"
-      className="relative overflow-hidden py-20 lg:py-28"
-      style={{
-        backgroundImage: 'url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1920&q=80)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      {/* Pastel blue overlay — blends the photo with the theme */}
+    <section id="hero" className="relative overflow-hidden bg-background">
+      {/* DotField */}
+      <div className="absolute inset-0 z-0 pointer-events-auto">
+        <DotField
+          dotRadius={1.5}
+          dotSpacing={14}
+          bulgeStrength={67}
+          glowRadius={160}
+          sparkle={true}
+          waveAmplitude={0}
+          gradientFrom="rgba(34, 211, 238, 0.30)"
+          gradientTo="rgba(168, 85, 247, 0.22)"
+          glowColor="#0a0a0f"
+        />
+      </div>
+
+      {/* Center radial fade so dots don't compete with text */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-[1] pointer-events-none"
         style={{
-          background: 'linear-gradient(135deg, rgba(219,238,255,0.88) 0%, rgba(176,214,255,0.84) 50%, rgba(195,224,255,0.90) 100%)',
+          background:
+            'radial-gradient(ellipse 80% 70% at 50% 50%, rgba(10,10,15,0.55) 0%, rgba(10,10,15,0.0) 100%)',
         }}
       />
 
-      {/* Subtle decorative blurs on top of overlay */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-brown-400/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-brown-500/10 rounded-full blur-3xl" />
+      {/* ══════════════════════════════════════════
+          HEADLINE BLOCK
+      ══════════════════════════════════════════ */}
+      <div className="relative z-10 pt-32 pb-24 lg:pt-44 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
+
+        {/* Eyebrow */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="inline-flex items-center gap-2.5 mb-10"
+        >
+          <span
+            className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-2 rounded-full border"
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              borderColor: 'rgba(255,255,255,0.08)',
+              color: 'rgba(255,255,255,0.45)',
+              backdropFilter: 'blur(12px)',
+            }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-400 animate-pulse" />
+            AI-Powered Onboarding OS
+          </span>
+        </motion.div>
+
+        {/* Headline */}
+        <div className="mb-8">
+          <motion.div
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          >
+            <h1 className="text-[clamp(3rem,8vw,5.75rem)] font-bold leading-[1.08] tracking-[-0.03em]">
+              <span className="text-white block">The smarter way to</span>
+              <span className="block mt-1" style={{ minHeight: '1.15em' }}>
+                <CyclingWord />
+                <span className="text-white"> people.</span>
+              </span>
+            </h1>
+          </motion.div>
+        </div>
+
+        {/* Sub-copy */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.45 }}
+          className="text-[clamp(1rem,2vw,1.2rem)] text-white/40 font-light leading-relaxed max-w-xl mx-auto mb-12"
+        >
+          From offer letter to fully ramped — Prarambh handles every step
+          with AI, so your team can focus on people, not paperwork.
+        </motion.p>
+
+        {/* CTA row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-20"
+        >
+          <Link to="/login">
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-2 text-[13px] font-semibold px-7 py-3.5 rounded-full text-white"
+              style={{
+                background: 'linear-gradient(135deg, #22d3ee 0%, #a855f7 100%)',
+                boxShadow: '0 0 0 1px rgba(168,85,247,0.3), 0 20px 60px rgba(168,85,247,0.25)',
+              }}
+            >
+              Start for free <ArrowRight size={14} />
+            </motion.button>
+          </Link>
+          <Link to="/admin">
+            <motion.button
+              whileHover={{
+                scale: 1.03,
+                borderColor: 'rgba(255,255,255,0.2)',
+                color: 'rgba(255,255,255,0.85)',
+              }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-2 text-[13px] font-semibold px-7 py-3.5 rounded-full border text-white/45 transition-all"
+              style={{
+                background: 'rgba(255,255,255,0.03)',
+                borderColor: 'rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(12px)',
+              }}
+            >
+              See it in action
+            </motion.button>
+          </Link>
+        </motion.div>
+
+        {/* Metrics strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-white/[0.06]"
+          style={{ background: 'rgba(255,255,255,0.04)' }}
+        >
+          {metrics.map((m, i) => (
+            <motion.div
+              key={m.label}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.85 + i * 0.07 }}
+              className="flex flex-col items-center justify-center py-5 px-4 gap-0.5"
+              style={{ background: 'rgba(10,10,15,0.6)', backdropFilter: 'blur(16px)' }}
+            >
+              <span
+                className="text-2xl sm:text-3xl font-bold"
+                style={{
+                  background: 'linear-gradient(135deg, #22d3ee, #a855f7)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                {m.value}
+              </span>
+              <span className="text-[11px] text-white/30 font-medium uppercase tracking-widest">{m.label}</span>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
 
-      {/* ── Text content — centered ── */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center animate-slide-up mb-14">
+      {/* ══════════════════════════════════════════
+          FEATURE CARDS GRID
+      ══════════════════════════════════════════ */}
+      <div
+        ref={featuresRef}
+        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 lg:pb-36"
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {features.map((f, i) => (
+            <motion.div
+              key={f.title}
+              initial={{ opacity: 0, y: 32, scale: 0.97 }}
+              animate={featuresInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ duration: 0.65, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4, scale: 1.015 }}
+              className="group relative rounded-2xl p-6 border border-white/[0.06] overflow-hidden cursor-default transition-all"
+              style={{
+                background: 'rgba(255,255,255,0.025)',
+                backdropFilter: 'blur(24px)',
+              }}
+            >
+              {/* Hover glow */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+                style={{
+                  background: `radial-gradient(circle at 30% 30%, ${f.color}18, transparent 60%)`,
+                }}
+              />
 
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-brown-500/10 text-brown-700 text-sm font-medium px-4 py-2 rounded-full mb-6 border border-brown-200">
-          <Zap size={14} className="text-brown-500" />
-          AI-Powered Onboarding Platform
-        </div>
+              {/* Icon */}
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                style={{
+                  background: `${f.color}15`,
+                  border: `1px solid ${f.color}25`,
+                }}
+              >
+                <f.icon size={18} style={{ color: f.color }} />
+              </div>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brown-900 leading-tight mb-6">
-          Onboard new hires in{' '}
-          <span className="text-brown-500 relative">
-            48 hours
-            <svg className="absolute -bottom-1 left-0 w-full" height="6" viewBox="0 0 200 6">
-              <path d="M0 5 Q100 0 200 5" stroke="#2B85DC" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.6" />
-            </svg>
-          </span>
-          , not weeks
-        </h1>
+              <h3 className="text-[15px] font-semibold text-white mb-1.5">{f.title}</h3>
+              <p className="text-[13px] text-white/40 leading-relaxed">{f.desc}</p>
 
-        <p className="text-lg sm:text-xl text-brown-600 leading-relaxed mb-8">
-          Prarambh uses document intelligence to auto-generate role-specific task plans, and pairs each hire with an AI-matched mentor — so your team spends zero time on manual setup.
-        </p>
-
-        {/* Highlights */}
-        <ul className="flex flex-wrap gap-4 mb-10 justify-center">
-          {highlights.map(h => (
-            <li key={h} className="flex items-center gap-2 text-brown-700 text-sm font-medium">
-              <CheckCircle size={16} className="text-green-600 flex-shrink-0" />
-              {h}
-            </li>
+              {/* Subtle border glow on hover */}
+              <motion.div
+                className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  boxShadow: `inset 0 0 0 1px ${f.color}30`,
+                }}
+              />
+            </motion.div>
           ))}
-        </ul>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center mb-10">
-          <Link
-            to="/login"
-            className="btn-secondary inline-flex items-center justify-center gap-2 text-base"
-          >
-            View Demo
-          </Link>
         </div>
 
-        {/* Social proof */}
-        <div className="flex items-center gap-3 justify-center">
+        {/* Bottom social proof */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={featuresInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="flex items-center justify-center gap-3 mt-10 text-white/25 text-xs font-medium"
+        >
           <div className="flex -space-x-2">
-            {['#2B85DC', '#4EA0EB', '#7DBCF5', '#B3D8FF'].map((color, i) => (
+            {['#22D3EE', '#06B6D4', '#A855F7', '#9333EA', '#7C3AED'].map((color, i) => (
               <div
                 key={i}
-                className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-semibold"
+                className="w-6 h-6 rounded-full border border-black/50 flex items-center justify-center text-[9px] font-bold text-white"
                 style={{ background: color }}
               >
-                {['A', 'B', 'C', 'D'][i]}
+                {['A', 'B', 'C', 'D', 'E'][i]}
               </div>
             ))}
           </div>
-          <div>
-            <div className="flex items-center gap-1">
-              {Array(5).fill(0).map((_, i) => (
-                <Star key={i} size={13} className="fill-yellow-400 text-yellow-400" />
-              ))}
-            </div>
-            <p className="text-xs text-brown-500">500+ startups onboarded</p>
-          </div>
-        </div>
+          <span>Trusted by 500+ HR teams worldwide</span>
+          <CheckCircle size={12} className="text-brand-400" />
+        </motion.div>
       </div>
 
-      {/* ── Full-width dashboard mockup ── */}
-      <div className="w-full px-4 sm:px-6 lg:px-8 relative animate-slide-up" style={{ animationDelay: '0.15s' }}>
-        <div className="relative max-w-6xl mx-auto">
-
-          {/* Main dashboard card */}
-          <div className="bg-white rounded-2xl shadow-2xl border border-brown-200 overflow-hidden w-full">
-
-            {/* Window chrome */}
-            <div className="flex items-center gap-2 px-4 py-3 bg-brown-50 border-b border-brown-100">
-              <div className="w-3 h-3 rounded-full bg-red-400" />
-              <div className="w-3 h-3 rounded-full bg-yellow-400" />
-              <div className="w-3 h-3 rounded-full bg-green-400" />
-              <div className="ml-3 bg-brown-100 rounded-md px-3 py-0.5 text-xs text-brown-500 flex-1 max-w-[200px]">
-                app.prarambh.com
-              </div>
-            </div>
-
-            <div className="p-6 lg:p-8">
-              {/* Welcome banner */}
-              <div className="bg-gradient-to-r from-brown-500 to-brown-700 rounded-xl p-5 text-white mb-6">
-                <p className="text-xs opacity-80 mb-1">Day 1 of your journey 🎉</p>
-                <h3 className="font-bold text-xl">Welcome, Jordan!</h3>
-                <p className="text-sm opacity-90 mt-1">3 tasks completed · 12 remaining</p>
-                <div className="mt-3 bg-white/20 rounded-full h-2 max-w-sm">
-                  <div className="bg-white rounded-full h-2" style={{ width: '20%' }} />
-                </div>
-              </div>
-
-              {/* Two-column layout at full width */}
-              <div className="grid lg:grid-cols-2 gap-6">
-                {/* Stats */}
-                <div>
-                  <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-3">Your Progress</p>
-                  <div className="grid grid-cols-3 gap-3">
-                    {stats.map((stat) => (
-                      <div key={stat.label} className="bg-brown-50 rounded-xl p-4 text-center border border-brown-100">
-                        <p className="text-brown-500 mb-1 flex justify-center">{stat.icon}</p>
-                        <p className="font-bold text-brown-900 text-lg">{stat.value}</p>
-                        <p className="text-xs text-brown-500 leading-tight">{stat.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Task list */}
-                <div>
-                  <p className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-3">Today's Tasks</p>
-                  <div className="space-y-2">
-                    {[
-                      { label: 'Complete company overview', done: true },
-                      { label: 'Set up Slack workspace', done: true },
-                      { label: 'Meet your buddy — Sarah', done: false, active: true },
-                      { label: 'Review team handbook', done: false },
-                    ].map((task, i) => (
-                      <div
-                        key={i}
-                        className={`flex items-center gap-3 p-3 rounded-lg border transition-colors ${
-                          task.active
-                            ? 'border-brown-300 bg-brown-50'
-                            : 'border-brown-100 bg-white'
-                        }`}
-                      >
-                        <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
-                          task.done ? 'bg-green-500' : task.active ? 'bg-brown-500' : 'border-2 border-brown-200'
-                        }`}>
-                          {task.done && <CheckCircle size={12} className="text-white" />}
-                          {task.active && <div className="w-2 h-2 bg-white rounded-full" />}
-                        </div>
-                        <span className={`text-sm ${
-                          task.done ? 'line-through text-brown-400' : 'text-brown-800 font-medium'
-                        }`}>
-                          {task.label}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Floating AI chat bubble */}
-          <div className="absolute -bottom-3 right-6 bg-brown-500 text-white rounded-2xl rounded-br-sm px-4 py-3 shadow-xl text-sm max-w-[240px]">
-            <div className="flex items-center gap-2 mb-1">
-              <div className="w-5 h-5 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-xs">🤖</span>
-              </div>
-              <span className="font-semibold text-xs">AI Assistant</span>
-            </div>
-            <p className="text-xs opacity-90">Your next task is ready! Meet Sarah at 2 PM 👋</p>
-          </div>
-
-          {/* Floating progress badge */}
-          <div className="absolute -top-4 left-6 bg-white rounded-xl shadow-xl border border-brown-200 px-4 py-3">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                <CheckCircle size={16} className="text-green-600" />
-              </div>
-              <div>
-                <p className="text-xs text-brown-500 font-medium">Setup Complete</p>
-                <p className="text-sm font-bold text-brown-900">Ready in 12 min!</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <style>{`
+        @keyframes gradient-flow {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+      `}</style>
     </section>
   )
 }

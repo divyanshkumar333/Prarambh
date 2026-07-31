@@ -21,7 +21,7 @@ function simulateResumeContent(role: string, name: string): string {
     return `${name} — Sales Representative. Skills: Salesforce CRM, MEDDIC qualification, demo delivery, objection handling, pipeline management. Experience: 2 years B2B SaaS sales. Consistently 110% of quota. Closed $800k ARR in last role. Education: B.S. Business Administration. Strong in discovery calls and value-based selling.`
   }
   if (r.includes('product') || r.includes('pm')) {
-    return `${name} — Product Manager. Skills: Roadmap planning, user story writing, Jira, data analysis, stakeholder management, A/B testing. Experience: 3 years SaaS product management. Launched 4 major features. Reduced churn by 18% through improved onboarding. Education: MBA. Strong in cross-functional collaboration and data-driven decision making.`
+    return `${name} — Product Manager. Skills: Roadmap planning, user story writing, Jira, data analysis, stakeholder management, A/B testing. Experience: 3 years SaaS product management. Launched 4 major features. Reduced churn by 18% through improved prarambh. Education: MBA. Strong in cross-functional collaboration and data-driven decision making.`
   }
   if (r.includes('market')) {
     return `${name} — Marketing Manager. Skills: Content strategy, SEO, Google Analytics, HubSpot, social media, paid acquisition. Experience: 3 years B2B marketing. Grew organic traffic 200%. Managed $500k/year ad spend. Education: B.S. Marketing. Strong in demand generation and brand storytelling.`
@@ -71,7 +71,7 @@ export default function AddEmployeeModal({ onClose }: Props) {
       id, name: form.name.trim(), role: form.role.trim(), email: form.email.trim(),
       team: form.team, mentorId: form.mentorId || null,
       startDate: new Date(form.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      progress: 0, day: 1, totalDays: 30, status: 'onboarding', risk: 'low',
+      progress: 0, day: 1, totalDays: 30, status: 'prarambh', risk: 'low',
       initials, color,
       resumeFileName: resumeFile?.name,
       resumeContent,
@@ -233,7 +233,7 @@ export default function AddEmployeeModal({ onClose }: Props) {
                 </>
               )}
             </div>
-            {resumeFile && <p className="text-xs text-brown-500 mt-1.5">✨ The mentor can use this resume to generate personalized onboarding tasks with AI</p>}
+            {resumeFile && <p className="text-xs text-brown-500 mt-1.5">✨ The mentor can use this resume to generate personalized prarambh tasks with AI</p>}
           </div>
         </div>
 

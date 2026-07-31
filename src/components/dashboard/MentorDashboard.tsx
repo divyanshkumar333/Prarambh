@@ -67,10 +67,10 @@ function ResumeAIChat({
 }) {
   const [messages, setMessages] = useState<ChatMsg[]>([{
     id: '0', role: 'ai', timestamp: new Date(),
-    content: `👋 I'm your AI onboarding specialist.\n\n${employee.resumeFileName
+    content: `👋 I'm your AI prarambh specialist.\n\n${employee.resumeFileName
       ? `I've analyzed **${employee.resumeFileName}** for ${employee.name}. They're joining as **${employee.role}**.`
       : `${employee.name} doesn't have a resume uploaded yet, but I can still create a plan based on their role as **${employee.role}**.`
-    }\n\nTell me what kind of onboarding plan you'd like me to create:\n• **"Create a 30-day technical plan for a React developer"**\n• **"Build a plan focusing on communication and team integration"**\n• **"Generate a task list for their first week only"**`,
+    }\n\nTell me what kind of prarambh plan you'd like me to create:\n• **"Create a 30-day technical plan for a React developer"**\n• **"Build a plan focusing on communication and team integration"**\n• **"Generate a task list for their first week only"**`,
   }])
   const [input, setInput]           = useState('')
   const [typing, setTyping]         = useState(false)
@@ -99,11 +99,11 @@ function ResumeAIChat({
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/40 z-40 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl h-[680px] flex flex-col animate-fade-in">
-          <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-teal-600 to-teal-800 rounded-t-2xl flex-shrink-0">
+      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+        <div className="bg-surface rounded-2xl shadow-2xl w-full max-w-2xl border border-border h-[680px] flex flex-col animate-fade-in">
+          <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-brand-600 to-brand-800 rounded-t-2xl flex-shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center">
+              <div className="w-9 h-9 bg-surface/20 rounded-xl flex items-center justify-center">
                 <Sparkles size={18} className="text-white" />
               </div>
               <div>
@@ -116,11 +116,11 @@ function ResumeAIChat({
                 </div>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 rounded-lg hover:bg-white/20 text-white"><X size={18} /></button>
+            <button onClick={onClose} className="p-2 rounded-lg hover:bg-surface/20 text-white"><X size={18} /></button>
           </div>
           {employee.resumeContent && (
-            <div className="px-4 py-2.5 bg-teal-50 border-b border-teal-100 flex-shrink-0">
-              <p className="text-xs text-teal-800 line-clamp-2">
+            <div className="px-4 py-2.5 bg-brand-500/10 border-b border-brand-500/20 flex-shrink-0">
+              <p className="text-xs text-brand-400 line-clamp-2">
                 <span className="font-semibold">Resume: </span>{employee.resumeContent}
               </p>
             </div>
@@ -129,18 +129,18 @@ function ResumeAIChat({
             {messages.map(msg => (
               <div key={msg.id} className={`flex gap-2 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                 {msg.role === 'ai' && (
-                  <div className="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 bg-brand-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Bot size={15} className="text-white" />
                   </div>
                 )}
                 <div className={`max-w-[85%] flex flex-col gap-1 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
                   <div
-                    className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user' ? 'bg-teal-600 text-white rounded-tr-sm' : 'bg-white text-brown-800 border border-teal-200 rounded-tl-sm shadow-sm'}`}
+                    className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user' ? 'bg-brand-500 text-white rounded-tr-sm' : 'bg-surface text-text-primary border border-brand-500/20 rounded-tl-sm shadow-sm'}`}
                     dangerouslySetInnerHTML={{ __html: fmt(msg.content) }}
                   />
                   {msg.tasks && msg.tasks.length > 0 && (
                     <button onClick={() => { setPending(msg.tasks!); setShowAssign(true) }}
-                      className="flex items-center gap-2 text-xs font-semibold text-white bg-teal-600 hover:bg-teal-700 px-3 py-2 rounded-lg mt-1 transition-colors">
+                      className="flex items-center gap-2 text-xs font-semibold text-white bg-brand-500 hover:bg-brand-600 px-3 py-2 rounded-lg mt-1 transition-colors">
                       <ListChecks size={14} /> Assign {msg.tasks.length} Tasks to {employee.name}
                     </button>
                   )}
@@ -149,10 +149,10 @@ function ResumeAIChat({
             ))}
             {typing && (
               <div className="flex gap-2">
-                <div className="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 bg-brand-500 rounded-full flex items-center justify-center flex-shrink-0">
                   <Bot size={15} className="text-white" />
                 </div>
-                <div className="bg-white border border-teal-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+                <div className="bg-surface border border-brand-500/20 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
                   <div className="flex items-center gap-1">
                     <span className="typing-dot" /><span className="typing-dot" /><span className="typing-dot" />
                   </div>
@@ -161,23 +161,23 @@ function ResumeAIChat({
             )}
             <div ref={endRef} />
           </div>
-          <div className="px-4 py-2 border-t border-teal-100 flex gap-2 overflow-x-auto flex-shrink-0">
+          <div className="px-4 py-2 border-t border-brand-500/20 flex gap-2 overflow-x-auto flex-shrink-0">
             {['Create 30-day plan', 'Week 1 tasks only', 'Technical deep-dive', 'Team integration focus'].map(p => (
               <button key={p} onClick={() => send(p)}
-                className="flex-shrink-0 text-xs bg-teal-50 text-teal-700 border border-teal-200 px-2.5 py-1.5 rounded-full hover:bg-teal-100 transition-colors">
+                className="flex-shrink-0 text-xs bg-brand-500/10 text-brand-400 border border-brand-500/20 px-2.5 py-1.5 rounded-full hover:bg-brand-500/20 transition-colors">
                 {p}
               </button>
             ))}
           </div>
           <div className="px-4 pb-4 pt-1 flex-shrink-0">
-            <div className="flex items-center gap-2 bg-white border border-teal-200 rounded-xl px-4 py-2.5">
+            <div className="flex items-center gap-2 bg-surface border border-brand-500/20 rounded-xl px-4 py-2.5">
               <input value={input} onChange={e => setInput(e.target.value)}
                 onKeyPress={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() } }}
-                placeholder="Describe the onboarding plan you want to create..."
-                className="flex-1 bg-transparent text-sm text-brown-800 placeholder-brown-400 outline-none"
+                placeholder="Describe the prarambh plan you want to create..."
+                className="flex-1 bg-transparent text-sm text-text-primary placeholder-brown-400 outline-none"
               />
               <button onClick={() => send()} disabled={!input.trim() || typing}
-                className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center text-white disabled:opacity-40 hover:bg-teal-700 transition-colors">
+                className="w-8 h-8 bg-brand-500 rounded-lg flex items-center justify-center text-white disabled:opacity-40 hover:bg-brand-600 transition-colors">
                 <Send size={14} />
               </button>
             </div>
@@ -219,35 +219,35 @@ function ScheduleMeetingModal({
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-fade-in">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-brown-100">
-          <h2 className="font-bold text-brown-900 text-lg flex items-center gap-2">
-            <Calendar size={18} className="text-teal-600" /> Schedule Meeting
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-surface rounded-2xl shadow-2xl w-full max-w-md border border-border animate-fade-in">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+          <h2 className="font-bold text-text-primary text-lg flex items-center gap-2">
+            <Calendar size={18} className="text-brand-400" /> Schedule Meeting
           </h2>
-          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-brown-100 text-brown-500"><X size={16} /></button>
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-surface-elevated/50 text-text-secondary"><X size={16} /></button>
         </div>
         <div className="p-6 space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-brown-600 mb-1.5">Mentee</label>
+            <label className="block text-xs font-semibold text-text-secondary mb-1.5">Mentee</label>
             <select value={menteeId} onChange={e => setMenteeId(e.target.value)}
-              className="w-full border border-brown-200 rounded-xl px-3 py-2.5 text-sm text-brown-800 bg-white focus:outline-none focus:ring-2 focus:ring-teal-400">
+              className="w-full border border-border rounded-xl px-3 py-2.5 text-sm text-text-primary bg-surface focus:outline-none focus:ring-2 focus:ring-teal-400">
               {mentees.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="block text-xs font-semibold text-brown-600 mb-1.5">Meeting Title</label>
+            <label className="block text-xs font-semibold text-text-secondary mb-1.5">Meeting Title</label>
             <input value={title} onChange={e => setTitle(e.target.value)}
-              className="w-full border border-brown-200 rounded-xl px-3 py-2.5 text-sm text-brown-800 focus:outline-none focus:ring-2 focus:ring-teal-400"
+              className="w-full border border-border rounded-xl px-3 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="e.g. Weekly Check-in" />
           </div>
           <div>
-            <label className="block text-xs font-semibold text-brown-600 mb-1.5">Meeting Type</label>
+            <label className="block text-xs font-semibold text-text-secondary mb-1.5">Meeting Type</label>
             <div className="flex gap-2">
               {(['1:1', 'check-in', 'review'] as const).map(t => (
                 <button key={t} onClick={() => setType(t)}
                   className={`flex-1 px-3 py-2 rounded-xl text-xs font-semibold border transition-colors ${
-                    type === t ? 'bg-teal-600 text-white border-teal-600' : 'bg-white text-brown-600 border-brown-200 hover:bg-brown-50'
+                    type === t ? 'bg-brand-500 text-white border-teal-600' : 'bg-surface text-text-secondary border-border hover:bg-surface-elevated'
                   }`}>
                   {t}
                 </button>
@@ -256,27 +256,27 @@ function ScheduleMeetingModal({
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-brown-600 mb-1.5">Date</label>
+              <label className="block text-xs font-semibold text-text-secondary mb-1.5">Date</label>
               <input type="date" value={date} onChange={e => setDate(e.target.value)}
-                className="w-full border border-brown-200 rounded-xl px-3 py-2.5 text-sm text-brown-800 focus:outline-none focus:ring-2 focus:ring-teal-400" />
+                className="w-full border border-border rounded-xl px-3 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-teal-400" />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-brown-600 mb-1.5">Time</label>
+              <label className="block text-xs font-semibold text-text-secondary mb-1.5">Time</label>
               <input type="time" value={time} onChange={e => setTime(e.target.value)}
-                className="w-full border border-brown-200 rounded-xl px-3 py-2.5 text-sm text-brown-800 focus:outline-none focus:ring-2 focus:ring-teal-400" />
+                className="w-full border border-border rounded-xl px-3 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-teal-400" />
             </div>
           </div>
           <div>
-            <label className="block text-xs font-semibold text-brown-600 mb-1.5">Notes (optional)</label>
+            <label className="block text-xs font-semibold text-text-secondary mb-1.5">Notes (optional)</label>
             <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={2}
-              className="w-full border border-brown-200 rounded-xl px-3 py-2.5 text-sm text-brown-800 focus:outline-none focus:ring-2 focus:ring-teal-400 resize-none"
+              className="w-full border border-border rounded-xl px-3 py-2.5 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-teal-400 resize-none"
               placeholder="Meeting agenda or preparation notes..." />
           </div>
         </div>
         <div className="px-6 pb-6 flex gap-3">
-          <button onClick={onClose} className="flex-1 px-4 py-2.5 border border-brown-200 rounded-xl text-sm font-medium text-brown-600 hover:bg-brown-50 transition-colors">Cancel</button>
+          <button onClick={onClose} className="flex-1 px-4 py-2.5 border border-border rounded-xl text-sm font-medium text-text-secondary hover:bg-surface-elevated transition-colors">Cancel</button>
           <button onClick={save} disabled={!menteeId || !title || !date}
-            className="flex-1 px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white rounded-xl text-sm font-semibold transition-colors disabled:opacity-40">
+            className="flex-1 px-4 py-2.5 bg-brand-500 hover:bg-brand-600 text-white rounded-xl text-sm font-semibold transition-colors disabled:opacity-40">
             Schedule Meeting
           </button>
         </div>
@@ -313,15 +313,15 @@ function MenteeCard({
 
   const status = mentee.risk === 'high' ? 'at-risk' : computedProgress > 70 ? 'ahead' : 'on-track'
   const badgeCls =
-    status === 'at-risk' ? 'bg-red-100 text-red-700 border border-red-200'
-    : status === 'ahead' ? 'bg-blue-100 text-blue-700 border border-blue-200'
-    : 'bg-green-100 text-green-700 border border-green-200'
+    status === 'at-risk' ? 'bg-red-100 text-red-400 border border-red-500/20'
+    : status === 'ahead' ? 'bg-blue-100 text-blue-400 border border-blue-500/20'
+    : 'bg-green-100 text-emerald-400 border border-emerald-500/20'
   const badgeLabel = status === 'at-risk' ? '⚠️ At Risk' : status === 'ahead' ? '🚀 Ahead' : '✅ On Track'
 
   return (
     <div
       onClick={onDetailClick}
-      className="card hover:shadow-lg transition-all duration-200 cursor-pointer group border-2 border-transparent hover:border-teal-200"
+      className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer group border-2 border-transparent hover:border-brand-500/20"
     >
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-4">
@@ -330,40 +330,40 @@ function MenteeCard({
             {mentee.initials}
           </div>
           <div>
-            <h4 className="font-bold text-brown-900 group-hover:text-teal-700 transition-colors">{mentee.name}</h4>
-            <p className="text-sm text-brown-500">{mentee.role} · {mentee.team}</p>
-            <p className="text-xs text-brown-400 mt-0.5">Started {mentee.startDate} · Day {mentee.day}/{mentee.totalDays}</p>
+            <h4 className="font-bold text-text-primary group-hover:text-brand-400 transition-colors">{mentee.name}</h4>
+            <p className="text-sm text-text-secondary">{mentee.role} · {mentee.team}</p>
+            <p className="text-xs text-text-secondary/70 mt-0.5">Started {mentee.startDate} · Day {mentee.day}/{mentee.totalDays}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
           {allTasks.length > 0 && (
             <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${badgeCls}`}>{badgeLabel}</span>
           )}
-          <ChevronRight size={16} className="text-brown-300 group-hover:text-teal-500 transition-colors" />
+          <ChevronRight size={16} className="text-text-secondary/50 group-hover:text-teal-500 transition-colors" />
         </div>
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-4">
         <div>
-          <div className="flex justify-between text-xs text-brown-500 mb-1 font-medium"><span>Progress</span><span>{computedProgress}%</span></div>
-          <div className="w-full h-2 bg-brown-100 rounded-full overflow-hidden">
+          <div className="flex justify-between text-xs text-text-secondary mb-1 font-medium"><span>Progress</span><span>{computedProgress}%</span></div>
+          <div className="w-full h-2 bg-surface-elevated/50 rounded-full overflow-hidden">
             <div className={`h-full rounded-full ${mentee.risk === 'high' ? 'bg-red-400' : 'bg-teal-500'}`} style={{ width: `${computedProgress}%` }} />
           </div>
         </div>
         <div>
-          <div className="flex justify-between text-xs text-brown-500 mb-1 font-medium"><span>My Tasks</span><span>{done}/{myTasks.length}</span></div>
-          <div className="w-full h-2 bg-brown-100 rounded-full overflow-hidden">
+          <div className="flex justify-between text-xs text-text-secondary mb-1 font-medium"><span>My Tasks</span><span>{done}/{myTasks.length}</span></div>
+          <div className="w-full h-2 bg-surface-elevated/50 rounded-full overflow-hidden">
             <div className="h-full rounded-full bg-teal-500" style={{ width: myTasks.length > 0 ? `${(done / myTasks.length) * 100}%` : '0%' }} />
           </div>
         </div>
       </div>
 
       {/* Resume status */}
-      <div className={`mt-4 p-3 rounded-xl border ${mentee.resumeFileName ? 'bg-green-50 border-green-200' : 'bg-amber-50 border-amber-200'}`}>
+      <div className={`mt-4 p-3 rounded-xl border ${mentee.resumeFileName ? 'bg-emerald-500/10 border-emerald-500/20' : 'bg-amber-500/10 border-amber-500/20'}`}>
         <div className="flex items-center gap-2">
-          <FileText size={14} className={mentee.resumeFileName ? 'text-green-600' : 'text-amber-600'} />
+          <FileText size={14} className={mentee.resumeFileName ? 'text-emerald-400' : 'text-amber-400'} />
           <span className="text-xs font-semibold truncate">{mentee.resumeFileName ?? 'No resume uploaded'}</span>
-          {mentee.resumeFileName && <span className="ml-auto text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full flex-shrink-0">AI Ready</span>}
+          {mentee.resumeFileName && <span className="ml-auto text-[10px] font-bold bg-green-100 text-emerald-400 px-2 py-0.5 rounded-full flex-shrink-0">AI Ready</span>}
         </div>
       </div>
 
@@ -371,21 +371,21 @@ function MenteeCard({
       {myTasks.some(t => t.playgroundEnabled) && (() => {
         const pgTasks = myTasks.filter(t => t.playgroundEnabled)
         return (
-          <div className="mt-3 bg-teal-50 border border-teal-200 rounded-xl overflow-hidden">
-            <div className="flex items-center gap-1.5 px-3 py-2 border-b border-teal-200">
-              <FlaskConical size={12} className="text-teal-600" />
-              <span className="text-xs font-bold text-teal-700">Playground Tasks</span>
-              <span className="ml-auto text-[10px] font-semibold bg-teal-600 text-white px-1.5 py-0.5 rounded-full">{pgTasks.length}</span>
+          <div className="mt-3 bg-brand-500/10 border border-brand-500/20 rounded-xl overflow-hidden">
+            <div className="flex items-center gap-1.5 px-3 py-2 border-b border-brand-500/20">
+              <FlaskConical size={12} className="text-brand-400" />
+              <span className="text-xs font-bold text-brand-400">Playground Tasks</span>
+              <span className="ml-auto text-[10px] font-semibold bg-brand-500 text-white px-1.5 py-0.5 rounded-full">{pgTasks.length}</span>
             </div>
             {pgTasks.map(t => {
               const hasActivity = !!t.playgroundState?.lastSaved
               const typeIcon = t.playgroundType === 'sales' ? '📧' : '💻'
               const typeLabel = t.playgroundType === 'sales' ? 'Sales Mail' : 'Engineering'
               return (
-                <div key={t.id} className="flex items-center gap-2 px-3 py-2 border-b border-teal-100 last:border-b-0">
+                <div key={t.id} className="flex items-center gap-2 px-3 py-2 border-b border-brand-500/20 last:border-b-0">
                   <span className="text-xs">{typeIcon}</span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-semibold text-teal-800 truncate">{t.title}</p>
+                    <p className="text-xs font-semibold text-brand-400 truncate">{t.title}</p>
                     <p className="text-[10px] text-teal-500">{typeLabel} · {hasActivity ? '🟢 Has activity' : '⚪ No activity yet'}</p>
                   </div>
                   <button
@@ -394,8 +394,8 @@ function MenteeCard({
                     title={hasActivity ? 'View playground activity' : 'No activity yet'}
                     className={`flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-lg transition-colors flex-shrink-0 ${
                       hasActivity
-                        ? 'bg-teal-600 text-white hover:bg-teal-700'
-                        : 'bg-teal-100 text-teal-400 cursor-not-allowed'
+                        ? 'bg-brand-500 text-white hover:bg-brand-600'
+                        : 'bg-brand-500/20 text-teal-400 cursor-not-allowed'
                     }`}
                   >
                     <Eye size={10} /> View
@@ -408,17 +408,17 @@ function MenteeCard({
       })()}
 
       {/* Actions */}
-      <div className="flex justify-between items-center mt-4 pt-4 border-t border-brown-100 flex-wrap gap-2">
+      <div className="flex justify-between items-center mt-4 pt-4 border-t border-border flex-wrap gap-2">
         <button
           onClick={e => { e.stopPropagation(); onScheduleClick() }}
-          className="flex items-center gap-1.5 text-xs font-medium text-brown-600 bg-brown-50 hover:bg-brown-100 px-3 py-1.5 rounded-lg transition-colors border border-brown-200"
+          className="flex items-center gap-1.5 text-xs font-medium text-text-secondary bg-surface-elevated hover:bg-surface-elevated/50 px-3 py-1.5 rounded-lg transition-colors border border-border"
         >
           <Calendar size={13} /> Schedule
         </button>
         {/* Simple Create Task — same as the button inside EmployeeDetailModal */}
         <button
           onClick={e => { e.stopPropagation(); onCreateTaskClick() }}
-          className="flex items-center gap-1.5 text-xs font-semibold text-white bg-teal-600 hover:bg-teal-700 px-4 py-1.5 rounded-lg transition-colors"
+          className="flex items-center gap-1.5 text-xs font-semibold text-white bg-brand-500 hover:bg-brand-600 px-4 py-1.5 rounded-lg transition-colors"
         >
           <Plus size={13} /> Create Task
         </button>
@@ -491,7 +491,7 @@ function OverviewSection({
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-teal-600 to-teal-800 rounded-2xl p-6 text-white">
+      <div className="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-6 text-white">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl"
             style={{ background: 'rgba(255,255,255,0.2)' }}>
@@ -507,16 +507,16 @@ function OverviewSection({
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { icon: <Users size={20} />,         label: 'My Mentees',    value: myMentees.length,                                                                                            color: 'bg-teal-50 text-teal-700'   },
-          { icon: <AlertTriangle size={20} />, label: 'At Risk',       value: myMentees.filter(e => e.risk === 'high').length,                                                              color: 'bg-red-50 text-red-600'     },
-          { icon: <ListChecks size={20} />,    label: 'Tasks Assigned', value: state.tasks.filter(t => myMentees.some(e => e.id === t.assignedTo)).length,    color: 'bg-brown-50 text-brown-600' },
-          { icon: <CheckCircle size={20} />,   label: 'With Resumes',  value: myMentees.filter(e => !!e.resumeFileName).length,                                                            color: 'bg-green-50 text-green-600' },
+          { icon: <Users size={20} />,         label: 'My Mentees',    value: myMentees.length,                                                                                            color: 'bg-brand-500/10 text-brand-400'   },
+          { icon: <AlertTriangle size={20} />, label: 'At Risk',       value: myMentees.filter(e => e.risk === 'high').length,                                                              color: 'bg-red-500/10 text-red-400'     },
+          { icon: <ListChecks size={20} />,    label: 'Tasks Assigned', value: state.tasks.filter(t => myMentees.some(e => e.id === t.assignedTo)).length,    color: 'bg-surface-elevated text-text-secondary' },
+          { icon: <CheckCircle size={20} />,   label: 'With Resumes',  value: myMentees.filter(e => !!e.resumeFileName).length,                                                            color: 'bg-emerald-500/10 text-emerald-400' },
         ].map(s => (
-          <div key={s.label} className="card flex items-center gap-4">
+          <div key={s.label} className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm flex items-center gap-4">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>{s.icon}</div>
             <div>
-              <p className="text-sm text-brown-500 font-medium">{s.label}</p>
-              <p className="font-bold text-brown-900 text-xl leading-tight">{s.value}</p>
+              <p className="text-sm text-text-secondary font-medium">{s.label}</p>
+              <p className="font-bold text-text-primary text-xl leading-tight">{s.value}</p>
             </div>
           </div>
         ))}
@@ -525,12 +525,12 @@ function OverviewSection({
       <div className="grid lg:grid-cols-3 gap-6">
         {/* ── Left/central: Mentee cards + AI Insights (same as Admin layout) ── */}
         <div className="lg:col-span-2 space-y-4">
-          <h3 className="font-bold text-brown-900 text-lg flex items-center gap-2">
+          <h3 className="font-bold text-text-primary text-lg flex items-center gap-2">
             My Mentees
-            <span className="text-xs font-normal text-brown-400 ml-1">· click a card to view full details</span>
+            <span className="text-xs font-normal text-text-secondary/70 ml-1">· click a bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm to view full details</span>
           </h3>
           {myMentees.length === 0 ? (
-            <div className="card text-center py-12 text-brown-400">
+            <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm text-center py-12 text-text-secondary/70">
               <Users size={40} className="mx-auto mb-3 opacity-40" />
               <p className="font-medium">No mentees assigned yet</p>
               <p className="text-sm mt-1">Ask your Admin to assign employees to you</p>
@@ -558,32 +558,32 @@ function OverviewSection({
           />
         </div>
 
-        {/* ── Right panel: AI Insights card + My Documents ── */}
+        {/* ── Right panel: AI Insights bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm + My Documents ── */}
         <div className="space-y-5">
           {/* AI Insights — static insight cards like Admin/HR portal */}
-          <div className="card">
-            <h3 className="font-bold text-brown-900 mb-4 flex items-center gap-2">
+          <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
+            <h3 className="font-bold text-text-primary mb-4 flex items-center gap-2">
               <Bot size={16} /> AI Insights
             </h3>
             <div className="space-y-3">
               {myMentees.filter(e => e.risk === 'high').length > 0 && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-xs text-red-800">
+                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-xs text-red-400">
                   ⚠️ <strong>{myMentees.filter(e => e.risk === 'high').map(e => e.name).join(', ')}</strong> — low engagement. Schedule a check-in.
                 </div>
               )}
-              <div className="bg-green-50 border border-green-200 rounded-xl p-3 text-xs text-green-800">
+              <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-3 text-xs text-emerald-400">
                 ✅ {state.documents.filter(d => d.status === 'processed' && d.uploadedBy === currentMentor.id).length} of your documents processed and ready.
               </div>
               {myMentees.filter(t => !state.tasks.some(tk => tk.assignedTo === t.id)).length > 0 && (
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800">
+                <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 text-xs text-amber-400">
                   📋 <strong>{myMentees.filter(t => !state.tasks.some(tk => tk.assignedTo === t.id)).map(e => e.name).join(', ')}</strong> — no tasks assigned yet.
                 </div>
               )}
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs text-blue-800">
-                💡 Click any mentee card to view full details, tasks and progress.
+              <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3 text-xs text-blue-400">
+                💡 Click any mentee bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm to view full details, tasks and progress.
               </div>
               {avgProgress >= 70 && (
-                <div className="bg-teal-50 border border-teal-200 rounded-xl p-3 text-xs text-teal-800">
+                <div className="bg-brand-500/10 border border-brand-500/20 rounded-xl p-3 text-xs text-brand-400">
                   🚀 Your mentees are averaging <strong>{avgProgress}%</strong> progress — great work!
                 </div>
               )}
@@ -591,9 +591,9 @@ function OverviewSection({
           </div>
 
           {/* Upcoming Meetings */}
-          <div className="card">
-            <h3 className="font-bold text-brown-900 mb-3 text-sm flex items-center gap-2">
-              <Calendar size={14} className="text-teal-600" /> Upcoming Meetings
+          <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm">
+            <h3 className="font-bold text-text-primary mb-3 text-sm flex items-center gap-2">
+              <Calendar size={14} className="text-brand-400" /> Upcoming Meetings
             </h3>
             {(() => {
               const today = new Date().toISOString().split('T')[0]
@@ -602,7 +602,7 @@ function OverviewSection({
                 .sort((a, b) => a.date.localeCompare(b.date) || a.time.localeCompare(b.time))
                 .slice(0, 3)
               if (upcoming.length === 0) return (
-                <div className="text-center py-4 text-brown-400">
+                <div className="text-center py-4 text-text-secondary/70">
                   <Calendar size={24} className="mx-auto mb-1.5 opacity-30" />
                   <p className="text-xs">No meetings scheduled</p>
                 </div>
@@ -612,22 +612,22 @@ function OverviewSection({
                   {upcoming.map(meet => {
                     const mentee = myMentees.find(e => e.id === meet.menteeId)
                     return (
-                      <div key={meet.id} className="flex items-start gap-2.5 p-2.5 rounded-xl border border-teal-100 bg-teal-50/40">
-                        <div className="flex-shrink-0 text-center bg-teal-100 rounded-lg px-1.5 py-1 min-w-[38px]">
-                          <p className="text-[9px] font-bold text-teal-600 uppercase leading-none">
+                      <div key={meet.id} className="flex items-start gap-2.5 p-2.5 rounded-xl border border-brand-500/20 bg-brand-500/10/40">
+                        <div className="flex-shrink-0 text-center bg-brand-500/20 rounded-lg px-1.5 py-1 min-w-[38px]">
+                          <p className="text-[9px] font-bold text-brand-400 uppercase leading-none">
                             {new Date(meet.date + 'T00:00:00').toLocaleDateString('en-US', { month: 'short' })}
                           </p>
-                          <p className="text-base font-black text-teal-900 leading-tight">
+                          <p className="text-base font-black text-brand-400 leading-tight">
                             {new Date(meet.date + 'T00:00:00').getDate()}
                           </p>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-semibold text-brown-800 truncate">{meet.title}</p>
-                          {mentee && <p className="text-[10px] text-brown-500 truncate">{mentee.name}</p>}
+                          <p className="text-xs font-semibold text-text-primary truncate">{meet.title}</p>
+                          {mentee && <p className="text-[10px] text-text-secondary truncate">{mentee.name}</p>}
                           <div className="flex items-center gap-1.5 mt-0.5">
-                            <Clock size={9} className="text-brown-400" />
-                            <span className="text-xs text-brown-400">{meet.time}</span>
-                            <span className="text-xs font-semibold text-teal-600">· {getDaysUntil(meet.date)}</span>
+                            <Clock size={9} className="text-text-secondary/70" />
+                            <span className="text-xs text-text-secondary/70">{meet.time}</span>
+                            <span className="text-xs font-semibold text-brand-400">· {getDaysUntil(meet.date)}</span>
                           </div>
                         </div>
                       </div>
@@ -639,14 +639,14 @@ function OverviewSection({
           </div>
 
           {/* My Documents */}
-          <div className="card space-y-3">
+          <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="font-bold text-brown-900 flex items-center gap-2">
-                <FileText size={16} className="text-teal-600" /> My Documents
+              <h3 className="font-bold text-text-primary flex items-center gap-2">
+                <FileText size={16} className="text-brand-400" /> My Documents
               </h3>
               <button
                 onClick={() => docInputRef.current?.click()}
-                className="flex items-center gap-1.5 text-xs font-semibold text-teal-600 border border-teal-200 bg-teal-50 hover:bg-teal-100 px-2.5 py-1.5 rounded-lg transition-colors"
+                className="flex items-center gap-1.5 text-xs font-semibold text-brand-400 border border-brand-500/20 bg-brand-500/10 hover:bg-brand-500/20 px-2.5 py-1.5 rounded-lg transition-colors"
               >
                 <Upload size={12} /> Upload
               </button>
@@ -654,18 +654,18 @@ function OverviewSection({
             </div>
             <div className="space-y-2 max-h-48 overflow-y-auto">
               {allDocs.length === 0 ? (
-                <p className="text-xs text-brown-400 text-center py-4">No documents uploaded yet</p>
+                <p className="text-xs text-text-secondary/70 text-center py-4">No documents uploaded yet</p>
               ) : (
                 allDocs.slice(0, 6).map(doc => (
-                  <div key={doc.id} className="flex items-center gap-2 p-2 rounded-lg bg-brown-50 border border-brown-100">
+                  <div key={doc.id} className="flex items-center gap-2 p-2 rounded-lg bg-surface-elevated border border-border">
                     <BookOpen size={13} className="text-red-500 flex-shrink-0" />
-                    <span className="text-xs font-medium text-brown-800 truncate flex-1">{doc.name}</span>
-                    <span className="text-[10px] text-brown-400 flex-shrink-0">{doc.type}</span>
+                    <span className="text-xs font-medium text-text-primary truncate flex-1">{doc.name}</span>
+                    <span className="text-[10px] text-text-secondary/70 flex-shrink-0">{doc.type}</span>
                   </div>
                 ))
               )}
               {allDocs.length > 6 && (
-                <p className="text-xs text-brown-400 text-center">+{allDocs.length - 6} more — see Documents tab</p>
+                <p className="text-xs text-text-secondary/70 text-center">+{allDocs.length - 6} more — see Documents tab</p>
               )}
             </div>
           </div>
@@ -712,21 +712,21 @@ function MenteesSection({ myMentees }: { myMentees: Employee[] }) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-6 space-y-6">
-      <h2 className="text-xl font-bold text-brown-900">My Mentees</h2>
+      <h2 className="text-xl font-bold text-text-primary">My Mentees</h2>
 
       {/* Analytics cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { icon: <Users size={20} />,         label: 'Total Mentees',   value: myMentees.length,                               color: 'bg-teal-50 text-teal-700'   },
-          { icon: <AlertTriangle size={20} />, label: 'At Risk',         value: myMentees.filter(e => e.risk === 'high').length, color: 'bg-red-50 text-red-600'     },
-          { icon: <ListChecks size={20} />,    label: 'Tasks Assigned',  value: totalMentorTasks.length,                        color: 'bg-brown-50 text-brown-600' },
-          { icon: <CheckCircle size={20} />,   label: 'Tasks Completed', value: doneMentorTasks.length,                         color: 'bg-green-50 text-green-600' },
+          { icon: <Users size={20} />,         label: 'Total Mentees',   value: myMentees.length,                               color: 'bg-brand-500/10 text-brand-400'   },
+          { icon: <AlertTriangle size={20} />, label: 'At Risk',         value: myMentees.filter(e => e.risk === 'high').length, color: 'bg-red-500/10 text-red-400'     },
+          { icon: <ListChecks size={20} />,    label: 'Tasks Assigned',  value: totalMentorTasks.length,                        color: 'bg-surface-elevated text-text-secondary' },
+          { icon: <CheckCircle size={20} />,   label: 'Tasks Completed', value: doneMentorTasks.length,                         color: 'bg-emerald-500/10 text-emerald-400' },
         ].map(s => (
-          <div key={s.label} className="card flex items-center gap-4">
+          <div key={s.label} className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm flex items-center gap-4">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${s.color}`}>{s.icon}</div>
             <div>
-              <p className="text-sm text-brown-500 font-medium">{s.label}</p>
-              <p className="font-bold text-brown-900 text-xl leading-tight">{s.value}</p>
+              <p className="text-sm text-text-secondary font-medium">{s.label}</p>
+              <p className="font-bold text-text-primary text-xl leading-tight">{s.value}</p>
             </div>
           </div>
         ))}
@@ -734,9 +734,9 @@ function MenteesSection({ myMentees }: { myMentees: Employee[] }) {
 
       {/* Progress bars */}
       {myMentees.length > 0 && (
-        <div className="card space-y-4">
-          <h3 className="font-bold text-brown-900 flex items-center gap-2">
-            <BarChart3 size={16} className="text-teal-600" /> Progress Overview
+        <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm space-y-4">
+          <h3 className="font-bold text-text-primary flex items-center gap-2">
+            <BarChart3 size={16} className="text-brand-400" /> Progress Overview
           </h3>
           <div className="space-y-3">
             {myMentees.map(mentee => {
@@ -750,20 +750,20 @@ function MenteesSection({ myMentees }: { myMentees: Employee[] }) {
                   <div className="flex items-center gap-2 w-40 flex-shrink-0">
                     <div className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
                       style={{ background: mentee.color }}>{mentee.initials}</div>
-                    <span className="text-sm font-semibold text-brown-900 truncate">{mentee.name}</span>
+                    <span className="text-sm font-semibold text-text-primary truncate">{mentee.name}</span>
                   </div>
                   {tasks.length === 0 ? (
                     <div className="flex items-center gap-1.5 py-1">
                       <AlertTriangle size={12} className="text-amber-500 flex-shrink-0" />
-                      <span className="text-xs font-semibold text-amber-600">No tasks assigned</span>
+                      <span className="text-xs font-semibold text-amber-400">No tasks assigned</span>
                     </div>
                   ) : (
                     <div>
-                      <div className="w-full h-2.5 bg-brown-100 rounded-full overflow-hidden">
+                      <div className="w-full h-2.5 bg-surface-elevated/50 rounded-full overflow-hidden">
                         <div className={`h-full rounded-full ${mentee.risk === 'high' ? 'bg-red-400' : 'bg-teal-500'}`} style={{ width: `${pct}%` }} />
                       </div>
                       <div className="flex items-center gap-3 mt-1">
-                        <span className="text-xs text-green-600 font-medium">{done} done</span>
+                        <span className="text-xs text-emerald-400 font-medium">{done} done</span>
                         <span className="text-xs text-blue-500 font-medium">{inProg} in progress</span>
                         <span className="text-xs text-amber-500 font-medium">{pending} pending</span>
                       </div>
@@ -773,7 +773,7 @@ function MenteesSection({ myMentees }: { myMentees: Employee[] }) {
                     {tasks.length === 0
                       ? <span className="text-xs text-amber-500 font-semibold">—</span>
                       : <>
-                          <span className={`text-sm font-bold ${mentee.risk === 'high' ? 'text-red-600' : 'text-teal-600'}`}>{pct}%</span>
+                          <span className={`text-sm font-bold ${mentee.risk === 'high' ? 'text-red-400' : 'text-brand-400'}`}>{pct}%</span>
                           {mentee.risk === 'high' && <p className="text-[10px] text-red-500 font-semibold">At Risk</p>}
                         </>
                     }
@@ -789,19 +789,19 @@ function MenteesSection({ myMentees }: { myMentees: Employee[] }) {
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row gap-3 justify-between">
           <div className="relative max-w-sm w-full">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-brown-400" />
-            <input placeholder="Search mentees…" value={search} onChange={e => setSearch(e.target.value)} className="input-field pl-9 py-2.5 text-sm" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary/70" />
+            <input placeholder="Search mentees…" value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all pl-9 py-2.5 text-sm" />
           </div>
-          <span className="text-sm text-brown-500 self-center">{filtered.length} mentee{filtered.length !== 1 ? 's' : ''}</span>
+          <span className="text-sm text-text-secondary self-center">{filtered.length} mentee{filtered.length !== 1 ? 's' : ''}</span>
         </div>
 
-        <div className="card overflow-hidden p-0">
+        <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm overflow-hidden p-0">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-brown-50 border-b border-brown-200">
+              <thead className="bg-surface-elevated border-b border-border">
                 <tr>
                   {['Employee', 'Role / Team', 'Mentor', 'Progress', 'Tasks', 'Status', 'Resume', ''].map(h => (
-                    <th key={h} className="text-left text-xs font-semibold text-brown-600 px-4 py-3.5 whitespace-nowrap">{h}</th>
+                    <th key={h} className="text-left text-xs font-semibold text-text-secondary px-4 py-3.5 whitespace-nowrap">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -811,32 +811,32 @@ function MenteesSection({ myMentees }: { myMentees: Employee[] }) {
                   const done    = myTasks.filter(t => t.status === 'done').length
                   const prog    = getProgress(emp)
                   return (
-                    <tr key={emp.id} onClick={() => setSelectedEmployee(emp)} className="hover:bg-brown-50/60 transition-colors cursor-pointer">
+                    <tr key={emp.id} onClick={() => setSelectedEmployee(emp)} className="hover:bg-surface-elevated/60 transition-colors cursor-pointer">
                       <td className="px-4 py-4">
                         <div className="flex items-center gap-3">
                           <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ background: emp.color }}>{emp.initials}</div>
-                          <div><span className="font-semibold text-brown-900 text-sm">{emp.name}</span><p className="text-xs text-brown-400">{emp.email}</p></div>
+                          <div><span className="font-semibold text-text-primary text-sm">{emp.name}</span><p className="text-xs text-text-secondary/70">{emp.email}</p></div>
                         </div>
                       </td>
-                      <td className="px-4 py-4"><p className="text-sm text-brown-800 font-medium">{emp.role}</p><p className="text-xs text-brown-400">{emp.team}</p></td>
-                      <td className="px-4 py-4 text-sm text-brown-600 whitespace-nowrap">{getMentor(emp.mentorId)}</td>
+                      <td className="px-4 py-4"><p className="text-sm text-text-primary font-medium">{emp.role}</p><p className="text-xs text-text-secondary/70">{emp.team}</p></td>
+                      <td className="px-4 py-4 text-sm text-text-secondary whitespace-nowrap">{getMentor(emp.mentorId)}</td>
                       <td className="px-4 py-4">
                         {hasTasks(emp.id)
-                          ? <div className="flex items-center gap-2"><div className="w-20 progress-bar"><div className={`progress-fill ${emp.risk === 'high' ? '!bg-red-400' : ''}`} style={{ width: `${prog}%` }} /></div><span className="text-xs text-brown-500 font-medium">{prog}%</span></div>
+                          ? <div className="flex items-center gap-2"><div className="w-20 progress-bar"><div className={`progress-fill ${emp.risk === 'high' ? '!bg-red-400' : ''}`} style={{ width: `${prog}%` }} /></div><span className="text-xs text-text-secondary font-medium">{prog}%</span></div>
                           : <span className="text-xs font-semibold text-orange-500 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full whitespace-nowrap">No task assigned</span>
                         }
                       </td>
-                      <td className="px-4 py-4 text-sm text-brown-600 whitespace-nowrap">{done}/{myTasks.length} done</td>
-                      <td className="px-4 py-4">{emp.status === 'completed' ? <span className="badge-green">Completed</span> : <span className="badge-orange">Onboarding</span>}</td>
-                      <td className="px-4 py-4">{emp.resumeFileName ? <span className="badge-green flex items-center gap-1 w-fit"><CheckCircle size={11} />{emp.resumeFileName.slice(0, 12)}…</span> : <span className="text-xs text-brown-400">—</span>}</td>
-                      <td className="px-4 py-4 text-xs text-brown-400 underline">View →</td>
+                      <td className="px-4 py-4 text-sm text-text-secondary whitespace-nowrap">{done}/{myTasks.length} done</td>
+                      <td className="px-4 py-4">{emp.status === 'completed' ? <span className="badge-green">Completed</span> : <span className="badge-orange">Prarambh</span>}</td>
+                      <td className="px-4 py-4">{emp.resumeFileName ? <span className="badge-green flex items-center gap-1 w-fit"><CheckCircle size={11} />{emp.resumeFileName.slice(0, 12)}…</span> : <span className="text-xs text-text-secondary/70">—</span>}</td>
+                      <td className="px-4 py-4 text-xs text-text-secondary/70 underline">View →</td>
                     </tr>
                   )
                 })}
               </tbody>
             </table>
             {filtered.length === 0 && (
-              <div className="text-center py-12 text-brown-400">
+              <div className="text-center py-12 text-text-secondary/70">
                 <Users size={36} className="mx-auto mb-3 opacity-40" />
                 <p className="text-sm font-medium">{myMentees.length === 0 ? 'No mentees assigned yet' : 'No mentees match your search'}</p>
               </div>
@@ -895,17 +895,17 @@ function DocumentsSection({ currentMentorId }: { currentMentorId: string }) {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-6 space-y-5">
-      <h2 className="text-xl font-bold text-brown-900 flex items-center gap-2">
-        <FileText size={20} className="text-teal-600" /> My Documents
+      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2">
+        <FileText size={20} className="text-brand-400" /> My Documents
       </h2>
 
       {/* Upload area */}
-      <div className="border-2 border-dashed border-brown-200 rounded-2xl p-8 text-center hover:border-teal-400 transition-all">
-        <div className="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-3">
+      <div className="border-2 border-dashed border-border rounded-2xl p-8 text-center hover:border-teal-400 transition-all">
+        <div className="w-14 h-14 bg-brand-500/10 rounded-2xl flex items-center justify-center mx-auto mb-3">
           <Upload size={24} className="text-teal-500" />
         </div>
-        <h3 className="font-bold text-brown-900 mb-1">Upload Documents</h3>
-        <p className="text-brown-500 text-sm mb-4">Upload reference materials, guides or notes for your mentees</p>
+        <h3 className="font-bold text-text-primary mb-1">Upload Documents</h3>
+        <p className="text-text-secondary text-sm mb-4">Upload reference materials, guides or notes for your mentees</p>
         <button onClick={() => docInputRef.current?.click()}
           className="btn-primary text-sm py-2.5 px-6 inline-flex items-center gap-2">
           <Upload size={15} /> Upload Document
@@ -915,32 +915,32 @@ function DocumentsSection({ currentMentorId }: { currentMentorId: string }) {
 
       {/* Search */}
       <div className="relative max-w-sm">
-        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-brown-400" />
-        <input placeholder="Search documents…" value={search} onChange={e => setSearch(e.target.value)} className="input-field pl-9 py-2.5 text-sm" />
+        <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary/70" />
+        <input placeholder="Search documents…" value={search} onChange={e => setSearch(e.target.value)} className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all pl-9 py-2.5 text-sm" />
       </div>
 
       {/* Documents list */}
-      <div className="card p-0 overflow-hidden">
-        <div className="px-6 py-4 border-b border-brown-100 flex justify-between items-center">
-          <h3 className="font-bold text-brown-900">Uploaded by Me</h3>
+      <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm p-0 overflow-hidden">
+        <div className="px-6 py-4 border-b border-border flex justify-between items-center">
+          <h3 className="font-bold text-text-primary">Uploaded by Me</h3>
           <span className="badge-brown">{myDocs.length} file{myDocs.length !== 1 ? 's' : ''}</span>
         </div>
         <div className="divide-y divide-brown-100">
           {filtered.length === 0 ? (
-            <div className="text-center py-12 text-brown-400">
+            <div className="text-center py-12 text-text-secondary/70">
               <BookOpen size={36} className="mx-auto mb-2 opacity-40" />
               <p className="text-sm font-medium">{myDocs.length === 0 ? 'No documents uploaded yet.' : 'No documents match your search.'}</p>
             </div>
           ) : (
             filtered.map(doc => (
-              <div key={doc.id} className={`transition-colors ${confirmDel === doc.id ? 'bg-red-50' : 'hover:bg-brown-50/50'}`}>
+              <div key={doc.id} className={`transition-colors ${confirmDel === doc.id ? 'bg-red-500/10' : 'hover:bg-surface-elevated/50'}`}>
                 <div className="flex items-center gap-4 px-6 py-4">
-                  <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center border border-red-200 flex-shrink-0">
+                  <div className="w-10 h-10 bg-red-500/10 rounded-xl flex items-center justify-center border border-red-500/20 flex-shrink-0">
                     <BookOpen size={18} className="text-red-500" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-brown-900 text-sm truncate">{doc.name}</p>
-                    <p className="text-xs text-brown-400">{doc.type} · {doc.size} · {doc.date}</p>
+                    <p className="font-semibold text-text-primary text-sm truncate">{doc.name}</p>
+                    <p className="text-xs text-text-secondary/70">{doc.type} · {doc.size} · {doc.date}</p>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
                     {doc.status === 'processed'
@@ -948,7 +948,7 @@ function DocumentsSection({ currentMentorId }: { currentMentorId: string }) {
                       : <span className="badge-orange">Processing…</span>
                     }
                     <button onClick={() => setViewingDoc(doc)}
-                      className="text-xs font-semibold text-brown-600 border border-brown-200 bg-white px-2.5 py-1.5 rounded-lg hover:bg-brown-50 transition-colors flex items-center gap-1">
+                      className="text-xs font-semibold text-text-secondary border border-border bg-surface px-2.5 py-1.5 rounded-lg hover:bg-surface-elevated transition-colors flex items-center gap-1">
                       <Eye size={12} /> View
                     </button>
                     <button onClick={() => {
@@ -960,33 +960,33 @@ function DocumentsSection({ currentMentorId }: { currentMentorId: string }) {
                           setConfirmDel(confirmDel === doc.id ? null : doc.id)
                         }
                       }}
-                      className={`p-1.5 rounded-lg transition-colors ${confirmDel === doc.id ? 'text-red-600 bg-red-100' : 'text-red-300 hover:text-red-600 hover:bg-red-50'}`}>
+                      className={`p-1.5 rounded-lg transition-colors ${confirmDel === doc.id ? 'text-red-400 bg-red-100' : 'text-red-300 hover:text-red-400 hover:bg-red-500/10'}`}>
                       <Trash2 size={15} />
                     </button>
                   </div>
                 </div>
                 {/* Document in-use error */}
                 {docInUseError === doc.id && (
-                  <div className="flex items-center justify-between gap-3 px-6 py-3 bg-amber-50 border-t border-amber-200">
-                    <p className="text-xs text-amber-800 font-medium flex items-center gap-2">
-                      <AlertTriangle size={13} className="text-amber-600 flex-shrink-0" />
+                  <div className="flex items-center justify-between gap-3 px-6 py-3 bg-amber-500/10 border-t border-amber-500/20">
+                    <p className="text-xs text-amber-400 font-medium flex items-center gap-2">
+                      <AlertTriangle size={13} className="text-amber-400 flex-shrink-0" />
                       This document is currently attached to one or more tasks and cannot be deleted.
                     </p>
-                    <button onClick={() => setDocInUseError(null)} className="text-xs px-3 py-1.5 rounded-lg border border-amber-300 bg-white text-amber-700 hover:bg-amber-50 transition-colors flex-shrink-0">Dismiss</button>
+                    <button onClick={() => setDocInUseError(null)} className="text-xs px-3 py-1.5 rounded-lg border border-amber-300 bg-surface text-amber-400 hover:bg-amber-500/10 transition-colors flex-shrink-0">Dismiss</button>
                   </div>
                 )}
                 {confirmDel === doc.id && (
-                  <div className="px-6 py-3 bg-red-50 border-t border-red-100 space-y-2">
+                  <div className="px-6 py-3 bg-red-500/10 border-t border-red-100 space-y-2">
                     {docInUseError && (
-                      <p className="text-xs text-red-700 font-semibold flex items-center gap-1">
+                      <p className="text-xs text-red-400 font-semibold flex items-center gap-1">
                         ⚠️ {docInUseError}
                       </p>
                     )}
                     {!docInUseError && (
                       <div className="flex items-center justify-between gap-3">
-                        <p className="text-xs text-red-700 font-medium">Delete <strong>{doc.name}</strong>? This cannot be undone.</p>
+                        <p className="text-xs text-red-400 font-medium">Delete <strong>{doc.name}</strong>? This cannot be undone.</p>
                         <div className="flex gap-2 flex-shrink-0">
-                          <button onClick={() => { setConfirmDel(null); setDocInUseError(null) }} className="text-xs px-3 py-1.5 rounded-lg border border-brown-200 bg-white text-brown-600 hover:bg-brown-50 transition-colors">Cancel</button>
+                          <button onClick={() => { setConfirmDel(null); setDocInUseError(null) }} className="text-xs px-3 py-1.5 rounded-lg border border-border bg-surface text-text-secondary hover:bg-surface-elevated transition-colors">Cancel</button>
                           <button onClick={() => {
                             const inUse = state.tasks.some(t => (t.supportingDocs ?? []).includes(doc.id))
                             if (inUse) {
@@ -1004,7 +1004,7 @@ function DocumentsSection({ currentMentorId }: { currentMentorId: string }) {
                       </div>
                     )}
                     {docInUseError && (
-                      <button onClick={() => { setConfirmDel(null); setDocInUseError(null) }} className="text-xs px-3 py-1.5 rounded-lg border border-brown-200 bg-white text-brown-600 hover:bg-brown-50 transition-colors">
+                      <button onClick={() => { setConfirmDel(null); setDocInUseError(null) }} className="text-xs px-3 py-1.5 rounded-lg border border-border bg-surface text-text-secondary hover:bg-surface-elevated transition-colors">
                         Dismiss
                       </button>
                     )}
@@ -1032,8 +1032,8 @@ function ScheduleSection({ myMentees, meetings, setMeetings }: {
   const [filterMentee, setFilterMentee] = useState<string>('all')
 
   const typeBadge: Record<string, string> = {
-    '1:1':      'bg-blue-100 text-blue-700 border-blue-200',
-    'check-in': 'bg-teal-100 text-teal-700 border-teal-200',
+    '1:1':      'bg-blue-100 text-blue-400 border-blue-500/20',
+    'check-in': 'bg-brand-500/20 text-brand-400 border-brand-500/20',
     'review':   'bg-purple-100 text-purple-700 border-purple-200',
   }
 
@@ -1044,39 +1044,39 @@ function ScheduleSection({ myMentees, meetings, setMeetings }: {
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 space-y-5">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h2 className="text-xl font-bold text-brown-900 flex items-center gap-2"><Calendar size={20} className="text-teal-600" /> Schedule</h2>
+        <h2 className="text-xl font-bold text-text-primary flex items-center gap-2"><Calendar size={20} className="text-brand-400" /> Schedule</h2>
         <div className="flex items-center gap-2">
-          <select value={filterMentee} onChange={e => setFilterMentee(e.target.value)} className="border border-brown-200 rounded-xl px-3 py-2 text-xs text-brown-700 bg-white focus:outline-none">
+          <select value={filterMentee} onChange={e => setFilterMentee(e.target.value)} className="border border-border rounded-xl px-3 py-2 text-xs text-text-primary bg-surface focus:outline-none">
             <option value="all">All Mentees</option>
             {myMentees.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
           </select>
-          <button onClick={() => setShowModal(true)} className="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors">
+          <button onClick={() => setShowModal(true)} className="flex items-center gap-2 bg-brand-500 hover:bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors">
             <Plus size={15} /> Add Meeting
           </button>
         </div>
       </div>
 
       <div className="space-y-3">
-        <h3 className="font-semibold text-brown-700 text-sm uppercase tracking-wide">Upcoming ({upcoming.length})</h3>
+        <h3 className="font-semibold text-text-primary text-sm uppercase tracking-wide">Upcoming ({upcoming.length})</h3>
         {upcoming.length === 0 ? (
-          <div className="card text-center py-10 text-brown-400">
+          <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm text-center py-10 text-text-secondary/70">
             <Calendar size={36} className="mx-auto mb-2 opacity-30" />
             <p className="text-sm font-medium">No upcoming meetings</p>
-            <button onClick={() => setShowModal(true)} className="mt-3 text-xs text-teal-600 font-semibold underline underline-offset-2">Schedule one now</button>
+            <button onClick={() => setShowModal(true)} className="mt-3 text-xs text-brand-400 font-semibold underline underline-offset-2">Schedule one now</button>
           </div>
         ) : (
           upcoming.map(mtg => {
             const mentee = myMentees.find(m => m.id === mtg.menteeId)
             return (
-              <div key={mtg.id} className="card flex items-center gap-4 flex-wrap">
+              <div key={mtg.id} className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm flex items-center gap-4 flex-wrap">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style={{ background: mentee?.color ?? '#0D9488' }}>{mentee?.initials ?? '?'}</div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-brown-900">{mtg.title}</p>
-                  <p className="text-xs text-brown-500">{mentee?.name ?? 'Unknown'} · {fmtDate(mtg.date)} at {mtg.time}</p>
-                  {mtg.notes && <p className="text-xs text-brown-400 mt-0.5 line-clamp-1">{mtg.notes}</p>}
+                  <p className="font-semibold text-text-primary">{mtg.title}</p>
+                  <p className="text-xs text-text-secondary">{mentee?.name ?? 'Unknown'} · {fmtDate(mtg.date)} at {mtg.time}</p>
+                  {mtg.notes && <p className="text-xs text-text-secondary/70 mt-0.5 line-clamp-1">{mtg.notes}</p>}
                 </div>
                 <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border flex-shrink-0 ${typeBadge[mtg.type]}`}>{mtg.type}</span>
-                <button onClick={() => setMeetings(prev => prev.filter(x => x.id !== mtg.id))} className="p-1.5 rounded-lg text-brown-300 hover:bg-red-50 hover:text-red-500 transition-colors"><Trash2 size={14} /></button>
+                <button onClick={() => setMeetings(prev => prev.filter(x => x.id !== mtg.id))} className="p-1.5 rounded-lg text-text-secondary/50 hover:bg-red-500/10 hover:text-red-500 transition-colors"><Trash2 size={14} /></button>
               </div>
             )
           })
@@ -1085,15 +1085,15 @@ function ScheduleSection({ myMentees, meetings, setMeetings }: {
 
       {past.length > 0 && (
         <div className="space-y-3">
-          <h3 className="font-semibold text-brown-400 text-sm uppercase tracking-wide">Past ({past.length})</h3>
+          <h3 className="font-semibold text-text-secondary/70 text-sm uppercase tracking-wide">Past ({past.length})</h3>
           {past.map(mtg => {
             const mentee = myMentees.find(m => m.id === mtg.menteeId)
             return (
-              <div key={mtg.id} className="card flex items-center gap-4 flex-wrap opacity-60">
+              <div key={mtg.id} className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm flex items-center gap-4 flex-wrap opacity-60">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style={{ background: mentee?.color ?? '#0D9488' }}>{mentee?.initials ?? '?'}</div>
-                <div className="flex-1 min-w-0"><p className="font-semibold text-brown-900">{mtg.title}</p><p className="text-xs text-brown-500">{mentee?.name ?? 'Unknown'} · {fmtDate(mtg.date)} at {mtg.time}</p></div>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full border bg-brown-100 text-brown-500 border-brown-200 flex-shrink-0">{mtg.type}</span>
-                <button onClick={() => setMeetings(prev => prev.filter(x => x.id !== mtg.id))} className="p-1.5 rounded-lg text-brown-300 hover:bg-red-50 hover:text-red-500 transition-colors"><Trash2 size={14} /></button>
+                <div className="flex-1 min-w-0"><p className="font-semibold text-text-primary">{mtg.title}</p><p className="text-xs text-text-secondary">{mentee?.name ?? 'Unknown'} · {fmtDate(mtg.date)} at {mtg.time}</p></div>
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full border bg-surface-elevated/50 text-text-secondary border-border flex-shrink-0">{mtg.type}</span>
+                <button onClick={() => setMeetings(prev => prev.filter(x => x.id !== mtg.id))} className="p-1.5 rounded-lg text-text-secondary/50 hover:bg-red-500/10 hover:text-red-500 transition-colors"><Trash2 size={14} /></button>
               </div>
             )
           })}
@@ -1149,90 +1149,90 @@ function SettingsSection({ currentMentor }: { currentMentor: typeof initialMento
   }
 
   const Toggle = ({ on, setOn }: { on: boolean; setOn: (v: boolean) => void }) => (
-    <button onClick={() => setOn(!on)} className={`w-10 h-6 rounded-full transition-colors flex-shrink-0 relative ${on ? 'bg-teal-500' : 'bg-brown-200'}`}>
-      <span className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-all ${on ? 'left-[calc(100%-1.375rem)]' : 'left-0.5'}`} />
+    <button onClick={() => setOn(!on)} className={`w-10 h-6 rounded-full transition-colors flex-shrink-0 relative ${on ? 'bg-teal-500' : 'bg-surface-elevated'}`}>
+      <span className={`absolute top-0.5 w-5 h-5 bg-surface rounded-full shadow transition-all ${on ? 'left-[calc(100%-1.375rem)]' : 'left-0.5'}`} />
     </button>
   )
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
-      <h2 className="text-xl font-bold text-brown-900 flex items-center gap-2"><Settings size={20} className="text-teal-600" /> Settings</h2>
-      {savedProfile && <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm font-medium"><CheckCircle size={16} /> Profile saved successfully</div>}
-      {savedAvail   && <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm font-medium"><CheckCircle size={16} /> Availability saved successfully</div>}
+      <h2 className="text-xl font-bold text-text-primary flex items-center gap-2"><Settings size={20} className="text-brand-400" /> Settings</h2>
+      {savedProfile && <div className="flex items-center gap-2 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-sm font-medium"><CheckCircle size={16} /> Profile saved successfully</div>}
+      {savedAvail   && <div className="flex items-center gap-2 p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-sm font-medium"><CheckCircle size={16} /> Availability saved successfully</div>}
 
       {/* Profile */}
-      <div className="card space-y-4">
+      <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-bold text-brown-900 flex items-center gap-2"><Star size={16} className="text-teal-500" /> Profile</h3>
-          <button onClick={() => editMode ? saveProfile() : setEditMode(true)} className="flex items-center gap-1.5 text-xs font-semibold text-teal-600 hover:text-teal-700 transition-colors">
+          <h3 className="font-bold text-text-primary flex items-center gap-2"><Star size={16} className="text-teal-500" /> Profile</h3>
+          <button onClick={() => editMode ? saveProfile() : setEditMode(true)} className="flex items-center gap-1.5 text-xs font-semibold text-brand-400 hover:text-brand-400 transition-colors">
             {editMode ? <><Save size={13} /> Save</> : <><Edit3 size={13} /> Edit</>}
           </button>
         </div>
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl flex-shrink-0" style={{ background: currentMentor.color }}>{currentMentor.initials}</div>
           <div className="flex-1 space-y-2">
-            {editMode ? <input value={displayName} onChange={e => setDisplayName(e.target.value)} className="w-full border border-brown-200 rounded-xl px-3 py-2 text-sm text-brown-800 focus:outline-none focus:ring-2 focus:ring-teal-400" />
-              : <p className="font-semibold text-brown-900">{displayName}</p>}
-            <p className="text-sm text-brown-500">{currentMentor.specialty}</p>
-            <p className="text-xs text-brown-400">{currentMentor.department} Department</p>
+            {editMode ? <input value={displayName} onChange={e => setDisplayName(e.target.value)} className="w-full border border-border rounded-xl px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-teal-400" />
+              : <p className="font-semibold text-text-primary">{displayName}</p>}
+            <p className="text-sm text-text-secondary">{currentMentor.specialty}</p>
+            <p className="text-xs text-text-secondary/70">{currentMentor.department} Department</p>
           </div>
         </div>
       </div>
 
       {/* Notifications */}
-      <div className="card space-y-4">
-        <h3 className="font-bold text-brown-900 flex items-center gap-2"><Bell size={16} className="text-teal-500" /> Notifications</h3>
+      <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm space-y-4">
+        <h3 className="font-bold text-text-primary flex items-center gap-2"><Bell size={16} className="text-teal-500" /> Notifications</h3>
         {[
           { label: 'New mentee assigned',   sub: 'Get notified when a new employee is assigned to you', on: notifNewMentee, set: setNotifNewMentee },
           { label: 'Task updates',          sub: 'Notify when mentees complete or update tasks',        on: notifTask,      set: setNotifTask      },
           { label: 'Weekly progress digest',sub: 'Receive a summary of your mentees each week',         on: notifProgress,  set: setNotifProgress  },
         ].map(row => (
           <div key={row.label} className="flex items-center justify-between gap-4">
-            <div><p className="text-sm font-semibold text-brown-900">{row.label}</p><p className="text-xs text-brown-400 mt-0.5">{row.sub}</p></div>
+            <div><p className="text-sm font-semibold text-text-primary">{row.label}</p><p className="text-xs text-text-secondary/70 mt-0.5">{row.sub}</p></div>
             <Toggle on={row.on} setOn={row.set} />
           </div>
         ))}
       </div>
 
       {/* Availability — editable */}
-      <div className="card space-y-4">
+      <div className="bg-surface-elevated border border-border rounded-2xl p-6 shadow-sm space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-bold text-brown-900 flex items-center gap-2"><Clock size={16} className="text-teal-500" /> Availability</h3>
-          <button onClick={() => editAvail ? saveAvail() : setEditAvail(true)} className="flex items-center gap-1.5 text-xs font-semibold text-teal-600 hover:text-teal-700 transition-colors">
+          <h3 className="font-bold text-text-primary flex items-center gap-2"><Clock size={16} className="text-teal-500" /> Availability</h3>
+          <button onClick={() => editAvail ? saveAvail() : setEditAvail(true)} className="flex items-center gap-1.5 text-xs font-semibold text-brand-400 hover:text-brand-400 transition-colors">
             {editAvail ? <><Save size={13} /> Save</> : <><Edit3 size={13} /> Edit</>}
           </button>
         </div>
         <div className="space-y-2">
           {availability.map((d, i) => (
-            <div key={d.day} className={`flex items-center gap-3 p-3 rounded-xl border transition-colors ${d.enabled ? 'bg-teal-50 border-teal-200' : 'bg-brown-50 border-brown-200'}`}>
+            <div key={d.day} className={`flex items-center gap-3 p-3 rounded-xl border transition-colors ${d.enabled ? 'bg-brand-500/10 border-brand-500/20' : 'bg-surface-elevated border-border'}`}>
               {/* Day toggle (only in edit mode) */}
               {editAvail ? (
                 <button onClick={() => toggleDay(i)} className={`w-9 h-5 rounded-full relative flex-shrink-0 transition-colors ${d.enabled ? 'bg-teal-500' : 'bg-brown-300'}`}>
-                  <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-all ${d.enabled ? 'left-[calc(100%-1.125rem)]' : 'left-0.5'}`} />
+                  <span className={`absolute top-0.5 w-4 h-4 bg-surface rounded-full shadow transition-all ${d.enabled ? 'left-[calc(100%-1.125rem)]' : 'left-0.5'}`} />
                 </button>
               ) : (
                 <div className={`w-2 h-2 rounded-full flex-shrink-0 ${d.enabled ? 'bg-teal-500' : 'bg-brown-300'}`} />
               )}
-              <span className="text-sm font-semibold text-brown-900 w-24 flex-shrink-0">{d.day}</span>
+              <span className="text-sm font-semibold text-text-primary w-24 flex-shrink-0">{d.day}</span>
               {d.enabled ? (
                 editAvail ? (
                   <div className="flex items-center gap-2 flex-1">
                     <input type="time" value={d.start} onChange={e => updateTime(i, 'start', e.target.value)}
-                      className="border border-teal-200 rounded-lg px-2 py-1 text-xs text-brown-800 bg-white focus:outline-none focus:ring-2 focus:ring-teal-400 w-28" />
-                    <span className="text-xs text-brown-400">to</span>
+                      className="border border-brand-500/20 rounded-lg px-2 py-1 text-xs text-text-primary bg-surface focus:outline-none focus:ring-2 focus:ring-teal-400 w-28" />
+                    <span className="text-xs text-text-secondary/70">to</span>
                     <input type="time" value={d.end} onChange={e => updateTime(i, 'end', e.target.value)}
-                      className="border border-teal-200 rounded-lg px-2 py-1 text-xs text-brown-800 bg-white focus:outline-none focus:ring-2 focus:ring-teal-400 w-28" />
+                      className="border border-brand-500/20 rounded-lg px-2 py-1 text-xs text-text-primary bg-surface focus:outline-none focus:ring-2 focus:ring-teal-400 w-28" />
                   </div>
                 ) : (
-                  <span className="text-xs text-teal-700 font-medium">{fmt12(d.start)} – {fmt12(d.end)}</span>
+                  <span className="text-xs text-brand-400 font-medium">{fmt12(d.start)} – {fmt12(d.end)}</span>
                 )
               ) : (
-                <span className="text-xs text-brown-400 italic">Not available</span>
+                <span className="text-xs text-text-secondary/70 italic">Not available</span>
               )}
             </div>
           ))}
         </div>
-        <p className="text-xs text-brown-400">Availability is shown to your mentees when scheduling meetings.</p>
+        <p className="text-xs text-text-secondary/70">Availability is shown to your mentees when scheduling meetings.</p>
       </div>
     </div>
   )
@@ -1264,7 +1264,7 @@ export default function MentorDashboard({
   const [meetings, setMeetings] = useState<Meeting[]>(() =>
     myMentees.slice(0, 3).flatMap((m, i) => [
       { id: `mtg-init-${i}a`, menteeId: m.id, title: 'Weekly 1:1',  date: dayOffset(i + 1), time: '10:00', type: '1:1'      as const, notes: '' },
-      { id: `mtg-init-${i}b`, menteeId: m.id, title: 'Check-in',    date: dayOffset(i + 7), time: '14:00', type: 'check-in' as const, notes: 'Review onboarding progress' },
+      { id: `mtg-init-${i}b`, menteeId: m.id, title: 'Check-in',    date: dayOffset(i + 7), time: '14:00', type: 'check-in' as const, notes: 'Review prarambh progress' },
     ])
   )
 
@@ -1293,7 +1293,7 @@ export default function MentorDashboard({
   }
 
   return (
-    <div className="min-h-screen" style={{ background: '#F0F7FF' }}>
+    <div className="min-h-screen">
       {renderSection()}
 
       {/* Employee detail — same as HR/Admin */}

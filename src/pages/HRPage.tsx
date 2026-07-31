@@ -9,7 +9,7 @@ import AdminPanel from '../components/dashboard/AdminPanel'
 import ChatTab, { useChatUnread } from '../components/chat/ChatTab'
 import ProfileModal from '../components/modals/ProfileModal'
 import Logo from '../components/common/Logo'
-import OnboardBotWidget from '../components/chat/OnboardBotWidget'
+import PrarambhBotWidget from '../components/chat/PrarambhBotWidget'
 import { useApp, USER_UUIDS } from '../context/AppContext'
 
 const NAV_ITEMS = [
@@ -32,14 +32,14 @@ function HRNav({ collapsed, active, setActive }: { collapsed: boolean; active: s
           onClick={() => setActive(item.id)}
           className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 ${
             active === item.id
-              ? 'bg-purple-600 text-white shadow-sm'
-              : 'text-brown-600 hover:bg-brown-200 hover:text-brown-900'
+              ? 'bg-brand-500/10 text-brand-400'
+              : 'text-text-secondary hover:bg-surface-elevated hover:text-text-primary'
           }`}
         >
           <span className="relative flex-shrink-0">
             {item.icon}
             {item.id === 'chat' && unread > 0 && (
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center leading-none">
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center leading-none shadow-sm">
                 {unread > 9 ? '9+' : unread}
               </span>
             )}
@@ -48,7 +48,7 @@ function HRNav({ collapsed, active, setActive }: { collapsed: boolean; active: s
             <span className="font-medium text-sm flex items-center gap-1.5 flex-1">
               {item.label}
               {item.id === 'chat' && unread > 0 && (
-                <span className="ml-auto bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 leading-none">
+                <span className="ml-auto bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 leading-none shadow-sm">
                   {unread > 9 ? '9+' : unread}
                 </span>
               )}
@@ -78,18 +78,18 @@ export default function HRPage() {
   if (hrId !== USER_UUIDS.HR) return <Navigate to="/login" replace />
 
   return (
-    <div className="flex min-h-screen" style={{ background: '#F0F7FF' }}>
+    <div className="flex min-h-screen bg-background text-text-primary">
 
       {/* ── Sidebar ── */}
       <aside
-        className="flex-shrink-0 flex flex-col border-r border-brown-200 transition-all duration-300"
-        style={{ background: '#E0EFFD', width: collapsed ? 64 : 240 }}
+        className="flex-shrink-0 flex flex-col border-r border-border bg-surface transition-all duration-300"
+        style={{ width: collapsed ? 64 : 240 }}
       >
-        <div className="h-16 flex items-center justify-between px-3 border-b border-brown-200">
+        <div className="h-16 flex items-center justify-between px-3 border-b border-border">
           {collapsed ? <Logo size="sm" variant="icon" /> : <Logo size="sm" />}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="p-1.5 rounded-lg text-brown-500 hover:bg-brown-200 transition-colors flex-shrink-0"
+            className="p-1.5 rounded-lg text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-colors flex-shrink-0"
           >
             {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
           </button>
@@ -98,10 +98,10 @@ export default function HRPage() {
         <HRNav collapsed={collapsed} active={active} setActive={setActive} />
 
         {!collapsed && (
-          <div className="p-4 border-t border-brown-200">
-            <div className="bg-purple-100 rounded-xl p-3">
-              <p className="text-xs text-purple-700 font-bold">HR Manager</p>
-              <p className="text-xs text-purple-600">People Operations</p>
+          <div className="p-4 border-t border-border">
+            <div className="bg-surface-elevated rounded-xl p-3 border border-border">
+              <p className="text-xs text-brand-400 font-bold">HR Manager</p>
+              <p className="text-xs text-text-secondary">People Operations</p>
             </div>
           </div>
         )}
@@ -119,7 +119,7 @@ export default function HRPage() {
       </div>
 
       {showProfile && <ProfileModal onClose={() => setShowProfile(false)} />}
-      <OnboardBotWidget />
+      <PrarambhBotWidget />
     </div>
   )
 }

@@ -21,7 +21,7 @@ function simulateResumeContent(role: string, name: string): string {
     return `${name} — Sales Representative. Skills: Salesforce CRM, MEDDIC qualification, demo delivery, objection handling, pipeline management. Experience: 2 years B2B SaaS sales. Consistently 110% of quota. Closed $800k ARR in last role. Education: B.S. Business Administration. Strong in discovery calls and value-based selling.`
   }
   if (r.includes('product') || r.includes('pm')) {
-    return `${name} — Product Manager. Skills: Roadmap planning, user story writing, Jira, data analysis, stakeholder management, A/B testing. Experience: 3 years SaaS product management. Launched 4 major features. Reduced churn by 18% through improved onboarding. Education: MBA. Strong in cross-functional collaboration and data-driven decision making.`
+    return `${name} — Product Manager. Skills: Roadmap planning, user story writing, Jira, data analysis, stakeholder management, A/B testing. Experience: 3 years SaaS product management. Launched 4 major features. Reduced churn by 18% through improved prarambh. Education: MBA. Strong in cross-functional collaboration and data-driven decision making.`
   }
   if (r.includes('market')) {
     return `${name} — Marketing Manager. Skills: Content strategy, SEO, Google Analytics, HubSpot, social media, paid acquisition. Experience: 3 years B2B marketing. Grew organic traffic 200%. Managed $500k/year ad spend. Education: B.S. Marketing. Strong in demand generation and brand storytelling.`
@@ -71,7 +71,7 @@ export default function AddEmployeeModal({ onClose }: Props) {
       id, name: form.name.trim(), role: form.role.trim(), email: form.email.trim(),
       team: form.team, mentorId: form.mentorId || null,
       startDate: new Date(form.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-      progress: 0, day: 1, totalDays: 30, status: 'onboarding', risk: 'low',
+      progress: 0, day: 1, totalDays: 30, status: 'prarambh', risk: 'low',
       initials, color,
       resumeFileName: resumeFile?.name,
       resumeContent,
@@ -85,13 +85,13 @@ export default function AddEmployeeModal({ onClose }: Props) {
   }
 
   if (done) return (
-    <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl p-10 text-center shadow-2xl max-w-sm w-full animate-bounce-in">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-surface rounded-2xl p-10 text-center shadow-2xl max-w-sm w-full animate-bounce-in">
         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle size={40} className="text-green-600" />
+          <CheckCircle size={40} className="text-emerald-400" />
         </div>
-        <h3 className="text-xl font-bold text-brown-900 mb-2">Employee Added! 🎉</h3>
-        <p className="text-brown-500 text-sm">
+        <h3 className="text-xl font-bold text-text-primary mb-2">Employee Added! 🎉</h3>
+        <p className="text-text-secondary text-sm">
           {form.name} has been added and their mentor notified.
         </p>
       </div>
@@ -99,15 +99,15 @@ export default function AddEmployeeModal({ onClose }: Props) {
   )
 
   return (
-    <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg my-4 animate-fade-in">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-surface rounded-2xl shadow-2xl w-full max-w-lg my-4 animate-fade-in">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-brown-200 bg-gradient-to-r from-brown-500 to-brown-700 rounded-t-2xl">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-border bg-gradient-to-r from-brown-500 to-brown-700 rounded-t-2xl">
           <div>
             <h2 className="text-xl font-bold text-white">Add New Employee</h2>
             <p className="text-white/70 text-sm mt-0.5">They'll appear in HR and the assigned mentor's dashboard</p>
           </div>
-          <button onClick={onClose} className="p-2 rounded-lg hover:bg-white/20 text-white transition-colors">
+          <button onClick={onClose} className="p-2 rounded-lg hover:bg-surface/20 text-white transition-colors">
             <X size={20} />
           </button>
         </div>
@@ -115,36 +115,36 @@ export default function AddEmployeeModal({ onClose }: Props) {
         <div className="p-6 space-y-5">
           {/* Name */}
           <div>
-            <label className="block text-sm font-semibold text-brown-800 mb-1.5">
+            <label className="block text-sm font-semibold text-text-primary mb-1.5">
               <span className="flex items-center gap-1.5"><User size={14} /> Full Name *</span>
             </label>
-            <input className={`input-field ${errors.name ? 'border-red-400' : ''}`} placeholder="e.g. Jordan Lee" value={form.name} onChange={e => set('name', e.target.value)} />
+            <input className={`w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all ${errors.name ? 'border-red-400' : ''}`} placeholder="e.g. Jordan Lee" value={form.name} onChange={e => set('name', e.target.value)} />
             {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-semibold text-brown-800 mb-1.5">
+            <label className="block text-sm font-semibold text-text-primary mb-1.5">
               <span className="flex items-center gap-1.5"><Mail size={14} /> Work Email *</span>
             </label>
-            <input className={`input-field ${errors.email ? 'border-red-400' : ''}`} type="email" placeholder="jordan@company.com" value={form.email} onChange={e => set('email', e.target.value)} />
+            <input className={`w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all ${errors.email ? 'border-red-400' : ''}`} type="email" placeholder="jordan@company.com" value={form.email} onChange={e => set('email', e.target.value)} />
             {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
           </div>
 
           {/* Role + Team */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-semibold text-brown-800 mb-1.5">
+              <label className="block text-sm font-semibold text-text-primary mb-1.5">
                 <span className="flex items-center gap-1.5"><Briefcase size={14} /> Job Title *</span>
               </label>
-              <input className={`input-field ${errors.role ? 'border-red-400' : ''}`} placeholder="e.g. Software Engineer" value={form.role} onChange={e => set('role', e.target.value)} />
+              <input className={`w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all ${errors.role ? 'border-red-400' : ''}`} placeholder="e.g. Software Engineer" value={form.role} onChange={e => set('role', e.target.value)} />
               {errors.role && <p className="text-red-500 text-xs mt-1">{errors.role}</p>}
             </div>
             <div>
-              <label className="block text-sm font-semibold text-brown-800 mb-1.5">
+              <label className="block text-sm font-semibold text-text-primary mb-1.5">
                 <span className="flex items-center gap-1.5"><Users size={14} /> Team</span>
               </label>
-              <select className="input-field" value={form.team} onChange={e => set('team', e.target.value)}>
+              <select className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all" value={form.team} onChange={e => set('team', e.target.value)}>
                 {TEAMS.map(t => <option key={t}>{t}</option>)}
               </select>
             </div>
@@ -152,23 +152,23 @@ export default function AddEmployeeModal({ onClose }: Props) {
 
           {/* Start Date */}
           <div>
-            <label className="block text-sm font-semibold text-brown-800 mb-1.5">
+            <label className="block text-sm font-semibold text-text-primary mb-1.5">
               <span className="flex items-center gap-1.5"><Calendar size={14} /> Start Date</span>
             </label>
-            <input className="input-field" type="date" value={form.startDate} onChange={e => set('startDate', e.target.value)} />
+            <input className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all" type="date" value={form.startDate} onChange={e => set('startDate', e.target.value)} />
           </div>
 
           {/* Mentor assignment */}
           <div>
-            <label className="block text-sm font-semibold text-brown-800 mb-2">
-              <span className="flex items-center gap-1.5"><UserCheck size={14} className="text-teal-600" /> Assign Mentor *</span>
+            <label className="block text-sm font-semibold text-text-primary mb-2">
+              <span className="flex items-center gap-1.5"><UserCheck size={14} className="text-brand-400" /> Assign Mentor *</span>
             </label>
             <div className="space-y-2">
               {initialMentors.map(mentor => (
                 <label
                   key={mentor.id}
                   className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all duration-200 ${
-                    form.mentorId === mentor.id ? 'border-brown-500 bg-brown-50' : 'border-brown-200 hover:border-brown-300'
+                    form.mentorId === mentor.id ? 'border-brown-500 bg-surface-elevated' : 'border-border hover:border-border'
                   }`}
                 >
                   <input type="radio" name="mentor" value={mentor.id} checked={form.mentorId === mentor.id} onChange={() => set('mentorId', mentor.id)} className="sr-only" />
@@ -176,10 +176,10 @@ export default function AddEmployeeModal({ onClose }: Props) {
                     {mentor.initials}
                   </div>
                   <div>
-                    <p className="font-semibold text-brown-900 text-sm">{mentor.name}</p>
-                    <p className="text-xs text-brown-500">{mentor.specialty}</p>
+                    <p className="font-semibold text-text-primary text-sm">{mentor.name}</p>
+                    <p className="text-xs text-text-secondary">{mentor.specialty}</p>
                   </div>
-                  {form.mentorId === mentor.id && <CheckCircle size={16} className="text-brown-500 ml-auto" />}
+                  {form.mentorId === mentor.id && <CheckCircle size={16} className="text-text-secondary ml-auto" />}
                 </label>
               ))}
             </div>
@@ -188,28 +188,28 @@ export default function AddEmployeeModal({ onClose }: Props) {
 
           {/* Bio */}
           <div>
-            <label className="block text-sm font-semibold text-brown-800 mb-1.5">
-              <span className="flex items-center gap-1.5"><FileText size={14} /> Short Bio <span className="text-brown-400 font-normal">(optional)</span></span>
+            <label className="block text-sm font-semibold text-text-primary mb-1.5">
+              <span className="flex items-center gap-1.5"><FileText size={14} /> Short Bio <span className="text-text-secondary/70 font-normal">(optional)</span></span>
             </label>
             <textarea
-              className="input-field resize-none text-sm"
+              className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all resize-none text-sm"
               rows={3}
               placeholder="A short intro about this new hire — background, interests, fun fact…"
               value={form.bio}
               onChange={e => set('bio', e.target.value)}
               maxLength={300}
             />
-            <p className="text-xs text-brown-400 mt-1 text-right">{form.bio.length}/300</p>
+            <p className="text-xs text-text-secondary/70 mt-1 text-right">{form.bio.length}/300</p>
           </div>
 
           {/* Resume upload */}
           <div>
-            <label className="block text-sm font-semibold text-brown-800 mb-1.5">
-              <span className="flex items-center gap-1.5"><Upload size={14} /> Upload Resume <span className="text-brown-400 font-normal">(optional)</span></span>
+            <label className="block text-sm font-semibold text-text-primary mb-1.5">
+              <span className="flex items-center gap-1.5"><Upload size={14} /> Upload Resume <span className="text-text-secondary/70 font-normal">(optional)</span></span>
             </label>
             <div
               className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-all duration-200 ${
-                dragOver ? 'border-brown-500 bg-brown-50' : resumeFile ? 'border-green-400 bg-green-50' : 'border-brown-200 hover:border-brown-400'
+                dragOver ? 'border-brown-500 bg-surface-elevated' : resumeFile ? 'border-green-400 bg-emerald-500/10' : 'border-border hover:border-brown-400'
               }`}
               onClick={() => fileRef.current?.click()}
               onDragOver={e => { e.preventDefault(); setDragOver(true) }}
@@ -219,21 +219,21 @@ export default function AddEmployeeModal({ onClose }: Props) {
               <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.txt" className="hidden" onChange={e => handleFileChange(e.target.files?.[0] ?? null)} />
               {resumeFile ? (
                 <div className="flex items-center justify-center gap-3">
-                  <CheckCircle size={20} className="text-green-600" />
+                  <CheckCircle size={20} className="text-emerald-400" />
                   <div className="text-left">
-                    <p className="font-semibold text-green-800 text-sm">{resumeFile.name}</p>
-                    <p className="text-xs text-green-600">{(resumeFile.size / 1024).toFixed(0)} KB — AI will analyze this resume</p>
+                    <p className="font-semibold text-emerald-400 text-sm">{resumeFile.name}</p>
+                    <p className="text-xs text-emerald-400">{(resumeFile.size / 1024).toFixed(0)} KB — AI will analyze this resume</p>
                   </div>
                 </div>
               ) : (
                 <>
-                  <Upload size={22} className="text-brown-400 mx-auto mb-2" />
-                  <p className="text-sm text-brown-600 font-medium">Drop resume here or click to browse</p>
-                  <p className="text-xs text-brown-400 mt-1">PDF, DOC, DOCX up to 10MB</p>
+                  <Upload size={22} className="text-text-secondary/70 mx-auto mb-2" />
+                  <p className="text-sm text-text-secondary font-medium">Drop resume here or click to browse</p>
+                  <p className="text-xs text-text-secondary/70 mt-1">PDF, DOC, DOCX up to 10MB</p>
                 </>
               )}
             </div>
-            {resumeFile && <p className="text-xs text-brown-500 mt-1.5">✨ The mentor can use this resume to generate personalized onboarding tasks with AI</p>}
+            {resumeFile && <p className="text-xs text-text-secondary mt-1.5">✨ The mentor can use this resume to generate personalized prarambh tasks with AI</p>}
           </div>
         </div>
 

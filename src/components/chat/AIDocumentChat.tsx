@@ -25,7 +25,7 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
   const [input, setInput]     = useState('')
   const [messages, setMessages] = useState<Message[]>([{
     id: '0', role: 'ai', timestamp: new Date(),
-    content: "👋 Hi! I'm your AI Onboarding Specialist. Select a document above and I'll generate a personalized task list from it.\n\nYou can ask me things like:\n• **\"Generate onboarding tasks for a new developer\"**\n• **\"Create a compliance checklist from this policy\"**\n• **\"What tasks should I assign for day 1?\"**",
+    content: "👋 Hi! I'm your AI Prarambh Specialist. Select a document above and I'll generate a personalized task list from it.\n\nYou can ask me things like:\n• **\"Generate prarambh tasks for a new developer\"**\n• **\"Create a compliance checklist from this policy\"**\n• **\"What tasks should I assign for day 1?\"**",
   }])
   const [typing, setTyping]   = useState(false)
   const [pendingTasks, setPendingTasks] = useState<ParsedTask[] | null>(null)
@@ -101,7 +101,7 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
   return (
     <>
       <div className="fixed inset-0 bg-black/40 z-40 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl h-[700px] flex flex-col animate-fade-in">
+        <div className="bg-surface-elevated rounded-2xl shadow-2xl w-full max-w-2xl h-[700px] flex flex-col animate-fade-in">
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4 bg-gradient-to-r from-brown-600 to-brown-800 rounded-t-2xl flex-shrink-0">
             <div className="flex items-center gap-3">
@@ -109,7 +109,7 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
                 <Sparkles size={18} className="text-white" />
               </div>
               <div>
-                <p className="font-bold text-white">AI Onboarding Specialist</p>
+                <p className="font-bold text-white">AI Prarambh Specialist</p>
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse-soft" />
                   <span className="text-white/70 text-xs">Online · Powered by Deploy AI</span>
@@ -120,14 +120,14 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
           </div>
 
           {/* Document selector */}
-          <div className="px-4 py-3 border-b border-brown-100 bg-brown-50 flex items-center gap-3 flex-shrink-0 flex-wrap">
-            <div className="flex items-center gap-2 text-sm font-semibold text-brown-700 flex-shrink-0">
-              <FileText size={14} className="text-brown-500" />
+          <div className="px-4 py-3 border-b border-border bg-surface flex items-center gap-3 flex-shrink-0 flex-wrap">
+            <div className="flex items-center gap-2 text-sm font-semibold text-text-secondary flex-shrink-0">
+              <FileText size={14} className="text-text-secondary" />
               Context:
             </div>
             <div className="relative flex-1 min-w-[160px]">
               <select
-                className="w-full border border-brown-200 rounded-lg px-3 py-1.5 text-sm text-brown-800 bg-white focus:outline-none focus:border-brown-500 appearance-none pr-7"
+                className="w-full border border-border rounded-lg px-3 py-1.5 text-sm text-text-primary bg-surface-elevated focus:outline-none focus:border-brown-500 appearance-none pr-7"
                 value={selectedDocId}
                 onChange={e => setSelectedDocId(e.target.value)}
               >
@@ -135,9 +135,9 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
                   <option key={d.id} value={d.id}>{d.name}</option>
                 ))}
               </select>
-              <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-brown-400 pointer-events-none" />
+              <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-text-secondary pointer-events-none" />
             </div>
-            <label className="flex items-center gap-1.5 text-xs font-semibold text-brown-600 border border-brown-200 bg-white rounded-lg px-3 py-1.5 cursor-pointer hover:bg-brown-100 transition-colors flex-shrink-0">
+            <label className="flex items-center gap-1.5 text-xs font-semibold text-text-secondary border border-border bg-surface-elevated rounded-lg px-3 py-1.5 cursor-pointer hover:bg-surface transition-colors flex-shrink-0">
               <Upload size={13} /> Upload Doc
               <input type="file" className="hidden" accept=".pdf,.doc,.docx,.txt" onChange={handleUploadDoc} />
             </label>
@@ -157,7 +157,7 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
                     className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${
                       msg.role === 'user'
                         ? 'bg-brown-500 text-white rounded-tr-sm'
-                        : 'bg-white text-brown-800 border border-brown-200 rounded-tl-sm shadow-sm'
+                        : 'bg-surface-elevated text-text-primary border border-border rounded-tl-sm shadow-sm'
                     }`}
                     dangerouslySetInnerHTML={{ __html: formatContent(msg.content) }}
                   />
@@ -177,7 +177,7 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
                 <div className="w-8 h-8 bg-brown-600 rounded-full flex items-center justify-center flex-shrink-0">
                   <Bot size={15} className="text-white" />
                 </div>
-                <div className="bg-white border border-brown-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+                <div className="bg-surface-elevated border border-border rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
                   <div className="flex items-center gap-1">
                     <span className="typing-dot" /><span className="typing-dot" /><span className="typing-dot" />
                   </div>
@@ -188,10 +188,10 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
           </div>
 
           {/* Quick prompts */}
-          <div className="px-4 py-2 border-t border-brown-100 flex gap-2 overflow-x-auto flex-shrink-0">
-            {['Generate onboarding tasks', 'Create compliance checklist', 'Day 1 task plan', 'Tools & setup tasks'].map(p => (
+          <div className="px-4 py-2 border-t border-border flex gap-2 overflow-x-auto flex-shrink-0">
+            {['Generate prarambh tasks', 'Create compliance checklist', 'Day 1 task plan', 'Tools & setup tasks'].map(p => (
               <button key={p} onClick={() => sendMessage(p)}
-                className="flex-shrink-0 text-xs bg-brown-50 text-brown-600 border border-brown-200 px-2.5 py-1.5 rounded-full hover:bg-brown-100 transition-colors">
+                className="flex-shrink-0 text-xs bg-surface text-text-secondary border border-border px-2.5 py-1.5 rounded-full hover:bg-surface transition-colors">
                 {p}
               </button>
             ))}
@@ -199,11 +199,11 @@ export default function AIDocumentChat({ onClose, assignedBy, assignedByName, pr
 
           {/* Input */}
           <div className="px-4 pb-4 pt-1 flex-shrink-0">
-            <div className="flex items-center gap-2 bg-white border border-brown-200 rounded-xl px-4 py-2.5">
+            <div className="flex items-center gap-2 bg-surface-elevated border border-border rounded-xl px-4 py-2.5">
               <input
                 value={input} onChange={e => setInput(e.target.value)} onKeyPress={handleKeyPress}
                 placeholder={`Ask about ${selectedDoc?.name ?? 'documents'}...`}
-                className="flex-1 bg-transparent text-sm text-brown-800 placeholder-brown-400 outline-none"
+                className="flex-1 bg-transparent text-sm text-text-primary placeholder-brown-400 outline-none"
               />
               <button onClick={() => sendMessage()} disabled={!input.trim() || typing}
                 className="w-8 h-8 bg-brown-500 rounded-lg flex items-center justify-center text-white disabled:opacity-40 hover:bg-brown-600 transition-colors">

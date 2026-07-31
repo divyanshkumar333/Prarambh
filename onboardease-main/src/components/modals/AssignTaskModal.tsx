@@ -71,7 +71,7 @@ export default function AssignTaskModal({ tasks, onClose, preselectedEmployeeId,
               <User size={14} /> Select Employee *
             </label>
             <div className="grid grid-cols-1 gap-2 max-h-48 overflow-y-auto pr-1">
-              {state.employees.filter(e => e.status === 'onboarding').map(emp => (
+              {state.employees.filter(e => e.status === 'prarambh').map(emp => (
                 <label
                   key={emp.id}
                   className={`flex items-center gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all duration-200 ${

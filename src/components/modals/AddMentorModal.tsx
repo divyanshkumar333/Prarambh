@@ -42,21 +42,21 @@ export default function AddMentorModal({ onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-6" onClick={e => e.stopPropagation()}>
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm backdrop-blur-sm" />
+      <div className="relative bg-surface rounded-2xl shadow-2xl w-full max-w-md border border-border p-6" onClick={e => e.stopPropagation()}>
 
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-brown-100 rounded-xl flex items-center justify-center">
-              <UserPlus size={18} className="text-brown-600" />
+            <div className="w-10 h-10 bg-surface-elevated/50 rounded-xl flex items-center justify-center">
+              <UserPlus size={18} className="text-text-secondary" />
             </div>
             <div>
-              <h2 className="font-bold text-brown-900">Add New Mentor</h2>
-              <p className="text-xs text-brown-500">They'll be available for employee assignment</p>
+              <h2 className="font-bold text-text-primary">Add New Mentor</h2>
+              <p className="text-xs text-text-secondary">They'll be available for employee assignment</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-brown-100 text-brown-500 transition-colors">
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-surface-elevated/50 text-text-secondary transition-colors">
             <X size={18} />
           </button>
         </div>
@@ -74,30 +74,30 @@ export default function AddMentorModal({ onClose }: Props) {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
           <div>
-            <label className="block text-xs font-semibold text-brown-600 mb-1.5">Full Name *</label>
+            <label className="block text-xs font-semibold text-text-secondary mb-1.5">Full Name *</label>
             <input
               type="text" value={name} onChange={e => { setName(e.target.value); setError('') }}
               placeholder="e.g. Alex Rivera"
-              className="input-field text-sm py-2.5"
+              className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm py-2.5"
             />
           </div>
 
           {/* Specialty */}
           <div>
-            <label className="block text-xs font-semibold text-brown-600 mb-1.5">Specialty *</label>
+            <label className="block text-xs font-semibold text-text-secondary mb-1.5">Specialty *</label>
             <input
               type="text" value={specialty} onChange={e => { setSpecialty(e.target.value); setError('') }}
               placeholder="e.g. Frontend Engineering & Mentoring"
-              className="input-field text-sm py-2.5"
+              className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm py-2.5"
             />
           </div>
 
           {/* Department */}
           <div>
-            <label className="block text-xs font-semibold text-brown-600 mb-1.5">Department</label>
+            <label className="block text-xs font-semibold text-text-secondary mb-1.5">Department</label>
             <select
               value={department} onChange={e => setDepartment(e.target.value)}
-              className="input-field text-sm py-2.5"
+              className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm py-2.5"
             >
               {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
             </select>
@@ -105,7 +105,7 @@ export default function AddMentorModal({ onClose }: Props) {
 
           {/* Color */}
           <div>
-            <label className="block text-xs font-semibold text-brown-600 mb-2">Avatar Color</label>
+            <label className="block text-xs font-semibold text-text-secondary mb-2">Avatar Color</label>
             <div className="flex gap-2 flex-wrap">
               {PALETTE.map(c => (
                 <button

@@ -28,16 +28,16 @@ MENTORS = [
 ]
 
 EMPLOYEES = [
-    {"id": USER_UUIDS["EMP_1"], "name": "Jordan Lee",   "role": "Software Engineer",    "email": "jordan@company.com",  "team": "Engineering", "mentorId": USER_UUIDS["MENTOR_1"], "startDate": "Feb 24, 2026", "progress": 22, "day": 2,  "totalDays": 30, "status": "onboarding", "risk": "low",  "initials": "JL", "color": COLORS[0]},
-    {"id": USER_UUIDS["EMP_2"], "name": "Priya Kapoor", "role": "Product Manager",      "email": "priya.k@company.com", "team": "Product",     "mentorId": USER_UUIDS["MENTOR_3"], "startDate": "Feb 20, 2026", "progress": 54, "day": 6,  "totalDays": 30, "status": "onboarding", "risk": "low",  "initials": "PK", "color": COLORS[1]},
-    {"id": USER_UUIDS["EMP_3"], "name": "Marcus Stone", "role": "Sales Representative", "email": "marcus@company.com",  "team": "Sales",       "mentorId": USER_UUIDS["MENTOR_2"], "startDate": "Feb 17, 2026", "progress": 31, "day": 9,  "totalDays": 21, "status": "onboarding", "risk": "high", "initials": "MS", "color": COLORS[2]},
-    {"id": USER_UUIDS["EMP_4"], "name": "Aiko Tanaka",  "role": "UX Designer",          "email": "aiko@company.com",    "team": "Design",      "mentorId": USER_UUIDS["MENTOR_3"], "startDate": "Feb 10, 2026", "progress": 78, "day": 16, "totalDays": 21, "status": "onboarding", "risk": "low",  "initials": "AT", "color": COLORS[3]},
+    {"id": USER_UUIDS["EMP_1"], "name": "Jordan Lee",   "role": "Software Engineer",    "email": "jordan@company.com",  "team": "Engineering", "mentorId": USER_UUIDS["MENTOR_1"], "startDate": "Feb 24, 2026", "progress": 22, "day": 2,  "totalDays": 30, "status": "prarambh", "risk": "low",  "initials": "JL", "color": COLORS[0]},
+    {"id": USER_UUIDS["EMP_2"], "name": "Priya Kapoor", "role": "Product Manager",      "email": "priya.k@company.com", "team": "Product",     "mentorId": USER_UUIDS["MENTOR_3"], "startDate": "Feb 20, 2026", "progress": 54, "day": 6,  "totalDays": 30, "status": "prarambh", "risk": "low",  "initials": "PK", "color": COLORS[1]},
+    {"id": USER_UUIDS["EMP_3"], "name": "Marcus Stone", "role": "Sales Representative", "email": "marcus@company.com",  "team": "Sales",       "mentorId": USER_UUIDS["MENTOR_2"], "startDate": "Feb 17, 2026", "progress": 31, "day": 9,  "totalDays": 21, "status": "prarambh", "risk": "high", "initials": "MS", "color": COLORS[2]},
+    {"id": USER_UUIDS["EMP_4"], "name": "Aiko Tanaka",  "role": "UX Designer",          "email": "aiko@company.com",    "team": "Design",      "mentorId": USER_UUIDS["MENTOR_3"], "startDate": "Feb 10, 2026", "progress": 78, "day": 16, "totalDays": 21, "status": "prarambh", "risk": "low",  "initials": "AT", "color": COLORS[3]},
 ]
 
 DOCUMENTS = [
     {"id": "doc-1", "name": "Employee Handbook v3.2",       "type": "PDF", "size": "2.4 MB", "status": "processed", "uploadedBy": "admin", "taskCount": 32, "date": "Feb 20", "content": "Company values: innovation, collaboration, integrity. Communication policy: use Slack for quick messages, email for formal comms. Work hours: flexible 9-5. Benefits: health, dental, vision, 401k. PTO: 15 days/year. Performance reviews: quarterly."},
     {"id": "doc-2", "name": "IT Security Policy",           "type": "PDF", "size": "1.1 MB", "status": "processed", "uploadedBy": "hr",    "taskCount": 15, "date": "Feb 18", "content": "All employees must complete security training within first week. MFA required on all accounts. Password policy: minimum 12 characters. VPN required for remote work. Incident reporting: contact security@company.com."},
-    {"id": "doc-3", "name": "Engineering Onboarding Guide", "type": "PDF", "size": "3.2 MB", "status": "processed", "uploadedBy": "admin", "taskCount": 28, "date": "Feb 15", "content": "Tech stack: React, TypeScript, Node.js, PostgreSQL, AWS. Code review: all PRs require 2 approvals. Testing: unit tests required, 80% coverage. CI/CD: automated pipeline with GitHub Actions."},
+    {"id": "doc-3", "name": "Engineering Prarambh Guide", "type": "PDF", "size": "3.2 MB", "status": "processed", "uploadedBy": "admin", "taskCount": 28, "date": "Feb 15", "content": "Tech stack: React, TypeScript, Node.js, PostgreSQL, AWS. Code review: all PRs require 2 approvals. Testing: unit tests required, 80% coverage. CI/CD: automated pipeline with GitHub Actions."},
     {"id": "doc-4", "name": "Sales Playbook 2026",          "type": "PDF", "size": "1.8 MB", "status": "processed", "uploadedBy": "admin", "taskCount": 20, "date": "Feb 12", "content": "Sales process: prospect, qualify, demo, proposal, close. CRM: Salesforce mandatory. Target: $50k quota per month. Commission structure: 8% on closed deals."},
 ]
 
@@ -52,7 +52,7 @@ TASKS = [
 ]
 
 MEETINGS = [
-    {"id": "meet-1", "title": "1:1 Onboarding Sync",    "date": "2026-03-01", "time": "10:00 AM", "mentorId": USER_UUIDS["MENTOR_1"], "employeeId": USER_UUIDS["EMP_1"], "description": "Weekly sync to review onboarding progress",       "link": "https://meet.google.com/abc-defg-hij"},
+    {"id": "meet-1", "title": "1:1 Prarambh Sync",    "date": "2026-03-01", "time": "10:00 AM", "mentorId": USER_UUIDS["MENTOR_1"], "employeeId": USER_UUIDS["EMP_1"], "description": "Weekly sync to review prarambh progress",       "link": "https://meet.google.com/abc-defg-hij"},
     {"id": "meet-2", "title": "Tech Stack Deep Dive",    "date": "2026-03-03", "time": "2:00 PM",  "mentorId": USER_UUIDS["MENTOR_1"], "employeeId": USER_UUIDS["EMP_1"], "description": "Walkthrough of the React + TypeScript codebase",   "link": "https://zoom.us/j/123456789"},
     {"id": "meet-3", "title": "Code Review Walkthrough", "date": "2026-03-06", "time": "11:00 AM", "mentorId": USER_UUIDS["MENTOR_1"], "employeeId": USER_UUIDS["EMP_1"], "description": "Review your first PR and learn code review standards"},
     {"id": "meet-4", "title": "Product Roadmap Review",  "date": "2026-03-02", "time": "11:00 AM", "mentorId": USER_UUIDS["MENTOR_3"], "employeeId": USER_UUIDS["EMP_2"], "description": "Overview of Q1 product roadmap",                   "link": "https://meet.google.com/xyz-uvwx-yz"},

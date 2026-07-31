@@ -1,6 +1,6 @@
 """
 Prarambh AI Task Builder — FastAPI Backend
-Provides endpoints for LangGraph-powered onboarding task generation.
+Provides endpoints for LangGraph-powered prarambh task generation.
 """
 
 import asyncio
@@ -13,13 +13,16 @@ import uuid
 from contextlib import asynccontextmanager
 from datetime import datetime
 
-import ptyprocess
+try:
+    import ptyprocess
+except ImportError:
+    ptyprocess = None
 
 import uvicorn
 from fastapi import FastAPI, HTTPException, UploadFile, File, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 
-from agent import OnboardingAgent
+from agent import PrarambhAgent
 from models import GenerateRequest, RefineRequest, GenerateResponse, RefineResponse
 from mongo_routes import router as data_router
 from mongo_seed import seed_if_empty
@@ -38,7 +41,7 @@ logger = logging.getLogger(__name__)
 
 
 # ─── App Setup ────────────────────────────────────────────────────────────────
-agent: OnboardingAgent = None
+agent: PrarambhAgent = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -48,16 +51,16 @@ async def lifespan(app: FastAPI):
     seed_if_empty()
     logger.info("MongoDB ready.")
     # ── AI Agent ──────────────────────────────────────────────────────────────
-    logger.info("Initializing OnboardingAgent and LangGraph workflows...")
-    agent = OnboardingAgent()
-    logger.info("OnboardingAgent ready.")
+    logger.info("Initializing PrarambhAgent and LangGraph workflows...")
+    agent = PrarambhAgent()
+    logger.info("PrarambhAgent ready.")
     yield
     logger.info("Shutting down.")
 
 
 app = FastAPI(
     title="Prarambh AI Task Builder",
-    description="LangGraph-powered onboarding task generation API",
+    description="LangGraph-powered prarambh task generation API",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -88,7 +91,7 @@ def health_check():
 @app.post("/api/generate", response_model=GenerateResponse)
 async def generate_tasks(request: GenerateRequest):
     """
-    Generate a set of onboarding tasks using the LangGraph agent.
+    Generate a set of prarambh tasks using the LangGraph agent.
     Takes employee info, optional resume, and a concept prompt.
     Returns structured tasks matching the Prarambh Task interface.
     """
@@ -294,7 +297,12 @@ async def pty_terminal(websocket: WebSocket):
     workspace = tempfile.mkdtemp(prefix="pty-")
     logger.info(f"PTY session opened — workspace: {workspace}")
 
-    proc: ptyprocess.PtyProcess | None = None
+    proc = None
+    
+    if ptyprocess is None:
+        await websocket.send_text(json.dumps({"type": "error", "data": "PTY terminal not supported on Windows"}))
+        await websocket.close()
+        return
     loop = asyncio.get_event_loop()
 
     try:

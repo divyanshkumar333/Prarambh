@@ -7,11 +7,11 @@ const ORG_ID           = '47e06cd4-2cfc-4020-bd40-155e24c723cf'
 const AGENT_ID         = 'GPT_4O'            // general-purpose agent
 const TASK_AGENT_ID    = 'task_generator'    // dedicated task-generation agent
 
-// ─── AIML API (OnboardBot) ────────────────────────────────────────────────────
-// Uses AIML API with GPT-4o for intelligent, context-aware OnboardBot responses.
+// ─── AIML API (PrarambhBot) ────────────────────────────────────────────────────
+// Uses AIML API with GPT-4o for intelligent, context-aware PrarambhBot responses.
 const AIML_API_URL        = 'https://api.aimlapi.com'
 const AIML_API_KEY        = 'd0c5aca687c84490a2106daaa4af76a5'
-const AIML_MODEL          = 'openai/gpt-5-chat-latest'  // high-capability model for OnboardBot
+const AIML_MODEL          = 'openai/gpt-5-chat-latest'  // high-capability model for PrarambhBot
 const AIML_SALES_MODEL    = 'openai/gpt-5-chat-latest'  // model for email simulation agent
 
 /**
@@ -102,7 +102,7 @@ function mockTasksFromDocument(docContent: string, docName: string, employeeRole
   const role  = (employeeRole ?? '').toLowerCase()
 
   if (lower.includes('security') || lower.includes('password') || lower.includes('vpn')) {
-    return `Here are the onboarding tasks I generated from **${docName}**:
+    return `Here are the prarambh tasks I generated from **${docName}**:
 
 **Security & Compliance Tasks**
 
@@ -119,9 +119,9 @@ Would you like me to add, remove, or modify any of these tasks before assigning?
   }
 
   if (lower.includes('engineering') || lower.includes('react') || lower.includes('github') || role.includes('engineer') || role.includes('developer')) {
-    return `Here are the onboarding tasks I generated from **${docName}**:
+    return `Here are the prarambh tasks I generated from **${docName}**:
 
-**Technical Onboarding Tasks — Engineering**
+**Technical Prarambh Tasks — Engineering**
 
 1. **Set up local development environment** — Clone the main repository, install dependencies, and run the app locally. *(1 hr · Setup)*
 2. **Complete GitHub access & SSH key setup** — Configure SSH keys, join the GitHub org, and verify repository access. *(20 min · Tools)*
@@ -138,9 +138,9 @@ Would you like me to adjust these tasks or focus on a specific area?`
   }
 
   if (lower.includes('sales') || lower.includes('crm') || lower.includes('quota') || role.includes('sales')) {
-    return `Here are the onboarding tasks I generated from **${docName}**:
+    return `Here are the prarambh tasks I generated from **${docName}**:
 
-**Sales Onboarding Tasks**
+**Sales Prarambh Tasks**
 
 1. **Complete Salesforce CRM fundamentals training** — Finish the CRM basics course and create your first opportunity. *(1 hr · Tools)*
 2. **Product certification: Core modules (1-4)** — Complete the first 4 product knowledge modules and pass the quiz. *(2 hrs · Learning)*
@@ -155,9 +155,9 @@ Would you like me to customize these for a specific territory or quota target?`
   }
 
   if (lower.includes('handbook') || lower.includes('culture') || lower.includes('values') || lower.includes('benefits')) {
-    return `Here are the onboarding tasks I generated from **${docName}**:
+    return `Here are the prarambh tasks I generated from **${docName}**:
 
-**Culture & Compliance Onboarding Tasks**
+**Culture & Compliance Prarambh Tasks**
 
 1. **Watch the company overview video** — 20-minute video covering mission, vision, values, and history. *(20 min · Culture)*
 2. **Complete the org chart walkthrough** — Identify your team, cross-functional partners, and executive leadership. *(15 min · People)*
@@ -172,15 +172,15 @@ Would you like me to add role-specific tasks or adjust timelines?`
   }
 
   // Default response
-  return `Here are the onboarding tasks I generated from **${docName}**:
+  return `Here are the prarambh tasks I generated from **${docName}**:
 
-**Onboarding Task List**
+**Prarambh Task List**
 
 1. **Review the document thoroughly** — Read all sections of ${docName} and highlight key policies. *(30 min · Learning)*
 2. **Complete knowledge check** — Answer the 10-question quiz to confirm understanding. *(15 min · Compliance)*
 3. **Discuss key points with manager** — Schedule a 30-minute debrief to clarify any questions. *(30 min · People)*
 4. **Apply learnings to daily workflow** — Identify 3 action items from the document to implement immediately. *(15 min · Admin)*
-5. **Share key takeaways with team** — Post a brief summary to the #onboarding Slack channel. *(10 min · Culture)*
+5. **Share key takeaways with team** — Post a brief summary to the #prarambh Slack channel. *(10 min · Culture)*
 
 Would you like me to add more specific tasks or explore a different focus area?`
 }
@@ -198,7 +198,7 @@ function mockTasksFromResume(resumeContent: string, resumeFileName: string, ment
   const dayLabel = is30Day ? '30-day' : '21-day'
 
   if (isDesign) {
-    return `Based on ${resumeFileName || "the candidate's resume"} and your guidance, here's the personalized **${dayLabel} Design Onboarding Plan**:
+    return `Based on ${resumeFileName || "the candidate's resume"} and your guidance, here's the personalized **${dayLabel} Design Prarambh Plan**:
 
 **Week 1 — Foundation**
 1. **Design system deep-dive** — Review the component library in Figma. Map existing patterns to your design background. *(2 hrs · Technical)*
@@ -220,7 +220,7 @@ Tasks are based on the candidate's existing ${employeeRole} background. Want me 
   }
 
   if (isSales) {
-    return `Based on ${resumeFileName || "the candidate's resume"} and your guidance, here's the personalized **${dayLabel} Sales Onboarding Plan**:
+    return `Based on ${resumeFileName || "the candidate's resume"} and your guidance, here's the personalized **${dayLabel} Sales Prarambh Plan**:
 
 **Week 1 — Product & Process**
 1. **Intensive product certification (all 8 modules)** — Prioritized given their background; can self-pace. *(4 hrs · Learning)*
@@ -242,7 +242,7 @@ Personalized to leverage their prior sales experience. Want to adjust the ramp t
   }
 
   if (isFrontend || isDevFocused) {
-    return `Based on ${resumeFileName || "the candidate's resume"} and your guidance, here's the personalized **${dayLabel} Technical Onboarding Plan**:
+    return `Based on ${resumeFileName || "the candidate's resume"} and your guidance, here's the personalized **${dayLabel} Technical Prarambh Plan**:
 
 **Week 1 — Environment & Codebase**
 1. **Dev environment setup & codebase tour** — Clone repo, install dependencies, run all services locally. Leverage their existing React knowledge. *(1.5 hrs · Setup)*
@@ -258,13 +258,13 @@ Personalized to leverage their prior sales experience. Want to adjust the ramp t
 **Week 3–4 — Feature Ownership**
 8. **Own a small feature end-to-end** — From ticket to production: design, implementation, tests, PR, and deploy. *(4 hrs · Technical)*
 9. **Pair on a complex refactor** — Pair with a senior engineer on an active refactoring task. *(2 hrs · Technical)*
-10. **Lead a tech share** — Present a short (15-min) deep-dive on something learned in onboarding. *(1 hr · Leadership)*
+10. **Lead a tech share** — Present a short (15-min) deep-dive on something learned in prarambh. *(1 hr · Leadership)*
 
 Based on their ${employeeRole} background — tasks are calibrated to fast-track the ramp. Adjust?`
   }
 
   // Generic role response
-  return `Based on ${resumeFileName || "the candidate's resume"} and your guidance, here's the personalized **${dayLabel} Onboarding Plan** for ${employeeRole}:
+  return `Based on ${resumeFileName || "the candidate's resume"} and your guidance, here's the personalized **${dayLabel} Prarambh Plan** for ${employeeRole}:
 
 **Week 1 — Foundation**
 1. **Company overview & culture immersion** — Study mission, values, and org structure with focus on their team. *(1 hr · Culture)*
@@ -299,7 +299,7 @@ export async function generateTasksFromDocument(
   if (token) {
     const chatId = await createChat(token)
     if (chatId) {
-      const systemContext = `You are an expert onboarding specialist AI assistant. You help HR managers and admins create actionable onboarding task lists based on company documents. Format tasks clearly with titles, time estimates, and categories. Document context: "${docContent.slice(0, 2000)}"`
+      const systemContext = `You are an expert prarambh specialist AI assistant. You help HR managers and admins create actionable prarambh task lists based on company documents. Format tasks clearly with titles, time estimates, and categories. Document context: "${docContent.slice(0, 2000)}"`
       const fullMessage = `${systemContext}\n\nUser: ${userMessage}\n\nEmployee Role Context: ${employeeRole ?? 'General employee'}`
       const response = await sendMessage(token, chatId, fullMessage)
       if (response) return response
@@ -322,8 +322,8 @@ export async function generateTasksFromResume(
   if (token) {
     const chatId = await createChat(token)
     if (chatId) {
-      const systemContext = `You are an expert onboarding specialist AI assistant helping a mentor create a personalized task list for a new hire. Resume content: "${resumeContent.slice(0, 2000)}". Employee role: ${employeeRole}.`
-      const fullMessage = `${systemContext}\n\nMentor request: ${mentorPrompt}\n\nGenerate a detailed, personalized onboarding task list with time estimates and categories.`
+      const systemContext = `You are an expert prarambh specialist AI assistant helping a mentor create a personalized task list for a new hire. Resume content: "${resumeContent.slice(0, 2000)}". Employee role: ${employeeRole}.`
+      const fullMessage = `${systemContext}\n\nMentor request: ${mentorPrompt}\n\nGenerate a detailed, personalized prarambh task list with time estimates and categories.`
       const response = await sendMessage(token, chatId, fullMessage)
       if (response) return response
     }
@@ -349,9 +349,9 @@ export async function generalChat(userMessage: string, context: string): Promise
   await new Promise(r => setTimeout(r, 800 + Math.random() * 600))
   const lower = userMessage.toLowerCase()
   if (lower.includes('task') || lower.includes('assign')) return 'I can help you create and assign tasks! Just describe what you need done and which employee it\'s for, and I\'ll generate a structured task list.'
-  if (lower.includes('resume') || lower.includes('candidate')) return 'Upload the candidate\'s resume and I\'ll analyze their background to create a personalized onboarding plan tailored to their skills and experience.'
-  if (lower.includes('document') || lower.includes('policy')) return 'Share a document with me and I\'ll extract all the key requirements into actionable onboarding tasks that can be assigned to new hires.'
-  return 'I\'m your AI onboarding assistant. I can help you create task lists from documents, analyze resumes to personalize onboarding plans, and answer questions about your team\'s progress. What would you like to do?'
+  if (lower.includes('resume') || lower.includes('candidate')) return 'Upload the candidate\'s resume and I\'ll analyze their background to create a personalized prarambh plan tailored to their skills and experience.'
+  if (lower.includes('document') || lower.includes('policy')) return 'Share a document with me and I\'ll extract all the key requirements into actionable prarambh tasks that can be assigned to new hires.'
+  return 'I\'m your AI prarambh assistant. I can help you create task lists from documents, analyze resumes to personalize prarambh plans, and answer questions about your team\'s progress. What would you like to do?'
 }
 
 // ─── Suggest tasks for a specific employee (for CreateTaskModal AI mode) ──────
@@ -395,7 +395,7 @@ function mockSuggestedTasks(employeeRole: string, employeeName: string, userRequ
 
   // Generic
   return [
-    { title: `Complete ${employeeName.split(' ')[0]}'s onboarding checklist`, description: 'Review all sections of the employee handbook and acknowledge receipt.', category: 'Compliance', estimatedTime: '45 min', priority: 'high', subtasks: [{ title: 'Read company values section' }, { title: 'Review PTO policy' }, { title: 'Sign acknowledgement' }], requiresInput: false, inputPrompt: '' },
+    { title: `Complete ${employeeName.split(' ')[0]}'s prarambh checklist`, description: 'Review all sections of the employee handbook and acknowledge receipt.', category: 'Compliance', estimatedTime: '45 min', priority: 'high', subtasks: [{ title: 'Read company values section' }, { title: 'Review PTO policy' }, { title: 'Sign acknowledgement' }], requiresInput: false, inputPrompt: '' },
     { title: 'Meet key stakeholders', description: 'Schedule intro 1:1 calls with 5 cross-functional partners.', category: 'People', estimatedTime: '1.5 hrs', priority: 'medium', subtasks: [{ title: 'Schedule calls' }, { title: 'Prepare intro questions' }, { title: 'Complete all 5 calls' }], requiresInput: true, inputPrompt: 'Who did you meet and what was one thing you learned from each person?' },
     { title: 'Complete tools & access setup', description: 'Ensure all required software is installed and access is provisioned.', category: 'Tools', estimatedTime: '30 min', priority: 'high', subtasks: [{ title: 'Email & calendar' }, { title: 'Slack & communication tools' }, { title: 'Role-specific tools' }], requiresInput: false, inputPrompt: '' },
   ]
@@ -412,7 +412,7 @@ export async function suggestTasksForEmployee(
   if (token) {
     const chatId = await createChat(token, TASK_AGENT_ID)
     if (chatId) {
-      const prompt = `You are an onboarding specialist. Generate 3-5 specific onboarding tasks strictly tailored to the employee's role.
+      const prompt = `You are an prarambh specialist. Generate 3-5 specific prarambh tasks strictly tailored to the employee's role.
 Employee: ${employeeName}, Role: ${employeeRole}
 Admin request: ${userRequest}
 ${documentContext ? `Company context: ${documentContext.slice(0, 800)}` : ''}
@@ -475,7 +475,7 @@ export async function sendTaskChatMessage(
       // On the first message inject the employee role context so the agent
       // generates tasks strictly relevant to that role
       const fullMsg = isFirstMessage
-        ? `You are an expert onboarding task designer. You must generate tasks STRICTLY relevant to the employee's role — never default to software/engineering tasks for non-technical roles.\n\nEmployee: ${employeeName}\nRole: ${employeeRole}\n${documentContext ? `Company docs context: ${documentContext.slice(0, 600)}` : ''}\n\nWhen you suggest tasks, always append a JSON array at the END of your reply in this exact format (no markdown fences):\n[{"title":"...","description":"...","category":"Setup|Learning|Technical|Compliance|People|Tools|Admin","estimatedTime":"...","priority":"low|medium|high","subtasks":[{"title":"..."}],"requiresInput":false,"inputPrompt":""}]\n\nAdmin request: ${userMessage}`
+        ? `You are an expert prarambh task designer. You must generate tasks STRICTLY relevant to the employee's role — never default to software/engineering tasks for non-technical roles.\n\nEmployee: ${employeeName}\nRole: ${employeeRole}\n${documentContext ? `Company docs context: ${documentContext.slice(0, 600)}` : ''}\n\nWhen you suggest tasks, always append a JSON array at the END of your reply in this exact format (no markdown fences):\n[{"title":"...","description":"...","category":"Setup|Learning|Technical|Compliance|People|Tools|Admin","estimatedTime":"...","priority":"low|medium|high","subtasks":[{"title":"..."}],"requiresInput":false,"inputPrompt":""}]\n\nAdmin request: ${userMessage}`
         : userMessage
 
       const reply = await sendMessage(token, taskChatId, fullMsg)
@@ -515,7 +515,7 @@ export async function sendTaskChatMessage(
 
   return {
     role: 'agent',
-    content: `Here's a tailored onboarding task list for ${employeeName} (${employeeRole}). You can ask me to adjust priorities, add more tasks, focus on specific areas, or modify any task. Just let me know!`,
+    content: `Here's a tailored prarambh task list for ${employeeName} (${employeeRole}). You can ask me to adjust priorities, add more tasks, focus on specific areas, or modify any task. Just let me know!`,
     tasks: mockTasks,
   }
 }
@@ -531,14 +531,14 @@ function _extractTasksFromText(text: string): SuggestedTask[] {
   return []
 }
 
-// ─── OnboardBot — context-aware chatbot ──────────────────────────────────────
+// ─── PrarambhBot — context-aware chatbot ──────────────────────────────────────
 
-export interface OnboardBotMessage {
+export interface PrarambhBotMessage {
   role: 'user' | 'bot'
   content: string
 }
 
-export interface OnboardBotContext {
+export interface PrarambhBotContext {
   systemPrompt: string
 }
 
@@ -546,19 +546,19 @@ export interface OnboardBotContext {
  * Assembles a role-scoped system prompt from live AppContext state.
  * Includes full task details (subtasks, supporting docs, supporting links),
  * company knowledge base from documents, and allows general knowledge answers
- * for questions outside the onboarding scope.
+ * for questions outside the prarambh scope.
  */
-export function buildOnboardBotContext(
+export function buildPrarambhBotContext(
   state: any,
   userId: string,
   role: 'admin' | 'hr' | 'mentor' | 'employee'
-): OnboardBotContext {
+): PrarambhBotContext {
   const cs = state.companySettings ?? {}
   const lines: string[] = []
 
   // ── System instructions ──────────────────────────────────────────────────
-  lines.push('You are OnboardBot — an intelligent onboarding assistant designed to support users within an organization.')
-  lines.push('You are embedded in the Prarambh employee onboarding platform. You are an onboarding facilitator, not just a Q&A bot.')
+  lines.push('You are PrarambhBot — an intelligent prarambh assistant designed to support users within an organization.')
+  lines.push('You are embedded in the Prarambh employee prarambh platform. You are an prarambh facilitator, not just a Q&A bot.')
   lines.push('Your goal is to help users feel supported, informed, and guided.')
   lines.push('')
   lines.push('DOCUMENT AWARENESS & CONTEXT HANDLING:')
@@ -583,7 +583,7 @@ export function buildOnboardBotContext(
   lines.push('- Always respond politely, professionally, and clearly.')
   lines.push('- Use structured formatting where helpful.')
   lines.push('- Avoid overly technical language unless the user uses technical terminology.')
-  lines.push('- Maintain a supportive onboarding tone. Never be dismissive or abrupt.')
+  lines.push('- Maintain a supportive prarambh tone. Never be dismissive or abrupt.')
   lines.push('')
   lines.push('HANDLING UNCERTAINTY:')
   lines.push('- If relevant information cannot be found in the documents: politely inform the user and offer related information if available.')
@@ -594,18 +594,18 @@ export function buildOnboardBotContext(
   lines.push('- If company-specific data is missing from context, say: "I don\'t have specific information about this from your company\'s documents, but here\'s what I can share:" and then answer using general knowledge.')
   lines.push('- NEVER refuse general questions. Answer them helpfully.')
   lines.push('')
-  lines.push('ONBOARDING PROCESS KNOWLEDGE:')
+  lines.push('PRARAMBH PROCESS KNOWLEDGE:')
   lines.push('Company Setup Flow: Company info → Team/Industry → Integrations (Slack, GitHub, Jira, Zoom, Notion) → Templates → Launch')
   lines.push('Employee Journey: Added by Admin/HR → Tasks assigned → Progress tracked (pending/in-progress/done) → Meetings with mentor → Completion')
   lines.push('Task Types: Manual (created by admin/HR/mentor), AI-generated from documents, AI-generated from resumes, Bulk-generated')
   lines.push('Task Fields: title, description, category, estimated time, priority (low/medium/high), subtasks, supporting documents, supporting links, input requirements')
   lines.push('Progress Metric: (Tasks done / Total tasks) × 100 = progress percentage')
-  lines.push('Risk Assessment: employees with low progress relative to their onboarding day are flagged as "high risk"')
+  lines.push('Risk Assessment: employees with low progress relative to their prarambh day are flagged as "high risk"')
   lines.push('')
   lines.push('COMPANY KNOWLEDGE BASE (from uploaded documents):')
   lines.push('- Employee Handbook v3.2: Company values (innovation, collaboration, integrity), communication policy (Slack for quick messages, email for formal), work hours (flexible 9-5), benefits (health, dental, vision, 401k), PTO (15 days/year), code of conduct, performance reviews (quarterly), promotion cycle (annual), remote work (hybrid, 3 days in office).')
   lines.push('- IT Security Policy: MFA required on all accounts, password policy (minimum 12 characters), VPN required for remote work, data classification (public/internal/confidential/restricted), incident reporting (security@company.com), no personal devices for company data, security training required in first week, annual phishing awareness training.')
-  lines.push('- Engineering Onboarding Guide: Tech stack (React, TypeScript, Node.js, PostgreSQL, AWS), GitHub workflow (clone main repo, SSH key setup), code reviews (all PRs require 2 approvals), testing (unit tests required, 80% coverage), CI/CD (automated via GitHub Actions), deployment (staging → production), architecture (microservices), daily standups at 10am, 2-week sprints.')
+  lines.push('- Engineering Prarambh Guide: Tech stack (React, TypeScript, Node.js, PostgreSQL, AWS), GitHub workflow (clone main repo, SSH key setup), code reviews (all PRs require 2 approvals), testing (unit tests required, 80% coverage), CI/CD (automated via GitHub Actions), deployment (staging → production), architecture (microservices), daily standups at 10am, 2-week sprints.')
   lines.push('- Sales Playbook 2026: Sales process (prospect, qualify, demo, proposal, close), CRM (Salesforce — mandatory), quota ($50k/month), product certification (8 modules), discovery calls (BANT framework), demo script (standard deck), objection handling (pricing/competition/timing), commission (8% on closed deals), territory assignment (by region).')
   lines.push('')
   lines.push('RESPONSE STYLE:')
@@ -866,17 +866,17 @@ export function buildOnboardBotContext(
 }
 
 /**
- * Sends a user message to the OnboardBot AI agent with full context injection.
+ * Sends a user message to the PrarambhBot AI agent with full context injection.
  * Maintains session via a persistent chatId ref.
  */
-export async function sendOnboardBotMessage(
+export async function sendPrarambhBotMessage(
   userMessage: string,
-  context: OnboardBotContext,
-  history: OnboardBotMessage[],
+  context: PrarambhBotContext,
+  history: PrarambhBotMessage[],
   chatIdRef: { current: string | null }
 ): Promise<string> {
   // ── AIML API (primary) ────────────────────────────────────────────────────
-  // Convert OnboardBot history to OpenAI-compatible user/assistant turns.
+  // Convert PrarambhBot history to OpenAI-compatible user/assistant turns.
   // Greeting bot messages are included so the model has full conversation context.
   const aimlHistory: { role: 'user' | 'assistant'; content: string }[] = []
   for (const msg of history) {
@@ -964,11 +964,11 @@ export async function sendOnboardBotMessage(
   }
 
   // Progress tracking
-  if (lower.includes('progress') || lower.includes('how am i doing') || lower.includes('onboarding status')) {
+  if (lower.includes('progress') || lower.includes('how am i doing') || lower.includes('prarambh status')) {
     const progressLine = spLines.find(l => l.includes('Progress:') || l.includes('progress:'))
     const dayLine      = spLines.find(l => l.includes('Day ') && l.includes('/'))
     if (progressLine) return `${progressLine.trim()}\n${dayLine ? dayLine.trim() : ''}\n\nKeep it up! Visit your Overview tab for a full breakdown.`
-    return 'Visit your Overview tab to see your onboarding progress and task completion stats.'
+    return 'Visit your Overview tab to see your prarambh progress and task completion stats.'
   }
 
   // Meetings / schedule
@@ -984,7 +984,7 @@ export async function sendOnboardBotMessage(
     if (empLines.length > 0) {
       const atRisk = empLines.filter(l => l.toLowerCase().includes('risk: high'))
       if (lower.includes('risk') && atRisk.length > 0) return `At-risk employees:\n\n${atRisk.join('\n')}`
-      return `Employee onboarding status:\n\n${empLines.slice(0, 8).join('\n')}`
+      return `Employee prarambh status:\n\n${empLines.slice(0, 8).join('\n')}`
     }
   }
 
@@ -996,7 +996,7 @@ export async function sendOnboardBotMessage(
   }
 
   // General / out-of-scope — provide a helpful general answer
-  return `I'm OnboardBot — here to help with your onboarding! I can answer questions about:\n• Your tasks, subtasks, and supporting resources\n• Meetings and schedule\n• Mentor/buddy info\n• Company policies and documents\n• Team and employee status (admin/HR/mentor)\n• General HR, productivity, or career questions\n\nWhat would you like to know?`
+  return `I'm PrarambhBot — here to help with your prarambh! I can answer questions about:\n• Your tasks, subtasks, and supporting resources\n• Meetings and schedule\n• Mentor/buddy info\n• Company policies and documents\n• Team and employee status (admin/HR/mentor)\n• General HR, productivity, or career questions\n\nWhat would you like to know?`
 }
 
 // ─── Task extraction helper ───────────────────────────────────────────────────
@@ -1063,7 +1063,7 @@ export interface ConversationTurn {
 }
 
 function buildClientSystemPrompt(prospect: EmailProspect, subject: string): string {
-  return `You are ${prospect.name}, ${prospect.role} at ${prospect.company}. You are a busy, experienced B2B decision-maker receiving a sales email from a salesperson at Prarambh — an AI-powered employee onboarding platform that helps companies automate and personalise new-hire experiences, track onboarding progress, assign role-specific tasks, and reduce time-to-productivity.
+  return `You are ${prospect.name}, ${prospect.role} at ${prospect.company}. You are a busy, experienced B2B decision-maker receiving a sales email from a salesperson at Prarambh — an AI-powered employee prarambh platform that helps companies automate and personalise new-hire experiences, track prarambh progress, assign role-specific tasks, and reduce time-to-productivity.
 
 Your behaviour rules:
 1. Reply ONLY as ${prospect.name} — write a professional business email reply (no role-play narration, no quotation marks, no preamble like "Here is my reply:").
@@ -1135,7 +1135,7 @@ export interface ProjectFile {
 
 /**
  * Sends a message to the AI code assistant with full project file context.
- * @param taskTitle      Title of the current onboarding task
+ * @param taskTitle      Title of the current prarambh task
  * @param taskDescription Description of the task
  * @param files          All files currently open in the playground
  * @param activeFileName The file currently open in the editor

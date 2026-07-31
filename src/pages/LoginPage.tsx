@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Shield, Users, UserCheck, User, ArrowRight, ChevronLeft } from 'lucide-react'
 import Logo from '../components/common/Logo'
 import { useApp, initialMentors, USER_UUIDS } from '../context/AppContext'
+import { motion, AnimatePresence } from 'framer-motion'
 
 type RoleStep = 'pick-role' | 'pick-mentor' | 'pick-employee'
 
@@ -11,35 +12,47 @@ const ROLE_CARDS = [
     role: 'admin' as const,
     title: 'Admin',
     description: 'Manage employees, assign mentors, upload documents, and configure the platform.',
-    icon: <Shield size={32} />,
-    color: 'from-brown-700 to-brown-900',
-    bg: 'bg-white/80 border-brown-300',
+    icon: Shield,
+    color: '#22d3ee',
+    gradient: 'linear-gradient(135deg, #22d3ee20, #22d3ee08)',
+    border: 'rgba(34,211,238,0.2)',
   },
   {
     role: 'hr' as const,
     title: 'HR Manager',
-    description: 'View all employees, assign tasks, use AI to generate onboarding plans from documents.',
-    icon: <Users size={32} />,
-    color: 'from-purple-600 to-purple-800',
-    bg: 'bg-white/80 border-purple-300',
+    description: 'View all employees, assign tasks, and generate onboarding plans from documents with AI.',
+    icon: Users,
+    color: '#a855f7',
+    gradient: 'linear-gradient(135deg, #a855f720, #a855f708)',
+    border: 'rgba(168,85,247,0.2)',
   },
   {
     role: 'mentor' as const,
     title: 'Mentor / Buddy',
-    description: 'Track your assigned mentees, view their resumes, and create AI-personalized task lists.',
-    icon: <UserCheck size={32} />,
-    color: 'from-teal-600 to-teal-800',
-    bg: 'bg-white/80 border-teal-300',
+    description: 'Track assigned mentees, view their resumes, and create AI-personalized task lists.',
+    icon: UserCheck,
+    color: '#22d3ee',
+    gradient: 'linear-gradient(135deg, #22d3ee20, #a855f710)',
+    border: 'rgba(34,211,238,0.15)',
   },
   {
     role: 'employee' as const,
     title: 'New Hire',
-    description: 'View your onboarding tasks, track progress, chat with AI assistant, and complete your journey.',
-    icon: <User size={32} />,
-    color: 'from-green-600 to-green-800',
-    bg: 'bg-white/80 border-green-300',
+    description: 'View onboarding tasks, track your progress, chat with AI, and complete your journey.',
+    icon: User,
+    color: '#a855f7',
+    gradient: 'linear-gradient(135deg, #a855f720, #22d3ee10)',
+    border: 'rgba(168,85,247,0.15)',
   },
 ]
+
+const card = {
+  hidden: { opacity: 0, y: 20, scale: 0.97 },
+  show: (i: number) => ({
+    opacity: 1, y: 0, scale: 1,
+    transition: { duration: 0.5, delay: i * 0.08, ease: 'easeOut' as const }
+  }),
+}
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -47,182 +60,274 @@ export default function LoginPage() {
   const [step, setStep] = useState<RoleStep>('pick-role')
   const [selectedRole, setSelectedRole] = useState<typeof ROLE_CARDS[0] | null>(null)
 
-  const handleRoleClick = (card: typeof ROLE_CARDS[0]) => {
-    if (card.role === 'mentor') {
-      setSelectedRole(card)
-      setStep('pick-mentor')
-    } else if (card.role === 'employee') {
-      setSelectedRole(card)
-      setStep('pick-employee')
-    } else if (card.role === 'admin') {
+  const handleRoleClick = (c: typeof ROLE_CARDS[0]) => {
+    if (c.role === 'mentor') { setSelectedRole(c); setStep('pick-mentor') }
+    else if (c.role === 'employee') { setSelectedRole(c); setStep('pick-employee') }
+    else if (c.role === 'admin') {
       dispatch({ type: 'SET_ROLE', payload: { role: 'admin', userId: USER_UUIDS.ADMIN } })
       navigate(`/admin/${USER_UUIDS.ADMIN}`)
-    } else if (card.role === 'hr') {
+    } else if (c.role === 'hr') {
       dispatch({ type: 'SET_ROLE', payload: { role: 'hr', userId: USER_UUIDS.HR } })
       navigate(`/hr/${USER_UUIDS.HR}`)
     }
   }
 
-  const handleMentorSelect = (mentorId: string) => {
-    dispatch({ type: 'SET_ROLE', payload: { role: 'mentor', userId: mentorId } })
-    navigate(`/mentor/${mentorId}`)
+  const handleMentorSelect = (id: string) => {
+    dispatch({ type: 'SET_ROLE', payload: { role: 'mentor', userId: id } })
+    navigate(`/mentor/${id}`)
   }
 
-  const handleEmployeeSelect = (employeeId: string) => {
-    dispatch({ type: 'SET_ROLE', payload: { role: 'employee', userId: employeeId } })
-    navigate(`/new-hire/${employeeId}`)
+  const handleEmployeeSelect = (id: string) => {
+    dispatch({ type: 'SET_ROLE', payload: { role: 'employee', userId: id } })
+    navigate(`/new-hire/${id}`)
   }
 
   return (
-    <div
-      className="relative min-h-screen flex flex-col items-center justify-center px-4 py-16"
-      style={{
-        backgroundImage: 'url(https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      {/* Pastel blue overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(135deg, rgba(219,238,255,0.91) 0%, rgba(176,214,255,0.87) 50%, rgba(195,224,255,0.92) 100%)',
-        }}
-      />
+    <div className="relative min-h-screen flex flex-col items-center justify-center px-4 py-16 bg-background overflow-hidden">
 
-      {/* ── Back button — top left ── */}
-      <button
+      {/* Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Dot grid */}
+        <div className="absolute inset-0 opacity-[0.35]"
+          style={{ backgroundImage: 'radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+        />
+        {/* Glow orbs */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%)', filter: 'blur(40px)' }}
+        />
+        <div className="absolute top-2/3 left-1/4 w-[300px] h-[300px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(34,211,238,0.08) 0%, transparent 70%)', filter: 'blur(40px)' }}
+        />
+        {/* Top & bottom fades */}
+        <div className="absolute inset-x-0 top-0 h-32" style={{ background: 'linear-gradient(to bottom, #0a0a0f, transparent)' }} />
+        <div className="absolute inset-x-0 bottom-0 h-32" style={{ background: 'linear-gradient(to top, #0a0a0f, transparent)' }} />
+      </div>
+
+      {/* Back button */}
+      <motion.button
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4 }}
         onClick={() => navigate('/')}
-        className="absolute top-6 left-6 z-10 flex items-center gap-2 bg-white/70 hover:bg-white text-brown-700 hover:text-brown-900 font-semibold text-sm px-4 py-2 rounded-full border border-brown-200 shadow-sm backdrop-blur-sm transition-all duration-200 hover:shadow-md"
+        className="absolute top-6 left-6 z-10 flex items-center gap-1.5 text-[13px] font-medium text-white/35 hover:text-white/70 transition-colors"
       >
-        <ChevronLeft size={16} />
-        Back to home
-      </button>
+        <ChevronLeft size={15} />
+        Back
+      </motion.button>
 
-      {/* ── Content ── */}
+      {/* Content */}
       <div className="relative z-10 w-full flex flex-col items-center">
 
-        {/* Logo */}
-        <div className="mb-10 text-center">
+        {/* Logo + tagline */}
+        <motion.div
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-12 text-center"
+        >
           <Logo size="lg" />
-          <p className="text-brown-600 text-sm mt-2 font-medium">Effortless onboarding for growing teams</p>
-        </div>
+          <p className="text-[12px] font-semibold tracking-widest uppercase text-white/25 mt-3">
+            Onboarding OS · Simulation Environment
+          </p>
+        </motion.div>
 
-        {/* ── Step: Pick Role ── */}
-        {step === 'pick-role' && (
-          <div className="w-full max-w-4xl animate-fade-in">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-brown-900 mb-2">Choose your role to continue</h2>
-              <p className="text-brown-600 text-sm">No password needed — just select who you are</p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-5">
-              {ROLE_CARDS.map(card => (
-                <button
-                  key={card.role}
-                  onClick={() => handleRoleClick(card)}
-                  className={`group relative text-left p-6 rounded-2xl border-2 backdrop-blur-sm ${card.bg} hover:shadow-xl transition-all duration-200 hover:-translate-y-1`}
-                >
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${card.color} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-200`}>
-                    {card.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-brown-900 mb-2">{card.title}</h3>
-                  <p className="text-sm text-brown-600 leading-relaxed">{card.description}</p>
-                  <div className="flex items-center gap-2 mt-4 text-brown-500 group-hover:text-brown-800 transition-colors font-semibold text-sm">
-                    Enter as {card.title} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* ── Step: Pick Mentor ── */}
-        {step === 'pick-mentor' && (
-          <div className="w-full max-w-lg animate-fade-in">
-            <button
-              onClick={() => setStep('pick-role')}
-              className="flex items-center gap-2 text-brown-600 hover:text-brown-900 mb-6 font-medium text-sm transition-colors"
+        {/* ── STEP: Pick Role ── */}
+        <AnimatePresence mode="wait">
+          {step === 'pick-role' && (
+            <motion.div
+              key="pick-role"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.35 }}
+              className="w-full max-w-3xl"
             >
-              <ChevronLeft size={16} /> Back to roles
-            </button>
-            <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-brown-900 mb-2">Select your Mentor profile</h2>
-              <p className="text-brown-600 text-sm">Choose which mentor you are logging in as</p>
-            </div>
-            <div className="space-y-3">
-              {initialMentors.map(mentor => {
-                const assignedCount = state.employees.filter(e => e.mentorId === mentor.id).length
-                return (
-                  <button
-                    key={mentor.id}
-                    onClick={() => handleMentorSelect(mentor.id)}
-                    className="w-full flex items-center gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-xl border-2 border-brown-200 hover:border-teal-400 hover:bg-white transition-all duration-200 group text-left"
-                  >
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0" style={{ background: mentor.color }}>
-                      {mentor.initials}
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-bold text-brown-900">{mentor.name}</p>
-                      <p className="text-sm text-brown-500">{mentor.specialty}</p>
-                      <p className="text-xs text-teal-600 font-medium mt-0.5">{assignedCount} mentee{assignedCount !== 1 ? 's' : ''} assigned</p>
-                    </div>
-                    <ArrowRight size={18} className="text-brown-300 group-hover:text-teal-600 group-hover:translate-x-1 transition-all duration-200" />
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        )}
+              <div className="text-center mb-10">
+                <h2 className="text-2xl font-bold text-white mb-2">Choose your perspective</h2>
+                <p className="text-[13px] text-white/35">Select a role to explore the platform</p>
+              </div>
 
-        {/* ── Step: Pick Employee ── */}
-        {step === 'pick-employee' && (
-          <div className="w-full max-w-lg animate-fade-in">
-            <button
-              onClick={() => setStep('pick-role')}
-              className="flex items-center gap-2 text-brown-600 hover:text-brown-900 mb-6 font-medium text-sm transition-colors"
-            >
-              <ChevronLeft size={16} /> Back to roles
-            </button>
-            <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-brown-900 mb-2">Select your Employee profile</h2>
-              <p className="text-brown-600 text-sm">Choose which new hire you are logging in as</p>
-            </div>
-            <div className="space-y-3">
-              {state.employees.map(emp => {
-                const mentor = initialMentors.find(m => m.id === emp.mentorId)
-                const myTasks = state.tasks.filter(t => t.assignedTo === emp.id)
-                const done = myTasks.filter(t => t.status === 'done').length
-                return (
-                  <button
-                    key={emp.id}
-                    onClick={() => handleEmployeeSelect(emp.id)}
-                    className="w-full flex items-center gap-4 p-4 bg-white/80 backdrop-blur-sm rounded-xl border-2 border-brown-200 hover:border-green-400 hover:bg-white transition-all duration-200 group text-left"
+              <div className="grid sm:grid-cols-2 gap-4">
+                {ROLE_CARDS.map((c, i) => (
+                  <motion.button
+                    key={c.role}
+                    custom={i}
+                    variants={card}
+                    initial="hidden"
+                    animate="show"
+                    whileHover={{ y: -4, scale: 1.015 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleRoleClick(c)}
+                    className="group text-left p-6 rounded-2xl border transition-all duration-300 cursor-pointer"
+                    style={{
+                      background: c.gradient,
+                      borderColor: c.border,
+                      backdropFilter: 'blur(16px)',
+                    }}
                   >
-                    <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0" style={{ background: emp.color }}>
-                      {emp.initials}
+                    {/* Icon */}
+                    <div
+                      className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
+                      style={{
+                        background: `${c.color}15`,
+                        border: `1px solid ${c.color}30`,
+                      }}
+                    >
+                      <c.icon size={20} style={{ color: c.color }} />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-bold text-brown-900">{emp.name}</p>
-                      <p className="text-sm text-brown-500">{emp.role}</p>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-xs text-brown-400">Day {emp.day}/30</span>
-                        <span className="text-brown-300">·</span>
-                        <span className="text-xs text-green-600 font-medium">{done}/{myTasks.length} tasks done</span>
-                        {mentor && <><span className="text-brown-300">·</span><span className="text-xs text-brown-400">Mentor: {mentor.name}</span></>}
+
+                    <h3 className="text-[15px] font-semibold text-white mb-2">{c.title}</h3>
+                    <p className="text-[13px] text-white/40 leading-relaxed mb-5">{c.description}</p>
+
+                    <div className="flex items-center gap-1.5 text-[12px] font-semibold transition-all" style={{ color: c.color }}>
+                      Enter as {c.title}
+                      <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+
+                    {/* Hover glow */}
+                    <div
+                      className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                      style={{ boxShadow: `inset 0 0 0 1px ${c.color}35` }}
+                    />
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* ── STEP: Pick Mentor ── */}
+          {step === 'pick-mentor' && (
+            <motion.div
+              key="pick-mentor"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.35 }}
+              className="w-full max-w-md"
+            >
+              <button
+                onClick={() => setStep('pick-role')}
+                className="flex items-center gap-1.5 text-[13px] text-white/35 hover:text-white/70 transition-colors mb-8"
+              >
+                <ChevronLeft size={15} /> Back to roles
+              </button>
+
+              <div className="text-center mb-8">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                  style={{ background: 'rgba(34,211,238,0.1)', border: '1px solid rgba(34,211,238,0.2)' }}>
+                  <UserCheck size={20} className="text-brand-400" />
+                </div>
+                <h2 className="text-xl font-bold text-white mb-1.5">Select Mentor Profile</h2>
+                <p className="text-[13px] text-white/35">Choose which mentor you're logging in as</p>
+              </div>
+
+              <div className="space-y-3">
+                {initialMentors.map((mentor, i) => {
+                  const assignedCount = state.employees.filter(e => e.mentorId === mentor.id).length
+                  return (
+                    <motion.button
+                      key={mentor.id}
+                      initial={{ opacity: 0, x: 16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.07, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      whileHover={{ x: 4 }}
+                      onClick={() => handleMentorSelect(mentor.id)}
+                      className="w-full flex items-center gap-4 p-4 rounded-2xl border border-white/[0.07] text-left transition-all group cursor-pointer"
+                      style={{ background: 'rgba(255,255,255,0.025)', backdropFilter: 'blur(16px)' }}
+                    >
+                      <div className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                        style={{ background: mentor.color }}>
+                        {mentor.initials}
                       </div>
-                    </div>
-                    <ArrowRight size={18} className="text-brown-300 group-hover:text-green-600 group-hover:translate-x-1 transition-all duration-200" />
-                  </button>
-                )
-              })}
-            </div>
-          </div>
-        )}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[14px] font-semibold text-white group-hover:text-brand-400 transition-colors">{mentor.name}</p>
+                        <p className="text-[12px] text-white/40">{mentor.specialty}</p>
+                        <p className="text-[11px] text-brand-400/70 font-medium mt-0.5">{assignedCount} mentee{assignedCount !== 1 ? 's' : ''} assigned</p>
+                      </div>
+                      <ArrowRight size={15} className="text-white/20 group-hover:text-brand-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
+                    </motion.button>
+                  )
+                })}
+              </div>
+            </motion.div>
+          )}
 
-        <p className="mt-10 text-xs text-brown-500 text-center relative z-10">
-          Demo environment — explore all features freely.
-        </p>
+          {/* ── STEP: Pick Employee ── */}
+          {step === 'pick-employee' && (
+            <motion.div
+              key="pick-employee"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.35 }}
+              className="w-full max-w-md"
+            >
+              <button
+                onClick={() => setStep('pick-role')}
+                className="flex items-center gap-1.5 text-[13px] text-white/35 hover:text-white/70 transition-colors mb-8"
+              >
+                <ChevronLeft size={15} /> Back to roles
+              </button>
+
+              <div className="text-center mb-8">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                  style={{ background: 'rgba(168,85,247,0.1)', border: '1px solid rgba(168,85,247,0.2)' }}>
+                  <User size={20} className="text-brand-500" />
+                </div>
+                <h2 className="text-xl font-bold text-white mb-1.5">Select Employee Profile</h2>
+                <p className="text-[13px] text-white/35">Choose which new hire you're logging in as</p>
+              </div>
+
+              <div className="space-y-3">
+                {state.employees.map((emp, i) => {
+                  const mentor = initialMentors.find(m => m.id === emp.mentorId)
+                  const myTasks = state.tasks.filter(t => t.assignedTo === emp.id)
+                  const done = myTasks.filter(t => t.status === 'done').length
+                  const pct = myTasks.length ? Math.round((done / myTasks.length) * 100) : 0
+                  return (
+                    <motion.button
+                      key={emp.id}
+                      initial={{ opacity: 0, x: 16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.07, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      whileHover={{ x: 4 }}
+                      onClick={() => handleEmployeeSelect(emp.id)}
+                      className="w-full flex items-center gap-4 p-4 rounded-2xl border border-white/[0.07] text-left transition-all group cursor-pointer"
+                      style={{ background: 'rgba(255,255,255,0.025)', backdropFilter: 'blur(16px)' }}
+                    >
+                      <div className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                        style={{ background: emp.color }}>
+                        {emp.initials}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[14px] font-semibold text-white group-hover:text-brand-500 transition-colors">{emp.name}</p>
+                        <p className="text-[12px] text-white/40">{emp.role}</p>
+                        <div className="flex items-center gap-2 mt-1.5">
+                          {/* Progress bar */}
+                          <div className="flex-1 max-w-[80px] h-1 rounded-full bg-white/10 overflow-hidden">
+                            <div className="h-full rounded-full" style={{ width: `${pct}%`, background: 'linear-gradient(90deg, #22d3ee, #a855f7)' }} />
+                          </div>
+                          <span className="text-[11px] text-white/30">{done}/{myTasks.length} tasks</span>
+                          {mentor && <span className="text-[11px] text-white/20 truncate">· {mentor.name}</span>}
+                        </div>
+                      </div>
+                      <ArrowRight size={15} className="text-white/20 group-hover:text-brand-500 group-hover:translate-x-1 transition-all flex-shrink-0" />
+                    </motion.button>
+                  )
+                })}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="mt-14 text-[11px] text-white/20 font-medium tracking-widest uppercase text-center"
+        >
+          Explore All Perspectives
+        </motion.p>
       </div>
     </div>
   )

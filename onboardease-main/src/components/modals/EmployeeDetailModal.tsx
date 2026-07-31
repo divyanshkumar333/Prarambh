@@ -150,7 +150,7 @@ export default function EmployeeDetailModal({ employee, onClose }: Props) {
               <div className="flex items-center gap-2 mt-1.5 flex-wrap">
                 {employee.status === 'completed'
                   ? <span className="badge-green text-xs">Completed</span>
-                  : <span className="badge-orange text-xs">Onboarding</span>}
+                  : <span className="badge-orange text-xs">Prarambh</span>}
                 {employee.risk === 'high' && (
                   <span className="badge-red text-xs flex items-center gap-1"><AlertCircle size={10} />At Risk</span>
                 )}
@@ -184,7 +184,7 @@ export default function EmployeeDetailModal({ employee, onClose }: Props) {
           {/* Progress card */}
           <div className="card p-5">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="font-bold text-brown-900">Onboarding Progress</h3>
+              <h3 className="font-bold text-brown-900">Prarambh Progress</h3>
               <span className="text-brown-600 font-bold text-lg">{rate}%</span>
             </div>
             <div className="progress-bar mb-4 h-3 rounded-full">

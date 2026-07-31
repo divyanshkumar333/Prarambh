@@ -1,6 +1,22 @@
 node_modules/
 dist/
 build/
+onboardease-github/
 .env
 *.log
 .DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+onboarding-agent/logs/
+
+# Scratch / one-off scripts
+rename_brand.py
+replace_everywhere.py
+replace_pds.py
+
+# Editor
+.vscode/
+.idea/

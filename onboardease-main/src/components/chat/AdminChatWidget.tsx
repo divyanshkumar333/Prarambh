@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Bot, Send, Loader2, User, Sparkles, X } from 'lucide-react'
 import { useApp } from '../../context/AppContext'
-import { buildOnboardBotContext, sendOnboardBotMessage, type OnboardBotMessage } from '../../services/aiService'
+import { buildPrarambhBotContext, sendPrarambhBotMessage, type PrarambhBotMessage } from '../../services/aiService'
 import MarkdownRenderer from '../common/MarkdownRenderer'
 
 interface Message {
@@ -19,19 +19,19 @@ interface Props {
   atRiskNames: string[]
 }
 
-// Role-specific suggestion chips matching the OnboardBot spec
+// Role-specific suggestion chips matching the PrarambhBot spec
 const ROLE_PROMPTS: Record<string, string[]> = {
   admin: [
-    'Give me a full onboarding overview',
+    'Give me a full prarambh overview',
     'Any at-risk employees?',
     'What documents are uploaded?',
     'Show overall progress metrics',
   ],
   hr: [
-    'How many employees are onboarding?',
+    'How many employees are prarambh?',
     'Which employees are at risk?',
     'What documents are uploaded?',
-    'Give me an onboarding progress summary',
+    'Give me an prarambh progress summary',
   ],
   mentor: [
     "Show my mentees' progress",
@@ -52,10 +52,10 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
   const [loading,  setLoading]    = useState(false)
   const bottomRef  = useRef<HTMLDivElement>(null)
   const inputRef   = useRef<HTMLInputElement>(null)
-  // Persistent chat session ref for OnboardBot
+  // Persistent chat session ref for PrarambhBot
   const chatIdRef  = useRef<string | null>(null)
-  // History for OnboardBot — must NOT include the current user message on the first call
-  const botHistory = useRef<OnboardBotMessage[]>([])
+  // History for PrarambhBot — must NOT include the current user message on the first call
+  const botHistory = useRef<PrarambhBotMessage[]>([])
 
   // Resolve current role (admin | hr | mentor)
   const currentRole = (
@@ -89,8 +89,8 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
     setLoading(true)
 
     try {
-      const context = buildOnboardBotContext(state, currentUserId, currentRole)
-      const reply = await sendOnboardBotMessage(msg, context, prevHistory, chatIdRef)
+      const context = buildPrarambhBotContext(state, currentUserId, currentRole)
+      const reply = await sendPrarambhBotMessage(msg, context, prevHistory, chatIdRef)
       botHistory.current = [...botHistory.current, { role: 'bot', content: reply }]
       setMessages(prev => [...prev, { id: `a-${Date.now()}`, role: 'ai', content: reply, ts: timestamp() }])
     } catch {
@@ -114,8 +114,8 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
             <Bot size={15} className="text-white" />
           </div>
           <div>
-            <p className="text-sm font-bold text-white leading-none">OnboardBot</p>
-            <p className="text-xs text-white/60 mt-0.5">{roleLabel} · AI Onboarding Assistant</p>
+            <p className="text-sm font-bold text-white leading-none">PrarambhBot</p>
+            <p className="text-xs text-white/60 mt-0.5">{roleLabel} · AI Prarambh Assistant</p>
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -139,7 +139,7 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
               </div>
               <div className="bg-brown-50 border border-brown-100 rounded-2xl rounded-tl-sm px-3 py-2.5 max-w-[85%]">
                 <p className="text-xs text-brown-700 leading-relaxed">
-                  Hi {roleLabel}! 👋 I'm <strong>OnboardBot</strong> — your AI onboarding assistant. I have full context about your {currentRole === 'mentor' ? "assigned mentees' tasks and progress" : 'employees, tasks, documents, and onboarding metrics'}. I can also answer general questions outside of onboarding. What do you need help with?
+                  Hi {roleLabel}! 👋 I'm <strong>PrarambhBot</strong> — your AI prarambh assistant. I have full context about your {currentRole === 'mentor' ? "assigned mentees' tasks and progress" : 'employees, tasks, documents, and prarambh metrics'}. I can also answer general questions outside of prarambh. What do you need help with?
                 </p>
               </div>
             </div>
@@ -210,7 +210,7 @@ export default function AdminChatWidget({ employeeCount, atRiskCount, avgProgres
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && !e.shiftKey && send()}
-          placeholder="Ask about onboarding…"
+          placeholder="Ask about prarambh…"
           disabled={loading}
           className="flex-1 text-xs bg-brown-50 border border-brown-200 rounded-xl px-3 py-2 outline-none focus:border-brown-400 transition-colors disabled:opacity-50 text-brown-800 placeholder-brown-400"
         />

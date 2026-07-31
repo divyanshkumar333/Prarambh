@@ -80,7 +80,7 @@ export default function SetupWizard() {
             <CheckCircle size={48} className="text-green-600" />
           </div>
           <h2 className="text-3xl font-bold text-brown-900 mb-3">🎉 You're all set!</h2>
-          <p className="text-brown-600 text-lg mb-2">Your onboarding system is live.</p>
+          <p className="text-brown-600 text-lg mb-2">Your prarambh system is live.</p>
           <p className="text-brown-500 text-sm">Redirecting to your dashboard...</p>
         </div>
       </div>
@@ -132,9 +132,9 @@ export default function SetupWizard() {
             <h2 className="text-2xl font-bold text-white">{steps[currentStep - 1].label}</h2>
             <p className="text-white/70 text-sm mt-1">
               {currentStep === 1 && 'Tell us about your company to get started.'}
-              {currentStep === 2 && 'Help us tailor onboarding for your team size and industry.'}
+              {currentStep === 2 && 'Help us tailor prarambh for your team size and industry.'}
               {currentStep === 3 && 'Connect the tools your team already uses.'}
-              {currentStep === 4 && 'Select role templates to auto-generate onboarding paths.'}
+              {currentStep === 4 && 'Select role templates to auto-generate prarambh paths.'}
               {currentStep === 5 && "Review your setup and launch when you're ready."}
             </p>
           </div>
@@ -257,7 +257,7 @@ export default function SetupWizard() {
             {currentStep === 4 && (
               <div className="animate-fade-in">
                 <p className="text-brown-600 text-sm mb-6">
-                  Select the roles you typically hire for. AI will generate tailored onboarding paths for each.
+                  Select the roles you typically hire for. AI will generate tailored prarambh paths for each.
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {roleTemplates.map(template => (

@@ -37,9 +37,9 @@ interface EmployeeResult {
 }
 
 const PRIORITY_COLOR: Record<string, string> = {
-  high:   'bg-red-50 text-red-600 border-red-200',
+  high:   'bg-red-500/10 text-red-400 border-red-500/20',
   medium: 'bg-orange-50 text-orange-600 border-orange-200',
-  low:    'bg-green-50 text-green-600 border-green-200',
+  low:    'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
 }
 
 export default function BulkTaskGenerationModal({ onClose }: Props) {
@@ -49,7 +49,7 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
   const [step, setStep]               = useState<1 | 2>(1)
   const [selectedEmpIds, setSelectedEmpIds] = useState<string[]>(state.employees.map(e => e.id))
   const [selectedDocIds, setSelectedDocIds] = useState<string[]>([])
-  const [globalPrompt,   setGlobalPrompt]   = useState('Generate a complete onboarding task list tailored to each employee\'s role')
+  const [globalPrompt,   setGlobalPrompt]   = useState('Generate a complete prarambh task list tailored to each employee\'s role')
   const [results,        setResults]   = useState<EmployeeResult[]>([])
   const [expanded,       setExpanded]  = useState<Record<string, boolean>>({})
   const [running,        setRunning]   = useState(false)
@@ -150,44 +150,44 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm backdrop-blur-sm" />
       <div
-        className="relative bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[92vh] flex flex-col"
+        className="relative bg-surface rounded-2xl shadow-2xl w-full max-w-3xl max-h-[92vh] flex flex-col"
         onClick={e => e.stopPropagation()}
       >
         {/* ── Header ── */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-brown-100 flex-shrink-0 bg-gradient-to-r from-brown-700 to-brown-900 rounded-t-2xl">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border flex-shrink-0 bg-gradient-to-r from-brown-700 to-brown-900 rounded-t-2xl">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-9 h-9 bg-surface/20 rounded-xl flex items-center justify-center flex-shrink-0">
               <Sparkles size={18} className="text-white" />
             </div>
             <div>
               <h2 className="font-bold text-white text-base">AI Bulk Task Generation</h2>
-              <p className="text-white/60 text-xs">Generate & assign onboarding tasks for all employees using AI</p>
+              <p className="text-white/60 text-xs">Generate & assign prarambh tasks for all employees using AI</p>
             </div>
           </div>
-          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-white/20 text-white transition-colors">
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-surface/20 text-white transition-colors">
             <X size={18} />
           </button>
         </div>
 
         {/* ── Step indicators ── */}
-        <div className="flex items-center gap-3 px-6 py-3 border-b border-brown-100 bg-brown-50 flex-shrink-0">
+        <div className="flex items-center gap-3 px-6 py-3 border-b border-border bg-surface-elevated flex-shrink-0">
           {[{ n: 1, label: 'Configure' }, { n: 2, label: 'Review & Assign' }].map(s => (
             <div key={s.n} className="flex items-center gap-1.5">
-              <div className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${step === s.n ? 'bg-brown-700 text-white' : step > s.n ? 'bg-green-500 text-white' : 'bg-brown-200 text-brown-500'}`}>
+              <div className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${step === s.n ? 'bg-brown-700 text-white' : step > s.n ? 'bg-green-500 text-white' : 'bg-surface-elevated text-text-secondary'}`}>
                 {step > s.n ? <CheckCircle size={12} /> : s.n}
               </div>
-              <span className={`text-xs font-semibold ${step === s.n ? 'text-brown-800' : 'text-brown-400'}`}>{s.label}</span>
-              {s.n < 2 && <ArrowRight size={12} className="text-brown-300 ml-1" />}
+              <span className={`text-xs font-semibold ${step === s.n ? 'text-text-primary' : 'text-text-secondary/70'}`}>{s.label}</span>
+              {s.n < 2 && <ArrowRight size={12} className="text-text-secondary/50 ml-1" />}
             </div>
           ))}
           {running && (
             <div className="ml-auto flex items-center gap-2">
-              <div className="w-32 h-1.5 bg-brown-200 rounded-full overflow-hidden">
+              <div className="w-32 h-1.5 bg-surface-elevated rounded-full overflow-hidden">
                 <div className="h-full bg-brown-700 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
               </div>
-              <span className="text-xs text-brown-500 font-medium">{progress}%</span>
+              <span className="text-xs text-text-secondary font-medium">{progress}%</span>
             </div>
           )}
         </div>
@@ -200,24 +200,24 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
             <div className="p-6 space-y-6">
               {/* Global prompt */}
               <div>
-                <label className="block text-xs font-semibold text-brown-600 mb-1.5">Generation Instruction</label>
+                <label className="block text-xs font-semibold text-text-secondary mb-1.5">Generation Instruction</label>
                 <textarea
                   value={globalPrompt}
                   onChange={e => setGlobalPrompt(e.target.value)}
                   rows={2}
-                  className="input-field text-sm py-2.5 resize-none"
+                  className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm py-2.5 resize-none"
                   placeholder="What kind of tasks should be generated for each employee?"
                 />
-                <p className="text-xs text-brown-400 mt-1">The AI will tailor tasks to each employee's specific role using this instruction.</p>
+                <p className="text-xs text-text-secondary/70 mt-1">The AI will tailor tasks to each employee's specific role using this instruction.</p>
               </div>
 
               {/* Employee selector */}
               <div>
                 <div className="flex items-center justify-between mb-2.5">
-                  <label className="text-xs font-semibold text-brown-600 flex items-center gap-1.5">
+                  <label className="text-xs font-semibold text-text-secondary flex items-center gap-1.5">
                     <Users size={13} /> Select Employees ({selectedEmpIds.length}/{state.employees.length})
                   </label>
-                  <button onClick={toggleAll} className="text-xs text-brown-600 underline hover:no-underline">
+                  <button onClick={toggleAll} className="text-xs text-text-secondary underline hover:no-underline">
                     {selectedEmpIds.length === state.employees.length ? 'Deselect all' : 'Select all'}
                   </button>
                 </div>
@@ -225,22 +225,22 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
                   {state.employees.map(emp => {
                     const hasTasks = state.tasks.some(t => t.assignedTo === emp.id)
                     return (
-                      <label key={emp.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${selectedEmpIds.includes(emp.id) ? 'border-brown-500 bg-brown-50' : 'border-brown-100 hover:border-brown-200 bg-white'}`}>
+                      <label key={emp.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-colors ${selectedEmpIds.includes(emp.id) ? 'border-brown-500 bg-surface-elevated' : 'border-border hover:border-border bg-surface'}`}>
                         <input type="checkbox" checked={selectedEmpIds.includes(emp.id)} onChange={() => toggleEmp(emp.id)} className="accent-brown-600 flex-shrink-0" />
                         <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ background: emp.color }}>{emp.initials}</div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold text-brown-800">{emp.name}</p>
-                          <p className="text-xs text-brown-400">{emp.role} · {emp.team}</p>
+                          <p className="text-sm font-semibold text-text-primary">{emp.name}</p>
+                          <p className="text-xs text-text-secondary/70">{emp.role} · {emp.team}</p>
                         </div>
                         {hasTasks
-                          ? <span className="text-xs text-brown-400 bg-brown-100 px-2 py-0.5 rounded-full flex-shrink-0">Has tasks</span>
+                          ? <span className="text-xs text-text-secondary/70 bg-surface-elevated/50 px-2 py-0.5 rounded-full flex-shrink-0">Has tasks</span>
                           : <span className="text-xs text-orange-500 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-full flex-shrink-0">No tasks</span>
                         }
                       </label>
                     )
                   })}
                   {state.employees.length === 0 && (
-                    <div className="text-center py-8 text-brown-400">
+                    <div className="text-center py-8 text-text-secondary/70">
                       <Users size={28} className="mx-auto mb-2 opacity-40" />
                       <p className="text-sm">No employees to generate tasks for.</p>
                     </div>
@@ -252,8 +252,8 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
               {state.documents.length > 0 && (
                 <div>
                   <div className="flex items-center justify-between mb-2.5">
-                    <label className="text-xs font-semibold text-brown-600 flex items-center gap-1.5">
-                      <FileText size={13} /> Document Context <span className="text-brown-400 font-normal">(optional)</span>
+                    <label className="text-xs font-semibold text-text-secondary flex items-center gap-1.5">
+                      <FileText size={13} /> Document Context <span className="text-text-secondary/70 font-normal">(optional)</span>
                     </label>
                     {selectedDocIds.length > 0 && (
                       <span className="text-xs font-semibold bg-brown-700 text-white px-2 py-0.5 rounded-full">{selectedDocIds.length} selected</span>
@@ -261,15 +261,15 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
                   </div>
                   <div className="space-y-1.5">
                     {state.documents.map(doc => (
-                      <label key={doc.id} className={`flex items-center gap-2.5 p-2.5 rounded-xl border cursor-pointer transition-colors ${selectedDocIds.includes(doc.id) ? 'border-brown-500 bg-brown-50' : 'border-brown-100 hover:border-brown-200 bg-white'}`}>
+                      <label key={doc.id} className={`flex items-center gap-2.5 p-2.5 rounded-xl border cursor-pointer transition-colors ${selectedDocIds.includes(doc.id) ? 'border-brown-500 bg-surface-elevated' : 'border-border hover:border-border bg-surface'}`}>
                         <input type="checkbox" checked={selectedDocIds.includes(doc.id)} onChange={() => toggleDoc(doc.id)} className="accent-brown-600 flex-shrink-0" />
                         <FileText size={12} className="text-red-400 flex-shrink-0" />
-                        <span className="text-xs text-brown-700 truncate flex-1">{doc.name}</span>
-                        <span className="text-xs text-brown-400 flex-shrink-0">{doc.type}</span>
+                        <span className="text-xs text-text-primary truncate flex-1">{doc.name}</span>
+                        <span className="text-xs text-text-secondary/70 flex-shrink-0">{doc.type}</span>
                       </label>
                     ))}
                   </div>
-                  <p className="text-xs text-brown-400 mt-1.5 italic">
+                  <p className="text-xs text-text-secondary/70 mt-1.5 italic">
                     {selectedDocIds.length === 0 ? 'No docs selected — AI uses general context + top 3 documents' : 'Selected document content will be sent to the AI as context'}
                   </p>
                 </div>
@@ -282,13 +282,13 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
             <div className="p-6 space-y-4">
               {/* Summary bar */}
               {allDone && (
-                <div className="flex items-center gap-3 bg-green-50 border border-green-200 rounded-xl px-4 py-3">
+                <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-4 py-3">
                   <CheckCircle size={16} className="text-green-500 flex-shrink-0" />
                   <div className="flex-1">
-                    <p className="text-sm font-semibold text-green-800">
+                    <p className="text-sm font-semibold text-emerald-400">
                       Generated {totalTasks} tasks across {doneCount} employees
                     </p>
-                    <p className="text-xs text-green-600">Review tasks below, remove any you don't want, then assign.</p>
+                    <p className="text-xs text-emerald-400">Review tasks below, remove any you don't want, then assign.</p>
                   </div>
                   {!allAssigned && (
                     <button onClick={assignAll} className="btn-primary text-xs py-2 px-4 flex items-center gap-1.5 flex-shrink-0">
@@ -296,7 +296,7 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
                     </button>
                   )}
                   {allAssigned && (
-                    <span className="text-xs font-semibold text-green-700 bg-green-100 px-3 py-1.5 rounded-full flex items-center gap-1">
+                    <span className="text-xs font-semibold text-emerald-400 bg-green-100 px-3 py-1.5 rounded-full flex items-center gap-1">
                       <CheckCircle size={12} /> All Assigned
                     </span>
                   )}
@@ -305,25 +305,25 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
 
               {/* Per-employee result cards */}
               {results.map(r => (
-                <div key={r.employee.id} className={`rounded-2xl border overflow-hidden ${r.assigned ? 'border-green-200 bg-green-50/30' : 'border-brown-100 bg-white'}`}>
+                <div key={r.employee.id} className={`rounded-2xl border overflow-hidden ${r.assigned ? 'border-emerald-500/20 bg-emerald-500/10/30' : 'border-border bg-surface'}`}>
                   {/* Employee header */}
-                  <div className="flex items-center gap-3 px-4 py-3 border-b border-brown-100">
+                  <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
                     <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ background: r.employee.color }}>{r.employee.initials}</div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-brown-900">{r.employee.name}</p>
-                      <p className="text-xs text-brown-400">{r.employee.role} · {r.employee.team}</p>
+                      <p className="text-sm font-bold text-text-primary">{r.employee.name}</p>
+                      <p className="text-xs text-text-secondary/70">{r.employee.role} · {r.employee.team}</p>
                     </div>
 
                     {/* Status chip */}
                     {r.status === 'generating' && (
-                      <span className="flex items-center gap-1.5 text-xs text-brown-600 bg-brown-100 px-2.5 py-1 rounded-full">
+                      <span className="flex items-center gap-1.5 text-xs text-text-secondary bg-surface-elevated/50 px-2.5 py-1 rounded-full">
                         <Loader2 size={11} className="animate-spin" /> Generating…
                       </span>
                     )}
                     {r.status === 'done' && !r.assigned && (
                       <>
-                        <span className="text-xs text-brown-500">{r.tasks.length} tasks</span>
-                        <button onClick={() => setExpanded(ex => ({ ...ex, [r.employee.id]: !ex[r.employee.id] }))} className="p-1 rounded hover:bg-brown-50 text-brown-400 transition-colors">
+                        <span className="text-xs text-text-secondary">{r.tasks.length} tasks</span>
+                        <button onClick={() => setExpanded(ex => ({ ...ex, [r.employee.id]: !ex[r.employee.id] }))} className="p-1 rounded hover:bg-surface-elevated text-text-secondary/70 transition-colors">
                           {expanded[r.employee.id] ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
                         </button>
                         <button onClick={() => assignEmployee(r.employee.id)} className="btn-primary text-xs py-1.5 px-3 flex items-center gap-1 flex-shrink-0">
@@ -332,17 +332,17 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
                       </>
                     )}
                     {r.status === 'done' && r.assigned && (
-                      <span className="flex items-center gap-1 text-xs font-semibold text-green-700 bg-green-100 px-2.5 py-1 rounded-full flex-shrink-0">
+                      <span className="flex items-center gap-1 text-xs font-semibold text-emerald-400 bg-green-100 px-2.5 py-1 rounded-full flex-shrink-0">
                         <CheckCircle size={11} /> Assigned
                       </span>
                     )}
                     {r.status === 'error' && (
-                      <span className="flex items-center gap-1 text-xs text-red-600 bg-red-50 border border-red-200 px-2.5 py-1 rounded-full">
+                      <span className="flex items-center gap-1 text-xs text-red-400 bg-red-500/10 border border-red-500/20 px-2.5 py-1 rounded-full">
                         <AlertCircle size={11} /> Failed
                       </span>
                     )}
                     {r.status === 'idle' && (
-                      <span className="text-xs text-brown-300">Queued…</span>
+                      <span className="text-xs text-text-secondary/50">Queued…</span>
                     )}
                   </div>
 
@@ -350,10 +350,10 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
                   {expanded[r.employee.id] && r.status === 'done' && !r.assigned && r.tasks.length > 0 && (
                     <div className="divide-y divide-brown-50">
                       {r.tasks.map((task, idx) => (
-                        <div key={idx} className="flex items-start gap-3 px-4 py-2.5 hover:bg-brown-50/50 transition-colors">
+                        <div key={idx} className="flex items-start gap-3 px-4 py-2.5 hover:bg-surface-elevated/50 transition-colors">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
-                              <p className="text-xs font-semibold text-brown-800">{task.title}</p>
+                              <p className="text-xs font-semibold text-text-primary">{task.title}</p>
                               {task.priority && (
                                 <span className={`text-xs px-1.5 py-0.5 rounded-full border font-medium ${PRIORITY_COLOR[task.priority]}`}>{task.priority}</span>
                               )}
@@ -363,9 +363,9 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
                                 </span>
                               )}
                             </div>
-                            <p className="text-xs text-brown-400 mt-0.5">{task.category} · {task.estimatedTime}{task.subtasks?.length ? ` · ${task.subtasks.length} subtasks` : ''}</p>
+                            <p className="text-xs text-text-secondary/70 mt-0.5">{task.category} · {task.estimatedTime}{task.subtasks?.length ? ` · ${task.subtasks.length} subtasks` : ''}</p>
                           </div>
-                          <button onClick={() => removeTask(r.employee.id, idx)} className="p-1 rounded text-red-300 hover:text-red-600 hover:bg-red-50 transition-colors flex-shrink-0 mt-0.5" title="Remove task">
+                          <button onClick={() => removeTask(r.employee.id, idx)} className="p-1 rounded text-red-300 hover:text-red-400 hover:bg-red-500/10 transition-colors flex-shrink-0 mt-0.5" title="Remove task">
                             <Trash2 size={13} />
                           </button>
                         </div>
@@ -373,7 +373,7 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
                     </div>
                   )}
                   {r.status === 'done' && r.tasks.length === 0 && (
-                    <div className="px-4 py-3 text-xs text-brown-400 italic">All tasks removed.</div>
+                    <div className="px-4 py-3 text-xs text-text-secondary/70 italic">All tasks removed.</div>
                   )}
                 </div>
               ))}
@@ -382,7 +382,7 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
         </div>
 
         {/* ── Footer ── */}
-        <div className="px-6 py-4 border-t border-brown-100 flex gap-3 items-center flex-shrink-0">
+        <div className="px-6 py-4 border-t border-border flex gap-3 items-center flex-shrink-0">
           {step === 1 && (
             <>
               <button onClick={onClose} className="btn-secondary py-2.5 px-5 text-sm">Cancel</button>
@@ -418,7 +418,7 @@ export default function BulkTaskGenerationModal({ onClose }: Props) {
                 </>
               )}
               {running && (
-                <span className="text-xs text-brown-500 flex items-center gap-1.5 ml-auto">
+                <span className="text-xs text-text-secondary flex items-center gap-1.5 ml-auto">
                   <Loader2 size={13} className="animate-spin" />
                   Generating tasks… {results.filter(r => r.status === 'done' || r.status === 'error').length}/{results.length} done
                 </span>

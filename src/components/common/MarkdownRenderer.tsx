@@ -35,15 +35,15 @@ function CodeBlock({ raw, dark }: { raw: string; dark: boolean }) {
   }
 
   return (
-    <div className={`my-2 rounded-lg overflow-hidden border ${dark ? 'border-white/10' : 'border-gray-200'}`}>
+    <div className={`my-2 rounded-lg overflow-hidden border ${dark ? 'border-white/10' : 'border-border'}`}>
       {/* Header */}
-      <div className={`flex items-center justify-between px-3 py-1.5 ${dark ? 'bg-white/5 border-b border-white/10' : 'bg-gray-50 border-b border-gray-200'}`}>
-        <span className={`text-[10px] font-mono font-semibold ${dark ? 'text-white/40' : 'text-gray-400'}`}>
+      <div className={`flex items-center justify-between px-3 py-1.5 ${dark ? 'bg-white/5 border-b border-white/10' : 'bg-surface border-b border-border'}`}>
+        <span className={`text-[10px] font-mono font-semibold ${dark ? 'text-white/40' : 'text-text-secondary'}`}>
           {lang || 'code'}
         </span>
         <button
           onClick={copy}
-          className={`flex items-center gap-1 text-[10px] transition-colors ${dark ? 'text-white/35 hover:text-teal-400' : 'text-gray-400 hover:text-teal-600'}`}
+          className={`flex items-center gap-1 text-[10px] transition-colors ${dark ? 'text-white/35 hover:text-teal-400' : 'text-text-secondary hover:text-teal-600'}`}
         >
           {copied ? <Check size={9} /> : <Copy size={9} />}
           {copied ? 'Copied!' : 'Copy'}
@@ -67,7 +67,7 @@ function renderInline(text: string, dark: boolean): React.ReactNode {
       {tokens.map((tok, i) => {
         if (tok.startsWith('**') && tok.endsWith('**')) {
           return (
-            <strong key={i} className={`font-semibold ${dark ? 'text-white' : 'text-gray-900'}`}>
+            <strong key={i} className={`font-semibold ${dark ? 'text-white' : 'text-text-primary'}`}>
               {tok.slice(2, -2)}
             </strong>
           )
@@ -76,14 +76,14 @@ function renderInline(text: string, dark: boolean): React.ReactNode {
           return (
             <code
               key={i}
-              className={`text-[11px] font-mono px-1 py-0.5 rounded ${dark ? 'bg-white/10 text-yellow-300' : 'bg-gray-100 text-pink-600 border border-gray-200'}`}
+              className={`text-[11px] font-mono px-1 py-0.5 rounded ${dark ? 'bg-white/10 text-yellow-300' : 'bg-surface text-pink-600 border border-border'}`}
             >
               {tok.slice(1, -1)}
             </code>
           )
         }
         if (tok.startsWith('*') && tok.endsWith('*') && tok.length > 2) {
-          return <em key={i} className={dark ? 'text-white/85 italic' : 'text-gray-700 italic'}>{tok.slice(1, -1)}</em>
+          return <em key={i} className={dark ? 'text-white/85 italic' : 'text-text-secondary italic'}>{tok.slice(1, -1)}</em>
         }
         return <React.Fragment key={i}>{tok}</React.Fragment>
       })}
@@ -112,14 +112,14 @@ function TextBlock({ text, dark }: { text: string; dark: boolean }) {
 
     // Horizontal rule
     if (/^[-*_]{3,}$/.test(trimmed)) {
-      nodes.push(<hr key={i} className={`my-2 ${dark ? 'border-white/10' : 'border-gray-200'}`} />)
+      nodes.push(<hr key={i} className={`my-2 ${dark ? 'border-white/10' : 'border-border'}`} />)
       i++; continue
     }
 
     // H3
     if (trimmed.startsWith('### ')) {
       nodes.push(
-        <p key={i} className={`text-xs font-bold mt-2 mb-0.5 ${dark ? 'text-white/90' : 'text-gray-800'}`}>
+        <p key={i} className={`text-xs font-bold mt-2 mb-0.5 ${dark ? 'text-white/90' : 'text-text-primary'}`}>
           {tx(trimmed.slice(4))}
         </p>
       )
@@ -128,7 +128,7 @@ function TextBlock({ text, dark }: { text: string; dark: boolean }) {
     // H2
     if (trimmed.startsWith('## ')) {
       nodes.push(
-        <p key={i} className={`text-sm font-bold mt-2.5 mb-1 ${dark ? 'text-teal-300' : 'text-gray-900'}`}>
+        <p key={i} className={`text-sm font-bold mt-2.5 mb-1 ${dark ? 'text-teal-300' : 'text-text-primary'}`}>
           {tx(trimmed.slice(3))}
         </p>
       )
@@ -137,7 +137,7 @@ function TextBlock({ text, dark }: { text: string; dark: boolean }) {
     // H1
     if (trimmed.startsWith('# ')) {
       nodes.push(
-        <p key={i} className={`text-sm font-extrabold mt-2.5 mb-1 ${dark ? 'text-teal-300' : 'text-gray-900'}`}>
+        <p key={i} className={`text-sm font-extrabold mt-2.5 mb-1 ${dark ? 'text-teal-300' : 'text-text-primary'}`}>
           {tx(trimmed.slice(2))}
         </p>
       )
@@ -154,7 +154,7 @@ function TextBlock({ text, dark }: { text: string; dark: boolean }) {
       nodes.push(
         <ul key={`ul-${i}`} className="my-1 space-y-0.5 pl-0.5">
           {items.map((item, j) => (
-            <li key={j} className={`flex items-start gap-2 text-xs leading-relaxed ${dark ? 'text-white/80' : 'text-gray-700'}`}>
+            <li key={j} className={`flex items-start gap-2 text-xs leading-relaxed ${dark ? 'text-white/80' : 'text-text-secondary'}`}>
               <span className={`mt-[5px] w-1.5 h-1.5 rounded-full flex-shrink-0 ${dark ? 'bg-teal-400/70' : 'bg-gray-400'}`} />
               <span>{tx(item)}</span>
             </li>
@@ -175,8 +175,8 @@ function TextBlock({ text, dark }: { text: string; dark: boolean }) {
       nodes.push(
         <ol key={`ol-${i}`} className="my-1 space-y-0.5 pl-0.5">
           {items.map((item, j) => (
-            <li key={j} className={`flex items-start gap-2 text-xs leading-relaxed ${dark ? 'text-white/80' : 'text-gray-700'}`}>
-              <span className={`flex-shrink-0 text-[10px] font-bold min-w-[14px] text-right mt-0.5 ${dark ? 'text-teal-400/60' : 'text-gray-400'}`}>
+            <li key={j} className={`flex items-start gap-2 text-xs leading-relaxed ${dark ? 'text-white/80' : 'text-text-secondary'}`}>
+              <span className={`flex-shrink-0 text-[10px] font-bold min-w-[14px] text-right mt-0.5 ${dark ? 'text-teal-400/60' : 'text-text-secondary'}`}>
                 {j + 1}.
               </span>
               <span>{tx(item)}</span>
@@ -189,7 +189,7 @@ function TextBlock({ text, dark }: { text: string; dark: boolean }) {
 
     // Regular line
     nodes.push(
-      <p key={i} className={`text-xs leading-relaxed ${dark ? 'text-white/80' : 'text-gray-700'}`}>
+      <p key={i} className={`text-xs leading-relaxed ${dark ? 'text-white/80' : 'text-text-secondary'}`}>
         {tx(trimmed)}
       </p>
     )

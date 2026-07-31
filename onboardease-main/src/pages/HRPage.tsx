@@ -9,7 +9,7 @@ import AdminPanel from '../components/dashboard/AdminPanel'
 import ChatTab, { useChatUnread } from '../components/chat/ChatTab'
 import ProfileModal from '../components/modals/ProfileModal'
 import Logo from '../components/common/Logo'
-import OnboardBotWidget from '../components/chat/OnboardBotWidget'
+import PrarambhBotWidget from '../components/chat/PrarambhBotWidget'
 import { useApp, USER_UUIDS } from '../context/AppContext'
 
 const NAV_ITEMS = [
@@ -119,7 +119,7 @@ export default function HRPage() {
       </div>
 
       {showProfile && <ProfileModal onClose={() => setShowProfile(false)} />}
-      <OnboardBotWidget />
+      <PrarambhBotWidget />
     </div>
   )
 }

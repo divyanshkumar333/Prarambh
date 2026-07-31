@@ -66,13 +66,13 @@ export default function ProfileModal({ onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[92vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm backdrop-blur-sm" />
+      <div className="relative bg-surface rounded-2xl shadow-2xl w-full max-w-md border border-border max-h-[92vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
 
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-brown-100">
-          <h2 className="font-bold text-brown-900 text-lg">My Profile</h2>
-          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-brown-100 text-brown-500 transition-colors"><X size={18} /></button>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+          <h2 className="font-bold text-text-primary text-lg">My Profile</h2>
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-surface-elevated/50 text-text-secondary transition-colors"><X size={18} /></button>
         </div>
 
         <div className="p-6 space-y-6">
@@ -88,8 +88,8 @@ export default function ProfileModal({ onClose }: Props) {
               </button>
             </div>
             <div>
-              <p className="font-bold text-brown-900 text-lg">{form.name}</p>
-              <span className="inline-flex items-center gap-1.5 bg-brown-100 text-brown-700 text-xs font-semibold px-2.5 py-1 rounded-full mt-1">
+              <p className="font-bold text-text-primary text-lg">{form.name}</p>
+              <span className="inline-flex items-center gap-1.5 bg-surface-elevated/50 text-text-primary text-xs font-semibold px-2.5 py-1 rounded-full mt-1">
                 <Shield size={11} /> {getRoleLabel()}
               </span>
             </div>
@@ -97,65 +97,65 @@ export default function ProfileModal({ onClose }: Props) {
 
           {/* Personal Info */}
           <div>
-            <h3 className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+            <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-3 flex items-center gap-1.5">
               <User size={12} /> Personal Information
             </h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-brown-600 mb-1.5">Display Name</label>
-                <input className="input-field text-sm" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+                <label className="block text-xs font-semibold text-text-secondary mb-1.5">Display Name</label>
+                <input className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-brown-600 mb-1.5">Email Address</label>
+                <label className="block text-xs font-semibold text-text-secondary mb-1.5">Email Address</label>
                 <div className="relative">
-                  <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-brown-400" />
-                  <input className="input-field text-sm pl-9" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
+                  <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary/70" />
+                  <input className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm pl-9" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-brown-600 mb-1.5">Role</label>
-                <input className="input-field text-sm bg-brown-50 text-brown-400 cursor-not-allowed" value={getRoleLabel()} readOnly />
+                <label className="block text-xs font-semibold text-text-secondary mb-1.5">Role</label>
+                <input className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm bg-surface-elevated text-text-secondary/70 cursor-not-allowed" value={getRoleLabel()} readOnly />
               </div>
             </div>
           </div>
 
           {/* Company Details */}
           <div>
-            <h3 className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+            <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-3 flex items-center gap-1.5">
               <Building2 size={12} /> Company Details
             </h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-brown-600 mb-1.5">Company Name</label>
-                <input className="input-field text-sm" value={form.company} onChange={e => setForm(f => ({ ...f, company: e.target.value }))} />
+                <label className="block text-xs font-semibold text-text-secondary mb-1.5">Company Name</label>
+                <input className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm" value={form.company} onChange={e => setForm(f => ({ ...f, company: e.target.value }))} />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-brown-600 mb-1.5">Industry</label>
-                <input className="input-field text-sm" value={form.industry} onChange={e => setForm(f => ({ ...f, industry: e.target.value }))} />
+                <label className="block text-xs font-semibold text-text-secondary mb-1.5">Industry</label>
+                <input className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm" value={form.industry} onChange={e => setForm(f => ({ ...f, industry: e.target.value }))} />
               </div>
             </div>
           </div>
 
           {/* Password */}
           <div>
-            <h3 className="text-xs font-semibold text-brown-500 uppercase tracking-wide mb-3 flex items-center gap-1.5">
+            <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-wide mb-3 flex items-center gap-1.5">
               <Shield size={12} /> Change Password
             </h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-brown-600 mb-1.5">New Password</label>
+                <label className="block text-xs font-semibold text-text-secondary mb-1.5">New Password</label>
                 <div className="relative">
-                  <input type={showPw ? 'text' : 'password'} placeholder="Leave blank to keep current" className="input-field text-sm pr-10" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} />
-                  <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-brown-400 hover:text-brown-600">
+                  <input type={showPw ? 'text' : 'password'} placeholder="Leave blank to keep current" className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm pr-10" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} />
+                  <button type="button" onClick={() => setShowPw(!showPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary/70 hover:text-text-secondary">
                     {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-brown-600 mb-1.5">Confirm Password</label>
+                <label className="block text-xs font-semibold text-text-secondary mb-1.5">Confirm Password</label>
                 <div className="relative">
-                  <input type={showCPw ? 'text' : 'password'} placeholder="Confirm new password" className="input-field text-sm pr-10" value={form.confirmPassword} onChange={e => setForm(f => ({ ...f, confirmPassword: e.target.value }))} />
-                  <button type="button" onClick={() => setShowCPw(!showCPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-brown-400 hover:text-brown-600">
+                  <input type={showCPw ? 'text' : 'password'} placeholder="Confirm new password" className="w-full bg-surface border border-border rounded-xl px-4 py-2.5 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/50 transition-all text-sm pr-10" value={form.confirmPassword} onChange={e => setForm(f => ({ ...f, confirmPassword: e.target.value }))} />
+                  <button type="button" onClick={() => setShowCPw(!showCPw)} className="absolute right-3 top-1/2 -translate-y-1/2 text-text-secondary/70 hover:text-text-secondary">
                     {showCPw ? <EyeOff size={15} /> : <Eye size={15} />}
                   </button>
                 </div>
@@ -166,7 +166,7 @@ export default function ProfileModal({ onClose }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-brown-100 flex gap-3">
+        <div className="px-6 py-4 border-t border-border flex gap-3">
           <button onClick={onClose} className="flex-1 btn-secondary text-sm py-2.5">Cancel</button>
           <button onClick={handleSave} className="flex-1 btn-primary text-sm py-2.5 flex items-center justify-center gap-2">
             {saved ? '✓ Saved!' : <><Save size={14} /> Save Changes</>}

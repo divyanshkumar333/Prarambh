@@ -515,7 +515,7 @@ export default function AITaskBuilderModal({ employee, assignedBy, assignedByNam
                   <div>
                     <p className="font-semibold text-brown-600 text-sm">AI Task Builder</p>
                     <p className="text-xs mt-1 max-w-xs text-brown-400">
-                      Describe the onboarding concepts you want to turn into tasks.<br />
+                      Describe the prarambh concepts you want to turn into tasks.<br />
                       The AI will generate structured tasks with subtasks, resources, and playground activities.
                     </p>
                   </div>

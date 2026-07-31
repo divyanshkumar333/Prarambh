@@ -7,7 +7,7 @@ const features = [
   {
     icon: <Zap size={24} />,
     title: 'Quick Company Setup',
-    description: 'Configure your entire onboarding system in under 15 minutes with smart defaults and industry templates.',
+    description: 'Configure your entire prarambh system in under 15 minutes with smart defaults and industry templates.',
     color: 'bg-yellow-50 text-yellow-700',
   },
   {
@@ -19,7 +19,7 @@ const features = [
   {
     icon: <Map size={24} />,
     title: 'Smart Roadmap Generator',
-    description: 'AI analyzes uploaded company documents and generates personalized onboarding roadmaps for each role.',
+    description: 'AI analyzes uploaded company documents and generates personalized prarambh roadmaps for each role.',
     color: 'bg-blue-50 text-blue-700',
   },
   {
@@ -61,7 +61,7 @@ const features = [
   {
     icon: <CalendarClock size={24} />,
     title: 'Automated Task Scheduling',
-    description: 'AI schedules onboarding tasks in the right order and at the right time — no manual planning needed.',
+    description: 'AI schedules prarambh tasks in the right order and at the right time — no manual planning needed.',
     color: 'bg-cyan-50 text-cyan-700',
   },
 ]
@@ -103,7 +103,7 @@ export default function Features() {
         <div className="mt-16 text-center bg-gradient-to-r from-brown-50 to-brown-100 rounded-2xl p-10 border border-brown-200">
           <h3 className="text-2xl font-bold text-brown-900 mb-3">Document Intelligence Engine</h3>
           <p className="text-brown-600 max-w-xl mx-auto mb-6">
-            Upload your company policies and HR documents — our AI automatically extracts onboarding requirements and generates role-specific task schedules in minutes.
+            Upload your company policies and HR documents — our AI automatically extracts prarambh requirements and generates role-specific task schedules in minutes.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             {['Policy PDFs', 'Employee Handbooks', 'Compliance Docs', 'Role Descriptions', 'Training Materials'].map(tag => (

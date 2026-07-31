@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Bot, Send, Loader2, User, Sparkles, X } from 'lucide-react'
 import { useApp } from '../../context/AppContext'
-import { buildOnboardBotContext, sendOnboardBotMessage, type OnboardBotMessage } from '../../services/aiService'
+import { buildPrarambhBotContext, sendPrarambhBotMessage, type PrarambhBotMessage } from '../../services/aiService'
 import MarkdownRenderer from '../common/MarkdownRenderer'
 
 interface Message {
@@ -39,10 +39,10 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
   const [loading,  setLoading]  = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
   const inputRef  = useRef<HTMLInputElement>(null)
-  // Persistent chat session ref for OnboardBot
+  // Persistent chat session ref for PrarambhBot
   const chatIdRef  = useRef<string | null>(null)
   // History mirror for context continuity
-  const botHistory = useRef<OnboardBotMessage[]>([])
+  const botHistory = useRef<PrarambhBotMessage[]>([])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -63,8 +63,8 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
 
     try {
       const userId = state.currentUserId ?? state.employees[0]?.id ?? ''
-      const context = buildOnboardBotContext(state, userId, 'employee')
-      const reply = await sendOnboardBotMessage(msg, context, prevHistory, chatIdRef)
+      const context = buildPrarambhBotContext(state, userId, 'employee')
+      const reply = await sendPrarambhBotMessage(msg, context, prevHistory, chatIdRef)
       botHistory.current = [...botHistory.current, { role: 'bot', content: reply }]
       setMessages(prev => [...prev, { id: `a-${Date.now()}`, role: 'ai', content: reply, ts: timestamp() }])
     } catch {
@@ -82,8 +82,8 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
             <Bot size={15} className="text-white" />
           </div>
           <div>
-            <p className="text-sm font-bold text-white leading-none">OnboardBot</p>
-            <p className="text-xs text-white/60 mt-0.5">Your AI Onboarding Assistant</p>
+            <p className="text-sm font-bold text-white leading-none">PrarambhBot</p>
+            <p className="text-xs text-white/60 mt-0.5">Your AI Prarambh Assistant</p>
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -107,7 +107,7 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
               </div>
               <div className="bg-teal-50 border border-teal-100 rounded-2xl rounded-tl-sm px-3 py-2.5 max-w-[85%]">
                 <p className="text-xs text-teal-800 leading-relaxed">
-                  Hi {employeeName.split(' ')[0]}! 👋 I'm <strong>OnboardBot</strong> — I have full context about your tasks, meetings, and mentor. I can also answer general questions. What's on your mind?
+                  Hi {employeeName.split(' ')[0]}! 👋 I'm <strong>PrarambhBot</strong> — I have full context about your tasks, meetings, and mentor. I can also answer general questions. What's on your mind?
                 </p>
               </div>
             </div>
@@ -178,7 +178,7 @@ export default function NewHireChatWidget({ employeeName, tasksDone, tasksTotal,
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && !e.shiftKey && send()}
-          placeholder="Ask about your onboarding…"
+          placeholder="Ask about your prarambh…"
           disabled={loading}
           className="flex-1 text-xs bg-brown-50 border border-brown-200 rounded-xl px-3 py-2 outline-none focus:border-teal-400 transition-colors disabled:opacity-50 text-brown-800 placeholder-brown-400"
         />

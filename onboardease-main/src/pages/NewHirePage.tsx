@@ -8,7 +8,7 @@ import Navbar from '../components/common/Navbar'
 import NewHireDashboard from '../components/dashboard/NewHireDashboard'
 import ChatTab, { useChatUnread } from '../components/chat/ChatTab'
 import Logo from '../components/common/Logo'
-import OnboardBotWidget from '../components/chat/OnboardBotWidget'
+import PrarambhBotWidget from '../components/chat/PrarambhBotWidget'
 import { useApp } from '../context/AppContext'
 
 const navItems = [
@@ -134,7 +134,7 @@ export default function NewHirePage() {
           )}
         </main>
       </div>
-      <OnboardBotWidget />
+      <PrarambhBotWidget />
     </div>
   )
 }

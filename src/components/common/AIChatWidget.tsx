@@ -16,12 +16,12 @@ const quickActions = [
 ]
 
 const aiResponses: Record<string, string> = {
-  default: "I'm your AI onboarding assistant! I'm here to help you navigate your first days. What would you like to know?",
+  default: "I'm your AI prarambh assistant! I'm here to help you navigate your first days. What would you like to know?",
   first: "Great question! Start by completing your profile setup, then check today's task list. Your first priority is the company overview module — it takes about 20 minutes and gives you key context about the mission and team. 🚀",
   tools: "Your tool access is being provisioned! You should receive invites to Slack, Google Workspace, and GitHub within the next 30 minutes. Check your email for setup links. Need help with any specific tool?",
   buddy: "You've been matched with Sarah Chen from the Engineering team! She has 3 years of experience and specializes in your role area. Your first check-in is scheduled for tomorrow at 2 PM. I've sent her a message about your questions!",
   schedule: "Here's your schedule for today:\n• 9:00 AM — Company overview module\n• 11:00 AM — Meet your buddy Sarah\n• 2:00 PM — HR paperwork completion\n• 4:00 PM — Team standup (observer)\nYou're doing great — 3 tasks already done!",
-  welcome: "Welcome to Prarambh! 🎉 I'm your AI onboarding assistant. I can help you with tasks, answer questions, find resources, and connect you with the right people. What would you like to know?",
+  welcome: "Welcome to Prarambh! 🎉 I'm your AI prarambh assistant. I can help you with tasks, answer questions, find resources, and connect you with the right people. What would you like to know?",
 }
 
 function getAIResponse(input: string): string {
@@ -31,7 +31,7 @@ function getAIResponse(input: string): string {
   if (lower.includes('buddy') || lower.includes('mentor') || lower.includes('partner')) return aiResponses.buddy
   if (lower.includes('schedule') || lower.includes('today') || lower.includes('calendar') || lower.includes('task')) return aiResponses.schedule
   if (lower.includes('hello') || lower.includes('hi') || lower.includes('hey')) return aiResponses.welcome
-  return `Great question! Let me look that up for you...\n\nBased on your onboarding plan, I found relevant information in your knowledge base. For more specific guidance, you can also check the Resources section or ask your buddy Sarah. Is there anything else I can help clarify? 😊`
+  return `Great question! Let me look that up for you...\n\nBased on your prarambh plan, I found relevant information in your knowledge base. For more specific guidance, you can also check the Resources section or ask your buddy Sarah. Is there anything else I can help clarify? 😊`
 }
 
 export default function AIChatWidget() {
@@ -41,7 +41,7 @@ export default function AIChatWidget() {
     {
       id: '0',
       role: 'assistant',
-      content: "👋 Hi! I'm your AI onboarding assistant. How can I help you today?",
+      content: "👋 Hi! I'm your AI prarambh assistant. How can I help you today?",
       timestamp: new Date(),
     }
   ])
@@ -109,7 +109,7 @@ export default function AIChatWidget() {
       {/* Chat window */}
       {isOpen && (
         <div
-          className={`bg-white rounded-2xl shadow-2xl border border-brown-200 flex flex-col transition-all duration-300 ${
+          className={`bg-surface-elevated rounded-2xl shadow-2xl border border-border flex flex-col transition-all duration-300 ${
             isMinimized ? 'h-14' : 'h-[520px]'
           }`}
           style={{ width: 340 }}
@@ -163,12 +163,12 @@ export default function AIChatWidget() {
                         className={`px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${
                           msg.role === 'user'
                             ? 'bg-brown-500 text-white rounded-tr-sm'
-                            : 'bg-white text-brown-800 border border-brown-200 rounded-tl-sm shadow-sm'
+                            : 'bg-surface-elevated text-text-primary border border-border rounded-tl-sm shadow-sm'
                         }`}
                       >
                         {msg.content}
                       </div>
-                      <span className="text-xs text-brown-400">{formatTime(msg.timestamp)}</span>
+                      <span className="text-xs text-text-secondary">{formatTime(msg.timestamp)}</span>
                     </div>
                   </div>
                 ))}
@@ -178,7 +178,7 @@ export default function AIChatWidget() {
                     <div className="w-7 h-7 bg-brown-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <Bot size={14} className="text-white" />
                     </div>
-                    <div className="bg-white border border-brown-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+                    <div className="bg-surface-elevated border border-border rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
                       <div className="flex items-center gap-1">
                         <span className="typing-dot"></span>
                         <span className="typing-dot"></span>
@@ -191,12 +191,12 @@ export default function AIChatWidget() {
               </div>
 
               {/* Quick actions */}
-              <div className="px-3 py-2 border-t border-brown-100 flex gap-1.5 overflow-x-auto scrollbar-none">
+              <div className="px-3 py-2 border-t border-border flex gap-1.5 overflow-x-auto scrollbar-none">
                 {quickActions.map(action => (
                   <button
                     key={action}
                     onClick={() => sendMessage(action)}
-                    className="flex-shrink-0 text-xs bg-brown-50 text-brown-600 border border-brown-200 px-2.5 py-1.5 rounded-full hover:bg-brown-100 transition-colors"
+                    className="flex-shrink-0 text-xs bg-surface text-text-secondary border border-border px-2.5 py-1.5 rounded-full hover:bg-surface transition-colors"
                   >
                     {action}
                   </button>
@@ -205,14 +205,14 @@ export default function AIChatWidget() {
 
               {/* Input */}
               <div className="px-3 pb-3 pt-1">
-                <div className="flex items-center gap-2 bg-brown-50 border border-brown-200 rounded-xl px-3 py-2">
+                <div className="flex items-center gap-2 bg-surface border border-border rounded-xl px-3 py-2">
                   <input
                     type="text"
                     value={input}
                     onChange={e => setInput(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="Ask anything..."
-                    className="flex-1 bg-transparent text-sm text-brown-800 placeholder-brown-400 outline-none"
+                    className="flex-1 bg-transparent text-sm text-text-primary placeholder-brown-400 outline-none"
                   />
                   <button
                     onClick={() => sendMessage()}
@@ -239,7 +239,7 @@ export default function AIChatWidget() {
           <>
             <MessageCircle size={24} />
             <span className="absolute -top-1 -right-1 w-5 h-5 bg-brown-300 rounded-full flex items-center justify-center">
-              <Sparkles size={11} className="text-brown-800" />
+              <Sparkles size={11} className="text-text-primary" />
             </span>
           </>
         )}

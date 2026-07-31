@@ -58,7 +58,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Logo size="md" className="mb-4" />
             <p className="text-brown-300 text-sm leading-relaxed mb-6">
-              Effortless onboarding for growing teams. Get new hires productive in 48 hours with AI-powered workflows.
+              Effortless prarambh for growing teams. Get new hires productive in 48 hours with AI-powered workflows.
             </p>
             <div className="flex gap-4">
               {[

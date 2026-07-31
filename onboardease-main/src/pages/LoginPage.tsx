@@ -18,7 +18,7 @@ const ROLE_CARDS = [
   {
     role: 'hr' as const,
     title: 'HR Manager',
-    description: 'View all employees, assign tasks, use AI to generate onboarding plans from documents.',
+    description: 'View all employees, assign tasks, use AI to generate prarambh plans from documents.',
     icon: <Users size={32} />,
     color: 'from-purple-600 to-purple-800',
     bg: 'bg-white/80 border-purple-300',
@@ -34,7 +34,7 @@ const ROLE_CARDS = [
   {
     role: 'employee' as const,
     title: 'New Hire',
-    description: 'View your onboarding tasks, track progress, chat with AI assistant, and complete your journey.',
+    description: 'View your prarambh tasks, track progress, chat with AI assistant, and complete your journey.',
     icon: <User size={32} />,
     color: 'from-green-600 to-green-800',
     bg: 'bg-white/80 border-green-300',
@@ -105,7 +105,7 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="mb-10 text-center">
           <Logo size="lg" />
-          <p className="text-brown-600 text-sm mt-2 font-medium">Effortless onboarding for growing teams</p>
+          <p className="text-brown-600 text-sm mt-2 font-medium">Effortless prarambh for growing teams</p>
         </div>
 
         {/* ── Step: Pick Role ── */}

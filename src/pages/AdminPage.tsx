@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Navigate } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, Users, FileText,
   BarChart3, Settings, ChevronLeft, ChevronRight, GraduationCap, MessageSquare
@@ -9,8 +10,10 @@ import AdminPanel from '../components/dashboard/AdminPanel'
 import ChatTab, { useChatUnread } from '../components/chat/ChatTab'
 import ProfileModal from '../components/modals/ProfileModal'
 import Logo from '../components/common/Logo'
-import OnboardBotWidget from '../components/chat/OnboardBotWidget'
+import PrarambhBotWidget from '../components/chat/PrarambhBotWidget'
 import { useApp, USER_UUIDS } from '../context/AppContext'
+import { Badge } from '../components/ui/Badge'
+import { cn } from '../lib/utils'
 
 const NAV_ITEMS = [
   { icon: <LayoutDashboard size={20} />, label: 'Overview',  id: 'overview'  },
@@ -25,16 +28,17 @@ const NAV_ITEMS = [
 function AdminNav({ collapsed, active, setActive }: { collapsed: boolean; active: string; setActive: (id: string) => void }) {
   const unread = useChatUnread()
   return (
-    <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+    <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
       {NAV_ITEMS.map(item => (
         <button
           key={item.id}
           onClick={() => setActive(item.id)}
-          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 ${
+          className={cn(
+            "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300 ease-apple outline-none",
             active === item.id
-              ? 'bg-brown-500 text-white shadow-sm'
-              : 'text-brown-600 hover:bg-brown-200 hover:text-brown-900'
-          }`}
+              ? "bg-brand-500/10 text-brand-400 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] border border-brand-500/20"
+              : "text-text-secondary hover:bg-card hover:text-text-primary hover:scale-[1.02] active:scale-[0.98]"
+          )}
         >
           <span className="relative flex-shrink-0">
             {item.icon}
@@ -45,12 +49,12 @@ function AdminNav({ collapsed, active, setActive }: { collapsed: boolean; active
             )}
           </span>
           {!collapsed && (
-            <span className="font-medium text-sm flex items-center gap-1.5 flex-1">
+            <span className="font-semibold text-sm flex items-center gap-1.5 flex-1 tracking-tight">
               {item.label}
               {item.id === 'chat' && unread > 0 && (
-                <span className="ml-auto bg-red-500 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 leading-none">
+                <Badge variant="danger" className="ml-auto px-1.5 py-0.5 text-[10px]">
                   {unread > 9 ? '9+' : unread}
-                </span>
+                </Badge>
               )}
             </span>
           )}
@@ -67,50 +71,57 @@ export default function AdminPage() {
   const [active,      setActive]      = useState('overview')
   const [showProfile, setShowProfile] = useState(false)
 
-  // Restore role from URL on mount/reload
   useEffect(() => {
     if (adminId) {
       dispatch({ type: 'SET_ROLE', payload: { role: 'admin', userId: adminId } })
     }
   }, [adminId, dispatch])
 
-  // Guard: only the known admin UUID is valid
   if (adminId !== USER_UUIDS.ADMIN) return <Navigate to="/login" replace />
 
   return (
-    <div className="flex min-h-screen" style={{ background: '#F0F7FF' }}>
-
-      {/* ── Sidebar ── */}
+    <div className="flex min-h-screen bg-background text-text-primary">
       <aside
-        className="flex-shrink-0 flex flex-col border-r border-brown-200 transition-all duration-300"
-        style={{ background: '#E0EFFD', width: collapsed ? 64 : 240 }}
+        className={cn(
+          "flex-shrink-0 flex flex-col border-r border-border bg-surface transition-all duration-300 ease-apple relative z-20",
+          collapsed ? "w-20" : "w-64"
+        )}
       >
-        <div className="h-16 flex items-center justify-between px-3 border-b border-brown-200">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-border">
           {collapsed ? <Logo size="sm" variant="icon" /> : <Logo size="sm" />}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="p-1.5 rounded-lg text-brown-500 hover:bg-brown-200 transition-colors flex-shrink-0"
+            className="p-1.5 rounded-lg text-text-secondary hover:bg-card hover:text-text-primary transition-colors flex-shrink-0 outline-none"
           >
             {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
           </button>
         </div>
-
         <AdminNav collapsed={collapsed} active={active} setActive={setActive} />
       </aside>
 
-      {/* ── Main area ── */}
-      <div className="flex-1 min-w-0 flex flex-col">
+      <div className="flex-1 min-w-0 flex flex-col relative z-10">
         <Navbar variant="app" title="Admin Portal" onProfileClick={() => setShowProfile(true)} />
-        <main className="flex-1 overflow-hidden">
-          {active === 'chat'
-            ? <ChatTab />
-            : <div className="overflow-y-auto h-full"><AdminPanel activeSection={active} /></div>
-          }
+        <main className="flex-1 overflow-hidden relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="h-full overflow-y-auto"
+            >
+              {active === 'chat'
+                ? <ChatTab />
+                : <AdminPanel activeSection={active} />
+              }
+            </motion.div>
+          </AnimatePresence>
         </main>
       </div>
 
       {showProfile && <ProfileModal onClose={() => setShowProfile(false)} />}
-      <OnboardBotWidget />
+      <PrarambhBotWidget />
     </div>
   )
 }

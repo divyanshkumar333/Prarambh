@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle, Star, Zap, Users, TrendingUp } from 'lucide-react'
 
 const stats = [
-  { icon: <Zap size={18} />, label: 'Faster Onboarding', value: '48hr' },
+  { icon: <Zap size={18} />, label: 'Faster Prarambh', value: '48hr' },
   { icon: <TrendingUp size={18} />, label: 'HR Time Saved', value: '70%' },
   { icon: <Users size={18} />, label: 'Retention Boost', value: '+25%' },
 ]
@@ -44,11 +44,11 @@ export default function Hero() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-brown-500/10 text-brown-700 text-sm font-medium px-4 py-2 rounded-full mb-6 border border-brown-200">
           <Zap size={14} className="text-brown-500" />
-          AI-Powered Onboarding Platform
+          AI-Powered Prarambh Platform
         </div>
 
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brown-900 leading-tight mb-6">
-          Onboard new hires in{' '}
+          Prarambh new hires in{' '}
           <span className="text-brown-500 relative">
             48 hours
             <svg className="absolute -bottom-1 left-0 w-full" height="6" viewBox="0 0 200 6">
@@ -101,7 +101,7 @@ export default function Hero() {
                 <Star key={i} size={13} className="fill-yellow-400 text-yellow-400" />
               ))}
             </div>
-            <p className="text-xs text-brown-500">500+ startups onboarded</p>
+            <p className="text-xs text-brown-500">500+ startups prarambh</p>
           </div>
         </div>
       </div>
