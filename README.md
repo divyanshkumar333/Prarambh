@@ -1,5 +1,7 @@
 # Prarambh — AI-Powered Onboarding OS
 
+> **Live Demo:** [https://prarambh-rouge.vercel.app/](https://prarambh-rouge.vercel.app/)
+
 > **Get every new hire ready from day one.**  
 > Prarambh auto-generates role-specific task plans, pairs each hire with an AI mentor, and gives your HR team real-time visibility — all in a single platform.
 
