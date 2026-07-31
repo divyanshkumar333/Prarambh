@@ -1,7 +1,7 @@
 node_modules/
 dist/
 build/
-onboardease-github/
+onboardease*/
 .env
 *.log
 .DS_Store
